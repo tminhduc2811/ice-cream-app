@@ -24,4 +24,33 @@ public class FAQRepository implements IFAQRepository {
 		return FAQList;
 	}
 
+	@Override
+	@Transactional
+	public void createFAQ(FAQ newFAQ) {
+		entityManager.persist(newFAQ);
+		
+	}
+
+	@Override
+	@Transactional
+	public void deleteFAQ(int id) {
+		
+		FAQ currentFAQ = this.getFAQ(id);
+		entityManager.remove(currentFAQ);
+		
+	}
+
+	@Override
+	@Transactional
+	public FAQ getFAQ(int id) {
+		return entityManager.find(FAQ.class, id);
+	}
+
+	@Override
+	@Transactional
+	public void updateFAQ(FAQ newFAQ) {
+		entityManager.merge(newFAQ);
+		
+	}
+
 }

@@ -20,4 +20,22 @@ public class FAQService implements IFAQService {
 		return FAQList;
 	}
 
+	@Override
+	public void createFAQ(FAQ newFAQ) {
+		FAQRepository.createFAQ(newFAQ);
+		
+	}
+
+	@Override
+	public void updateFAQ(FAQ newFAQ) {
+		FAQRepository.updateFAQ(newFAQ);
+		
+	}
+
+	@Override
+	public void deleteFAQ(int id) {
+		FAQRepository.deleteFAQ(id);
+		
+	}
+
 }
