@@ -11,8 +11,8 @@ public interface FeedBackService {
 	
 	public Optional<Feedback> getFeedbackById(Long id);
 	
-	public void save(Feedback feedback);
+	public Feedback save(Feedback feedback);
 	
-	public void remove(Feedback feedback);
+	public void delete(Feedback feedback);
 	
 }

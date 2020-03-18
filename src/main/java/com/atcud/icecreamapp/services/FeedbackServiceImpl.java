@@ -26,12 +26,12 @@ public class FeedbackServiceImpl implements FeedBackService {
 	}
 
 	@Override
-	public void save(Feedback feedback) {		
-		feedbackRepository.save(feedback);
+	public Feedback save(Feedback feedback) {		
+		return feedbackRepository.save(feedback);
 	}
 
 	@Override
-	public void remove(Feedback feedback) {
+	public void delete(Feedback feedback) {
 		feedbackRepository.delete(feedback);
 	}
 
