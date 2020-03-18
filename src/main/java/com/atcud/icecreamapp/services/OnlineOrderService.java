@@ -7,11 +7,13 @@ import com.atcud.icecreamapp.entities.OnlineOrder;
 
 public interface OnlineOrderService {
 
-	public List<OnlineOrder> getAllOrder();
+	public List<OnlineOrder> getAllOrders();
 	
-	public Optional<OnlineOrder> getOrderkById(Long id);
+	public Optional<OnlineOrder> getOrderById(Long id);
 	
 	public OnlineOrder save(OnlineOrder order);
 	
 	public void delete(OnlineOrder order);
+	
+	public void update(OnlineOrder order);
 }

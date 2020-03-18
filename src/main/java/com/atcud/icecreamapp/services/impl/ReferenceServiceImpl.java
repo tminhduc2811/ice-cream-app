@@ -17,7 +17,7 @@ public class ReferenceServiceImpl implements ReferenceService {
 	private ReferenceRepository referenceRepository;
 	
 	@Override
-	public List<Reference> getAllReference() {
+	public List<Reference> getAllReferences() {
 		return referenceRepository.findAll();
 	}
 
@@ -34,6 +34,11 @@ public class ReferenceServiceImpl implements ReferenceService {
 	@Override
 	public void delete(Reference reference) {
 		referenceRepository.delete(reference);
+	}
+
+	@Override
+	public void update(Reference reference) {
+		referenceRepository.update(reference);
 	}
 
 }

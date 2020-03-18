@@ -15,4 +15,6 @@ public interface FeedBackService {
 	
 	public void delete(Feedback feedback);
 	
+	public void update(Feedback feedback);
+	
 }

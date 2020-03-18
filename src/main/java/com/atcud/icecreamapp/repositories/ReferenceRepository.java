@@ -15,4 +15,6 @@ public interface ReferenceRepository {
 	
 	public void delete(Reference reference);
 	
+	public void update(Reference reference);
+	
 }

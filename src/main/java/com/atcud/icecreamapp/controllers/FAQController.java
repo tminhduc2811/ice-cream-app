@@ -24,7 +24,7 @@ public class FAQController {
 	private FAQService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<FAQ>> readAll() {
+	public ResponseEntity<List<FAQ>> getAllFAQ() {
 		List<FAQ> FAQList = service.getAllFAQ();
 		if (FAQList.isEmpty()) {
 			return new ResponseEntity<List<FAQ>>(HttpStatus.NO_CONTENT);
@@ -54,9 +54,7 @@ public class FAQController {
 		if (!currentFAQ.isPresent()) {
 			return new ResponseEntity<FAQ>(HttpStatus.NOT_FOUND);
 		}
-		currentFAQ.get().setAnswer(newFAQ.getAnswer());
-		currentFAQ.get().setQuestion(newFAQ.getQuestion());
-		service.save(currentFAQ.get());
-		return new ResponseEntity<FAQ>(currentFAQ.get(), HttpStatus.OK);
+		service.update(newFAQ);
+		return new ResponseEntity<FAQ>(newFAQ, HttpStatus.OK);
 	}
 }

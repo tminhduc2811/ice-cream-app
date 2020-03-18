@@ -15,4 +15,6 @@ public interface RecipeRepository {
 	
 	public void delete(Recipe recipe);
 	
+	public void update(Recipe recipe);
+	
 }

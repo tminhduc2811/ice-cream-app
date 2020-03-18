@@ -15,4 +15,6 @@ public interface FAQRepository {
 	
 	public void delete(FAQ faq);
 	
+	public void update(FAQ faq);
+	
 }

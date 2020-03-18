@@ -15,4 +15,6 @@ public interface FeedbackRepository {
 	
 	public void delete(Feedback feedback);
 	
+	public void update(Feedback feedback);
+	
 }

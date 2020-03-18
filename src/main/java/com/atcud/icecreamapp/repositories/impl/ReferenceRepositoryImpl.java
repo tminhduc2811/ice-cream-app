@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,24 +19,33 @@ public class ReferenceRepositoryImpl implements ReferenceRepository {
 	EntityManager entityManager;
 	
 	@Override
+	@Transactional
 	public List<Reference> findAll() {
 		return entityManager.createQuery("FROM Reference", Reference.class).getResultList();
 	}
 
 	@Override
+	@Transactional
 	public Optional<Reference> findById(Long id) {
 		return Optional.of(entityManager.find(Reference.class, id));
 	}
 
 	@Override
+	@Transactional
 	public Reference save(Reference reference) {
 		entityManager.persist(reference);
 		return reference;
 	}
 
 	@Override
+	@Transactional
 	public void delete(Reference reference) {
 		entityManager.remove(reference);
+	}
+
+	@Override
+	public void update(Reference reference) {
+		entityManager.merge(reference);
 	}
 
 }

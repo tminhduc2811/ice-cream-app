@@ -15,4 +15,5 @@ public interface OnlineOrderRepository {
 	
 	public void delete(OnlineOrder onlineOrder);
 	
+	public void update(OnlineOrder onlineOrder);
 }

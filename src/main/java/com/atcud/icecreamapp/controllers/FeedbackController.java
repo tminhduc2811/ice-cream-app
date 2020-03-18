@@ -23,7 +23,7 @@ public class FeedbackController {
 	private FeedBackService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<Feedback>> readAllFeedback() {
+	public ResponseEntity<List<Feedback>> getAllFeedback() {
 		List<Feedback> feedback = service.getAllFeedback();
 		return new ResponseEntity<List<Feedback>>(feedback, HttpStatus.OK);
 	}
@@ -50,10 +50,7 @@ public class FeedbackController {
 		if (!feedback.isPresent()) {
 			return new ResponseEntity<Feedback>(HttpStatus.NOT_FOUND);
 		}
-		feedback.get().setContent(newFeedback.getContent());
-		feedback.get().setFullName(newFeedback.getFullName());
-		feedback.get().setTitle(newFeedback.getTitle());
-		service.save(feedback.get());
-		return new ResponseEntity<Feedback>(feedback.get(), HttpStatus.OK);
+		service.update(newFeedback);
+		return new ResponseEntity<Feedback>(newFeedback, HttpStatus.OK);
 	}
 }

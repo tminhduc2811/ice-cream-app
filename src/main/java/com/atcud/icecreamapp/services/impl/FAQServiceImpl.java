@@ -36,4 +36,9 @@ public class FAQServiceImpl implements FAQService {
 		faqRepository.delete(faq);
 	}
 
+	@Override
+	public void update(FAQ faq) {
+		faqRepository.update(faq);
+	}
+
 }

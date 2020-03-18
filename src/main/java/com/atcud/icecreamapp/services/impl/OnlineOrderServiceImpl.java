@@ -16,12 +16,12 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 	@Autowired
 	private OnlineOrderRepository onlineOrderRepository;
 	@Override
-	public List<OnlineOrder> getAllOrder() {
+	public List<OnlineOrder> getAllOrders() {
 		return onlineOrderRepository.findAll();
 	}
 
 	@Override
-	public Optional<OnlineOrder> getOrderkById(Long id) {
+	public Optional<OnlineOrder> getOrderById(Long id) {
 		return onlineOrderRepository.findById(id);
 	}
 
@@ -33,6 +33,11 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 	@Override
 	public void delete(OnlineOrder order) {		
 		onlineOrderRepository.delete(order);
+	}
+
+	@Override
+	public void update(OnlineOrder order) {
+		onlineOrderRepository.update(order);
 	}
 
 }

@@ -36,4 +36,9 @@ public class FeedbackServiceImpl implements FeedBackService {
 		feedbackRepository.delete(feedback);
 	}
 
+	@Override
+	public void update(Feedback feedback) {
+		feedbackRepository.update(feedback);
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,24 +19,34 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
 	EntityManager entityManager;
 	
 	@Override
+	@Transactional
 	public List<Feedback> findAll() {
 		return entityManager.createQuery("FROM Feedback", Feedback.class).getResultList();
 	}
 
 	@Override
+	@Transactional
 	public Optional<Feedback> findById(Long id) {
 		return Optional.of(entityManager.find(Feedback.class, id));
 	}
 
 	@Override
+	@Transactional
 	public Feedback save(Feedback feedback) {
 		entityManager.persist(feedback);
 		return feedback;
 	}
 
 	@Override
+	@Transactional
 	public void delete(Feedback feedback) {
 		entityManager.remove(feedback);
+	}
+
+	@Override
+	@Transactional
+	public void update(Feedback feedback) {
+		entityManager.merge(feedback);
 	}
 
 }

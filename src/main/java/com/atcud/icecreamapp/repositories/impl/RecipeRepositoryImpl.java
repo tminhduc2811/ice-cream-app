@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,24 +19,33 @@ public class RecipeRepositoryImpl implements RecipeRepository {
 	EntityManager entityManager;
 	
 	@Override
+	@Transactional
 	public List<Recipe> findAll() {
 		return entityManager.createQuery("FROM Recipe", Recipe.class).getResultList();
 	}
 
 	@Override
+	@Transactional
 	public Optional<Recipe> findById(Long id) {
 		return Optional.of(entityManager.find(Recipe.class, id));
 	}
 
 	@Override
+	@Transactional
 	public Recipe save(Recipe recipe) {
 		entityManager.persist(recipe);
 		return recipe;
 	}
 
 	@Override
+	@Transactional
 	public void delete(Recipe recipe) {
 		entityManager.remove(recipe);
+	}
+
+	@Override
+	public void update(Recipe recipe) {
+		entityManager.merge(recipe);
 	}
 
 }

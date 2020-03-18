@@ -7,12 +7,14 @@ import com.atcud.icecreamapp.entities.Reference;
 
 public interface ReferenceService {
 	
-	public List<Reference> getAllReference();
+	public List<Reference> getAllReferences();
 	
 	public Optional<Reference> getReferenceById(Long id);
 	
 	public Reference save(Reference reference);
 	
 	public void delete(Reference reference);
+	
+	public void update(Reference reference);
 	
 }
