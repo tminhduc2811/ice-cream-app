@@ -1,4 +1,4 @@
-package com.atcud.icecreamapp.services;
+package com.atcud.icecreamapp.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.Feedback;
 import com.atcud.icecreamapp.repositories.FeedbackRepository;
+import com.atcud.icecreamapp.services.FeedBackService;
 
 @Component
 public class FeedbackServiceImpl implements FeedBackService {

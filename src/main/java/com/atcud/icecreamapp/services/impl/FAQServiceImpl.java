@@ -1,4 +1,4 @@
-package com.atcud.icecreamapp.services;
+package com.atcud.icecreamapp.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.FAQ;
 import com.atcud.icecreamapp.repositories.FAQRepository;
+import com.atcud.icecreamapp.services.FAQService;
 
 @Component
 public class FAQServiceImpl implements FAQService {
