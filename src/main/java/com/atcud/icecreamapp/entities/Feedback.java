@@ -14,7 +14,7 @@ public class Feedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "feedback_id")
-	private int id;
+	private Long id;
 	
 	@Column(name = "fullname")
 	private String fullName;
@@ -29,7 +29,7 @@ public class Feedback {
 		
 	}
 
-	public Feedback(int id, String fullName, String title, String content) {
+	public Feedback(Long id, String fullName, String title, String content) {
 		super();
 		this.id = id;
 		this.fullName = fullName;
@@ -37,11 +37,11 @@ public class Feedback {
 		this.content = content;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

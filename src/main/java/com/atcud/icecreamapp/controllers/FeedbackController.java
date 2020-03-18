@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atcud.icecreamapp.entities.Feedback;
-import com.atcud.icecreamapp.services.FeedbackService;
+import com.atcud.icecreamapp.services.FeedbackServiceImpl;
 
 @RestController
 @RequestMapping("/feedback")
 public class FeedbackController {
 	//TODO: Implement other handling methods
 	@Autowired
-	private FeedbackService service;
+	private FeedbackServiceImpl service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Feedback>> readAllFeedback() {

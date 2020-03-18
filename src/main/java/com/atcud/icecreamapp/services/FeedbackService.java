@@ -1,32 +1,18 @@
 package com.atcud.icecreamapp.services;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Feedback;
-import com.atcud.icecreamapp.repositories.FeedbackRepository;
 
-@Component
-public class FeedbackService implements IFeedBackService {
+public interface FeedBackService {
 
-	@Autowired
-	private FeedbackRepository feedbackRepository;
+	public List<Feedback> getAllFeedback();
 	
-	@Override
-	public List<Feedback> getAllFeedback() {
-		return feedbackRepository.getAllFeedback();
-	}
-
-	@Override
-	public void deleteFeedback(int id) {
-		feedbackRepository.deleteFeedback(id);
-	}
-
-	@Override
-	public void createFeedback(Feedback feedback) {
-		feedbackRepository.createFeedback(feedback);
-	}
-
+	public Optional<Feedback> getFeedbackById(Long id);
+	
+	public void save(Feedback feedback);
+	
+	public void remove(Feedback feedback);
+	
 }

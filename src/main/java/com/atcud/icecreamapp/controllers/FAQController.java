@@ -1,6 +1,7 @@
 package com.atcud.icecreamapp.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,39 +26,37 @@ public class FAQController {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<FAQ>> readAll() {
 		List<FAQ> FAQList = service.getAllFAQ();
-		System.out.println(FAQList);
+		if (FAQList.isEmpty()) {
+			return new ResponseEntity<List<FAQ>>(HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<List<FAQ>>(FAQList, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
 	public ResponseEntity<FAQ> createFAQ(@RequestBody FAQ newFAQ) {
-		try {
-			
-			service.createFAQ(newFAQ);
-			return new ResponseEntity<>(HttpStatus.OK);
-			
-		} catch (Exception ex) {
-			return new ResponseEntity<FAQ>(newFAQ, HttpStatus.BAD_REQUEST);
+		FAQ faq = service.save(newFAQ);
+		return new ResponseEntity<FAQ>(faq, HttpStatus.CREATED);
+	}	
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
+	public ResponseEntity<FAQ> deleteFAQ(@PathVariable Long id){
+		Optional<FAQ> faq = service.getFAQById(id);
+		if (!faq.isPresent()) {
+			return new ResponseEntity<FAQ>(HttpStatus.NOT_FOUND);
 		}
+		service.delete(faq.get());
+		return new ResponseEntity<FAQ>(HttpStatus.NO_CONTENT);
 	}
 	
-	@RequestMapping(value="{id}", method=RequestMethod.DELETE, produces="application/json" )
-	public ResponseEntity<FAQ> deleteFAQ(@PathVariable int id){
-		try {
-			service.deleteFAQ(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
+	public ResponseEntity<FAQ> update(@RequestBody FAQ newFAQ, @PathVariable Long id) {
+		Optional<FAQ> currentFAQ = service.getFAQById(id);
+		if (!currentFAQ.isPresent()) {
+			return new ResponseEntity<FAQ>(HttpStatus.NOT_FOUND);
 		}
-	}
-	
-	@RequestMapping(value="", method=RequestMethod.PUT, produces="application/json" )
-	public ResponseEntity<FAQ> update(@RequestBody FAQ newFAQ) {
-		try {
-			service.updateFAQ(newFAQ);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception ex) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		currentFAQ.get().setAnswer(newFAQ.getAnswer());
+		currentFAQ.get().setQuestion(newFAQ.getQuestion());
+		service.save(currentFAQ.get());
+		return new ResponseEntity<FAQ>(currentFAQ.get(), HttpStatus.OK);
 	}
 }
