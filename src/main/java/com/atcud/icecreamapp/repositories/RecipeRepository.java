@@ -1,9 +1,18 @@
 package com.atcud.icecreamapp.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Recipe;
 
-public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository {
+	
+	public List<Recipe> findAll();
+	
+	public Optional<Recipe> findById(Long id);
+	
+	public Recipe save(Recipe recipe);
+	
+	public void delete(Recipe recipe);
 	
 }

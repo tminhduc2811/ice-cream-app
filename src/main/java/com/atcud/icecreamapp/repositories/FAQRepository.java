@@ -1,9 +1,18 @@
 package com.atcud.icecreamapp.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.FAQ;
 
-public interface FAQRepository extends JpaRepository<FAQ, Long> {
+public interface FAQRepository {
+	
+	public List<FAQ> findAll();
+	
+	public Optional<FAQ> findById(Long id);
+	
+	public FAQ save(FAQ faq);
+	
+	public void delete(FAQ faq);
 	
 }
