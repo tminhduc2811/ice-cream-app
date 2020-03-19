@@ -47,7 +47,7 @@ public class Payment {
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
 	@JsonIgnore
-	private List<RecipeOrder> orders;
+	private List<Order> orders;
 	
 	public Payment() {
 		

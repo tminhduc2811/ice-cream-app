@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "recipe_order")
-public class RecipeOrder {
+public class Order {
 
 	@Id
 	@Column(name = "id")
@@ -55,17 +55,29 @@ public class RecipeOrder {
 	@Column(name = "status")
 	private String status;
 	
-	public RecipeOrder() {
+	@Column(name = "delivery_detail")
+	private String deliveryDetail;
+	
+	public Order() {
 		
 	}
 
-	public RecipeOrder(Long id, String paymentOption, String createdDate, String notes, String status) {
+	public Order(Long id, String paymentOption, String createdDate, String notes, String status, String deliveryDetail) {
 		super();
 		this.id = id;
 		this.paymentOption = paymentOption;
 		this.createdDate = createdDate;
 		this.notes = notes;
 		this.status = status;
+		this.deliveryDetail = deliveryDetail;
+	}
+
+	public String getDeliveryDetail() {
+		return deliveryDetail;
+	}
+
+	public void setDeliveryDetail(String deliveryDetail) {
+		this.deliveryDetail = deliveryDetail;
 	}
 
 	public Long getId() {
@@ -122,6 +134,14 @@ public class RecipeOrder {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 	
 }

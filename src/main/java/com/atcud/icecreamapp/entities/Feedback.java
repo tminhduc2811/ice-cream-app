@@ -31,7 +31,7 @@ public class Feedback {
 	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "order_id")
-	private RecipeOrder order;
+	private Order order;
 	
 	@Column(name = "details")
 	private String details;
@@ -82,11 +82,11 @@ public class Feedback {
 		this.customer = customer;
 	}
 
-	public RecipeOrder getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(RecipeOrder order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 

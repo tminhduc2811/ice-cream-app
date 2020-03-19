@@ -23,7 +23,7 @@ public class OrderDetail {
 	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="order_id")
-	private RecipeOrder order;
+	private Order order;
 	
 	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH})
@@ -53,11 +53,11 @@ public class OrderDetail {
 	}
 
 
-	public RecipeOrder getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(RecipeOrder order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 

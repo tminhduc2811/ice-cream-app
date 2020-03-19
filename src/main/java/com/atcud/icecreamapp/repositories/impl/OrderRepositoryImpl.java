@@ -9,45 +9,45 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.atcud.icecreamapp.entities.RecipeOrder;
-import com.atcud.icecreamapp.repositories.RecipeOrderRepository;
+import com.atcud.icecreamapp.entities.Order;
+import com.atcud.icecreamapp.repositories.OrderRepository;
 
 @Repository
-public class RecipeOrderRepositoryImpl implements RecipeOrderRepository {
+public class OrderRepositoryImpl implements OrderRepository {
 
 	@PersistenceContext
 	EntityManager entityManager;
 	
 	@Override
 	@Transactional
-	public List<RecipeOrder> findAll() {
-		List<RecipeOrder> orders = entityManager.createQuery("FROM RecipeOrder", RecipeOrder.class).getResultList();
+	public List<Order> findAll() {
+		List<Order> orders = entityManager.createQuery("FROM Order", Order.class).getResultList();
 		return orders;
 	}
 
 	@Override
 	@Transactional
-	public Optional<RecipeOrder> findById(Long id) {
-		return Optional.of(entityManager.find(RecipeOrder.class, id));
+	public Optional<Order> findById(Long id) {
+		return Optional.of(entityManager.find(Order.class, id));
 	}
 
 	@Override
 	@Transactional
-	public RecipeOrder save(RecipeOrder onlineOrder) {
+	public Order save(Order onlineOrder) {
 		entityManager.persist(onlineOrder);
 		return onlineOrder;
 	}
 
 	@Override
 	@Transactional
-	public void delete(RecipeOrder onlineOrder) {
+	public void delete(Order onlineOrder) {
 		entityManager.remove(onlineOrder);
 
 	}
 
 	@Override
 	@Transactional
-	public void update(RecipeOrder onlineOrder) {
+	public void update(Order onlineOrder) {
 		entityManager.merge(onlineOrder);
 		
 	}

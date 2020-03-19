@@ -80,7 +80,7 @@ public class Customer {
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
 	@JsonIgnore
-	private List<RecipeOrder> orders;
+	private List<Order> orders;
 	
 	public Customer() {
 		
@@ -242,11 +242,11 @@ public class Customer {
 		this.feedback = feedback;
 	}
 
-	public List<RecipeOrder> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<RecipeOrder> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 

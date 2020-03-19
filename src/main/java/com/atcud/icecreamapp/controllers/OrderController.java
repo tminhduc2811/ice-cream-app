@@ -12,45 +12,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atcud.icecreamapp.entities.RecipeOrder;
-import com.atcud.icecreamapp.services.RecipeOrderService;
+import com.atcud.icecreamapp.DTO.OrderDTO;
+import com.atcud.icecreamapp.entities.Order;
+import com.atcud.icecreamapp.services.OrderService;
 
 @RestController
 @RequestMapping("/orders")
-public class RecipeOrderController {
+public class OrderController {
 	@Autowired
-	private RecipeOrderService service;
+	private OrderService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<RecipeOrder>> getAllOrder() {
-		List<RecipeOrder> orders = service.getAllOrders();
-		System.out.println(orders);
-		return new ResponseEntity<List<RecipeOrder>>(orders, HttpStatus.OK);
+	public ResponseEntity<List<OrderDTO>> getAllOrder() {
+		List<OrderDTO> orders = service.getAllOrders();
+		return new ResponseEntity<List<OrderDTO>>(orders, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
-	public ResponseEntity<RecipeOrder> createFAQ(@RequestBody RecipeOrder order) {
+	public ResponseEntity<Order> createFAQ(@RequestBody Order order) {
 		order = service.save(order);
-		return new ResponseEntity<RecipeOrder>(order, HttpStatus.CREATED);
+		return new ResponseEntity<Order>(order, HttpStatus.CREATED);
 	}	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
-	public ResponseEntity<RecipeOrder> deleteOrder(@PathVariable Long id){
-		Optional<RecipeOrder> feedback = service.getOrderById(id);
+	public ResponseEntity<Order> deleteOrder(@PathVariable Long id){
+		Optional<Order> feedback = service.getOrderById(id);
 		if (!feedback.isPresent()) {
-			return new ResponseEntity<RecipeOrder>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		}
 		service.delete(feedback.get());
-		return new ResponseEntity<RecipeOrder>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Order>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
-	public ResponseEntity<RecipeOrder> update(@RequestBody RecipeOrder newOrder, @PathVariable Long id) {
-		Optional<RecipeOrder> order = service.getOrderById(id);
+	public ResponseEntity<Order> update(@RequestBody Order newOrder, @PathVariable Long id) {
+		Optional<Order> order = service.getOrderById(id);
 		if (!order.isPresent()) {
-			return new ResponseEntity<RecipeOrder>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		}
 		service.update(newOrder);
-		return new ResponseEntity<RecipeOrder>(newOrder, HttpStatus.OK);
+		return new ResponseEntity<Order>(newOrder, HttpStatus.OK);
 	}
 }

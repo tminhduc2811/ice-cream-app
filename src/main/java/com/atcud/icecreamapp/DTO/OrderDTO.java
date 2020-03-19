@@ -1,6 +1,6 @@
 package com.atcud.icecreamapp.DTO;
 
-public class RecipeOrderDTO {
+public class OrderDTO {
 
 	private Long id;
 	
@@ -18,7 +18,7 @@ public class RecipeOrderDTO {
 
 	private String status;
 
-	public RecipeOrderDTO(Long id, Long customer_id, Long payment_id, String paymentOption, String createdDate,
+	public OrderDTO(Long id, Long customer_id, Long payment_id, String paymentOption, String createdDate,
 			String deliveryDetail, String notes, String status) {
 		super();
 		this.id = id;
