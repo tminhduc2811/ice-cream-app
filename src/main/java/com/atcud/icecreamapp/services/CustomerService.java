@@ -3,11 +3,12 @@ package com.atcud.icecreamapp.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.CustomerDTO;
 import com.atcud.icecreamapp.entities.Customer;
 
 public interface CustomerService {
 
-	public List<Customer> getAllCustomers();
+	public List<CustomerDTO> getAllCustomers();
 	
 	public Optional<Customer> getCustomerById(Long id);
 	

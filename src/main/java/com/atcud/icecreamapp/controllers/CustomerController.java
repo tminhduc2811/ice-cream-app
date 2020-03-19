@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atcud.icecreamapp.DTO.CustomerDTO;
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.services.CustomerService;
 
@@ -24,12 +25,12 @@ public class CustomerController {
 	private CustomerService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<Customer>> getCustomerCustomers() {
-		List<Customer> customers = service.getAllCustomers();
+	public ResponseEntity<List<CustomerDTO>> getCustomerCustomers() {
+		List<CustomerDTO> customers = service.getAllCustomers();
 		if (customers.isEmpty()) {
-			return new ResponseEntity<List<Customer>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<CustomerDTO>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+		return new ResponseEntity<List<CustomerDTO>>(customers, HttpStatus.OK);
 	}
 
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )

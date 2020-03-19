@@ -1,5 +1,6 @@
 package com.atcud.icecreamapp.DTO;
 
+import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Order;
 
 public class DTOBuilder {
@@ -13,5 +14,22 @@ public class DTOBuilder {
 				order.getDeliveryDetail(), 
 				order.getNotes(), 
 				order.getStatus());
+	}
+	
+	public static CustomerDTO customerToDTO(Customer customer) {
+		return new CustomerDTO(customer.getId(), 
+				customer.getUserName(), 
+				"", 
+				customer.getFirstName(), 
+				customer.getLastName(), 
+				customer.getAddress(), 
+				customer.getPhoneNumber(), 
+				customer.getEmail(), 
+				customer.getGender(), 
+				customer.getBirthday(), 
+				customer.getAvatar(), 
+				customer.getExpiredDate(), 
+				customer.getStatus(), 
+				customer.getNumOfLoginFailed());
 	}
 }

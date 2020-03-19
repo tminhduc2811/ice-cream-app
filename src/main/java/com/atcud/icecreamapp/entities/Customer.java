@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "customer")
@@ -31,7 +29,6 @@ public class Customer {
 	
 
 	@Column(name = "password")
-	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	@Column(name = "first_name")
