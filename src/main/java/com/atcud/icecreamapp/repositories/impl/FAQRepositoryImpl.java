@@ -45,6 +45,7 @@ public class FAQRepositoryImpl implements FAQRepository {
 	}
 
 	@Override
+	@Transactional
 	public void update(FAQ faq) {
 		entityManager.merge(faq);
 	}

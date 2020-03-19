@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "customer")
@@ -21,15 +23,15 @@ public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "customer_id")
+	@Column(name = "id")
 	private Long id;
 	
 	@Column(name = "user_name")
-	@JsonIgnore
 	private String userName;
 	
-	@JsonIgnore
+
 	@Column(name = "password")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	@Column(name = "first_name")
@@ -70,13 +72,15 @@ public class Customer {
 			   mappedBy="customer",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonIgnore
 	private List<Feedback> feedback;
 	
 	@OneToMany(fetch=FetchType.LAZY,
 			   mappedBy="customer",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
-	private List<Order> orders;
+	@JsonIgnore
+	private List<RecipeOrder> orders;
 	
 	public Customer() {
 		
@@ -238,11 +242,11 @@ public class Customer {
 		this.feedback = feedback;
 	}
 
-	public List<Order> getOrders() {
+	public List<RecipeOrder> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<Order> orders) {
+	public void setOrders(List<RecipeOrder> orders) {
 		this.orders = orders;
 	}
 

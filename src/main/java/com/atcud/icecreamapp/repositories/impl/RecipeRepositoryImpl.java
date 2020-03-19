@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.atcud.icecreamapp.entities.Recipe;
@@ -15,7 +15,7 @@ import com.atcud.icecreamapp.repositories.RecipeRepository;
 @Repository
 public class RecipeRepositoryImpl implements RecipeRepository {
 
-	@Autowired
+	@PersistenceContext
 	EntityManager entityManager;
 	
 	@Override

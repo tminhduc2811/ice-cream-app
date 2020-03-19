@@ -1,6 +1,5 @@
 package com.atcud.icecreamapp.entities;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,13 +14,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "recipe_order")
+public class RecipeOrder {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
@@ -29,43 +30,40 @@ public class Order {
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 	
+	@ManyToOne(
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="payment_id")
+	private Payment payment;
+	
 	@OneToMany(fetch=FetchType.LAZY,
 			   mappedBy="order",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonIgnore
 	private List<OrderDetail> orderDetails;
-	
-	@Column(name = "payment_id")
-	private Long paymentId;
 	
 	@Column(name = "payment_option")
 	private String paymentOption;
 	
 	@Column(name = "created_date")
-	private Timestamp createdDate;
-	
-	@Column(name = "delivery_detail")
-	private String deliveryDetail;
+	private String createdDate;
 	
 	@Column(name = "notes")
 	private String notes;
 	
 	@Column(name = "status")
-	private Short status;
+	private String status;
 	
-	
-	public Order() {
+	public RecipeOrder() {
 		
 	}
 
-	public Order(Long id, Long paymentId, String paymentOption, Timestamp createdDate,
-			String deliveryDetail, String notes, Short status) {
+	public RecipeOrder(Long id, String paymentOption, String createdDate, String notes, String status) {
 		super();
 		this.id = id;
-		this.paymentId = paymentId;
 		this.paymentOption = paymentOption;
 		this.createdDate = createdDate;
-		this.deliveryDetail = deliveryDetail;
 		this.notes = notes;
 		this.status = status;
 	}
@@ -78,12 +76,20 @@ public class Order {
 		this.id = id;
 	}
 
-	public Long getPaymentId() {
-		return paymentId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setPaymentId(Long paymentId) {
-		this.paymentId = paymentId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	public String getPaymentOption() {
@@ -94,20 +100,12 @@ public class Order {
 		this.paymentOption = paymentOption;
 	}
 
-	public Timestamp getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Timestamp createdDate) {
+	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public String getDeliveryDetail() {
-		return deliveryDetail;
-	}
-
-	public void setDeliveryDetail(String deliveryDetail) {
-		this.deliveryDetail = deliveryDetail;
 	}
 
 	public String getNotes() {
@@ -118,27 +116,12 @@ public class Order {
 		this.notes = notes;
 	}
 
-	public Short getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Short status) {
+	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", paymentId=" + paymentId + ", paymentOption="
-				+ paymentOption + ", createdDate=" + createdDate + ", deliveryDetail=" + deliveryDetail + ", notes="
-				+ notes + ", status=" + status + "]";
 	}
 	
 }

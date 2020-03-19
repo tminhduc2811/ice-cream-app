@@ -1,13 +1,19 @@
 package com.atcud.icecreamapp.entities;
 
 import java.sql.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "payment")
@@ -35,6 +41,13 @@ public class Payment {
 	
 	@Column(name = "date_of_birth")
 	private Date dateOfBirth;
+	
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="payment",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	@JsonIgnore
+	private List<RecipeOrder> orders;
 	
 	public Payment() {
 		
