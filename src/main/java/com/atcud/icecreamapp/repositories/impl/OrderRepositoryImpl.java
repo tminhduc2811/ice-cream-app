@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.atcud.icecreamapp.entities.Order;
-import com.atcud.icecreamapp.repositories.OnlineOrderRepository;
+import com.atcud.icecreamapp.repositories.OrderRepository;
 
 @Repository
-public class OnlineOrderRepositoryImpl implements OnlineOrderRepository {
+public class OrderRepositoryImpl implements OrderRepository {
 
 	@Autowired
 	EntityManager entityManager;

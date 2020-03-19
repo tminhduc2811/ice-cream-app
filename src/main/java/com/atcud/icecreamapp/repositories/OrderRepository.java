@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Order;
 
-public interface OnlineOrderRepository {
+public interface OrderRepository {
 	
 	public List<Order> findAll();
 	

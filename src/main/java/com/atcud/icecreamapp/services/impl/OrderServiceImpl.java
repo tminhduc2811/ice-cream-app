@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.Order;
-import com.atcud.icecreamapp.repositories.OnlineOrderRepository;
-import com.atcud.icecreamapp.services.OnlineOrderService;
+import com.atcud.icecreamapp.repositories.OrderRepository;
+import com.atcud.icecreamapp.services.OrderService;
 
 @Component
-public class OnlineOrderServiceImpl implements OnlineOrderService {
+public class OrderServiceImpl implements OrderService {
 
 	@Autowired
-	private OnlineOrderRepository onlineOrderRepository;
+	private OrderRepository onlineOrderRepository;
 	@Override
 	public List<Order> getAllOrders() {
 		return onlineOrderRepository.findAll();

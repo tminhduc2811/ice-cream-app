@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atcud.icecreamapp.entities.Order;
-import com.atcud.icecreamapp.services.OnlineOrderService;
+import com.atcud.icecreamapp.services.OrderService;
 
 @RestController
 @RequestMapping("/orders")
 public class OnlineOrderController {
 	@Autowired
-	private OnlineOrderService service;
+	private OrderService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Order>> getAllOrder() {

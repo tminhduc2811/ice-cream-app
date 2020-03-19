@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Order;
 
-public interface OnlineOrderService {
+public interface OrderService {
 
 	public List<Order> getAllOrders();
 	
