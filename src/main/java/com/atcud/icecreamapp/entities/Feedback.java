@@ -1,10 +1,16 @@
 package com.atcud.icecreamapp.entities;
 
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,25 +22,32 @@ public class Feedback {
 	@Column(name = "feedback_id")
 	private Long id;
 	
-	@Column(name = "fullname")
-	private String fullName;
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="customer_id")
+	private Customer customer;
 	
-	@Column(name = "title")
-	private String title;
+	// A feedback belongs only to one order, so the relation is one to one
+	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name = "order_id")
+	private Order order;
 	
-	@Column(name = "content")
-	private String content;
+	@Column(name = "details")
+	private String details;
+	
+	@Column(name = "created_date")
+	private Timestamp createdDate;
 	
 	public Feedback() {
 		
 	}
 
-	public Feedback(Long id, String fullName, String title, String content) {
+	public Feedback(Long id, Long customerId, Long orderId, String details, Timestamp createdDate) {
 		super();
 		this.id = id;
-		this.fullName = fullName;
-		this.title = title;
-		this.content = content;
+		this.details = details;
+		this.createdDate = createdDate;
 	}
 
 	public Long getId() {
@@ -45,33 +58,42 @@ public class Feedback {
 		this.id = id;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getDetails() {
+		return details;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
-	public String getTitle() {
-		return title;
+	public Timestamp getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
 	}
 
-	public String getContent() {
-		return content;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	@Override
 	public String toString() {
-		return "FeedBack [id=" + id + ", fullName=" + fullName + ", title=" + title + ", content=" + content + "]";
+		return "Feedback [id=" + id + ", details=" + details
+				+ ", createdDate=" + createdDate + "]";
 	}
 	
 }

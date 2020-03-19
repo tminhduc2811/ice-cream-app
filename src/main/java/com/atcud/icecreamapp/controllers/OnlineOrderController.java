@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atcud.icecreamapp.entities.OnlineOrder;
+import com.atcud.icecreamapp.entities.Order;
 import com.atcud.icecreamapp.services.OnlineOrderService;
 
 @RestController
@@ -22,34 +22,34 @@ public class OnlineOrderController {
 	private OnlineOrderService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<OnlineOrder>> getAllOrder() {
-		List<OnlineOrder> order = service.getAllOrders();
-		return new ResponseEntity<List<OnlineOrder>>(order, HttpStatus.OK);
+	public ResponseEntity<List<Order>> getAllOrder() {
+		List<Order> order = service.getAllOrders();
+		return new ResponseEntity<List<Order>>(order, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
-	public ResponseEntity<OnlineOrder> createFAQ(@RequestBody OnlineOrder order) {
+	public ResponseEntity<Order> createFAQ(@RequestBody Order order) {
 		order = service.save(order);
-		return new ResponseEntity<OnlineOrder>(order, HttpStatus.CREATED);
+		return new ResponseEntity<Order>(order, HttpStatus.CREATED);
 	}	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
-	public ResponseEntity<OnlineOrder> deleteOrder(@PathVariable Long id){
-		Optional<OnlineOrder> feedback = service.getOrderById(id);
+	public ResponseEntity<Order> deleteOrder(@PathVariable Long id){
+		Optional<Order> feedback = service.getOrderById(id);
 		if (!feedback.isPresent()) {
-			return new ResponseEntity<OnlineOrder>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		}
 		service.delete(feedback.get());
-		return new ResponseEntity<OnlineOrder>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Order>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
-	public ResponseEntity<OnlineOrder> update(@RequestBody OnlineOrder newOrder, @PathVariable Long id) {
-		Optional<OnlineOrder> order = service.getOrderById(id);
+	public ResponseEntity<Order> update(@RequestBody Order newOrder, @PathVariable Long id) {
+		Optional<Order> order = service.getOrderById(id);
 		if (!order.isPresent()) {
-			return new ResponseEntity<OnlineOrder>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		}
 		service.update(newOrder);
-		return new ResponseEntity<OnlineOrder>(newOrder, HttpStatus.OK);
+		return new ResponseEntity<Order>(newOrder, HttpStatus.OK);
 	}
 }

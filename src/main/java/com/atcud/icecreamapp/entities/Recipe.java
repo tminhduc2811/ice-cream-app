@@ -1,12 +1,15 @@
 package com.atcud.icecreamapp.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,46 +21,56 @@ public class Recipe {
 	@Column(name = "recipe_id")
 	private Long id;
 	
-	@Column(name = "name")
-	private String name;
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="user_id")
+	private User user;
 	
-	@Column(name = "image")
-	private String image;
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="icecream_id")
+	private Icecream icecream;
+	
+	@Column(name = "title")
+	private String title;
 	
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "price")
+	private Float price;
+	
+	@Column(name = "status")
+	private Short status;
+	
+	@Column(name = "view_count")
+	private int viewCount;
+	
+	@Column(name = "image")
+	private String image;
+	
 	@Column(name = "details")
 	private String details;
 	
-	@Column(name = "author")
-	private String author;
-	
-	@Column(name = "view_number")
-	private Long viewNumber;
-	
-	@Column(name = "upload_date")
-	private Date uploadDate;
-	
-	@Column(name = "enable_status")
-	private Short enableStatus;
+	@Column(name = "uploaded_date")
+	private Timestamp uploadedDate;
 	
 	public Recipe() {
 		
 	}
 
-	public Recipe(Long id, String name, String image, String description, String details, String author,
-			Long viewNumber, Date uploadDate, Short enableStatus) {
+	public Recipe(Long id, String title, String description, Float price, Short status, int viewCount, String image,
+			String details, Timestamp uploadedDate) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.image = image;
+		this.title = title;
 		this.description = description;
+		this.price = price;
+		this.status = status;
+		this.viewCount = viewCount;
+		this.image = image;
 		this.details = details;
-		this.author = author;
-		this.viewNumber = viewNumber;
-		this.uploadDate = uploadDate;
-		this.enableStatus = enableStatus;
+		this.uploadedDate = uploadedDate;
 	}
 
 	public Long getId() {
@@ -68,20 +81,28 @@ public class Recipe {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public User getUser() {
+		return user;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getImage() {
-		return image;
+	public Icecream getIcecream() {
+		return icecream;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setIcecream(Icecream icecream) {
+		this.icecream = icecream;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -92,6 +113,38 @@ public class Recipe {
 		this.description = description;
 	}
 
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public Short getStatus() {
+		return status;
+	}
+
+	public void setStatus(Short status) {
+		this.status = status;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getDetails() {
 		return details;
 	}
@@ -100,44 +153,19 @@ public class Recipe {
 		this.details = details;
 	}
 
-	public String getAuthor() {
-		return author;
+	public Timestamp getUploadedDate() {
+		return uploadedDate;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public Long getViewNumber() {
-		return viewNumber;
-	}
-
-	public void setViewNumber(Long viewNumber) {
-		this.viewNumber = viewNumber;
-	}
-
-	public Date getUploadDate() {
-		return uploadDate;
-	}
-
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
-	}
-
-	public int getEnableStatus() {
-		return enableStatus;
-	}
-
-	public void setEnableStatus(Short enableStatus) {
-		this.enableStatus = enableStatus;
+	public void setUploadedDate(Timestamp uploadedDate) {
+		this.uploadedDate = uploadedDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Recipe [id=" + id + ", name=" + name + ", image=" + image + ", description=" + description
-				+ ", details=" + details + ", author=" + author + ", viewNumber=" + viewNumber + ", uploadDate="
-				+ uploadDate + ", enableStatus=" + enableStatus + "]";
+		return "Recipe [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
+				+ ", status=" + status + ", viewCount=" + viewCount + ", image=" + image + ", details=" + details
+				+ ", uploadedDate=" + uploadedDate + "]";
 	}
-	
-	
 }
+

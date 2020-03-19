@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.atcud.icecreamapp.entities.OnlineOrder;
+import com.atcud.icecreamapp.entities.Order;
 import com.atcud.icecreamapp.repositories.OnlineOrderRepository;
 
 @Repository
@@ -20,33 +20,33 @@ public class OnlineOrderRepositoryImpl implements OnlineOrderRepository {
 	
 	@Override
 	@Transactional
-	public List<OnlineOrder> findAll() {
-		return entityManager.createQuery("FROM OnlineOrder", OnlineOrder.class).getResultList();
+	public List<Order> findAll() {
+		return entityManager.createQuery("FROM OnlineOrder", Order.class).getResultList();
 	}
 
 	@Override
 	@Transactional
-	public Optional<OnlineOrder> findById(Long id) {
-		return Optional.of(entityManager.find(OnlineOrder.class, id));
+	public Optional<Order> findById(Long id) {
+		return Optional.of(entityManager.find(Order.class, id));
 	}
 
 	@Override
 	@Transactional
-	public OnlineOrder save(OnlineOrder onlineOrder) {
+	public Order save(Order onlineOrder) {
 		entityManager.persist(onlineOrder);
 		return onlineOrder;
 	}
 
 	@Override
 	@Transactional
-	public void delete(OnlineOrder onlineOrder) {
+	public void delete(Order onlineOrder) {
 		entityManager.remove(onlineOrder);
 
 	}
 
 	@Override
 	@Transactional
-	public void update(OnlineOrder onlineOrder) {
+	public void update(Order onlineOrder) {
 		entityManager.merge(onlineOrder);
 		
 	}

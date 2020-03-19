@@ -1,13 +1,19 @@
 package com.atcud.icecreamapp.entities;
 
 import java.sql.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "customer")
@@ -18,14 +24,19 @@ public class Customer {
 	@Column(name = "customer_id")
 	private Long id;
 	
-	@Column(name = "username")
+	@Column(name = "user_name")
+	@JsonIgnore
 	private String userName;
 	
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "fullname")
-	private String fullName;
+	@Column(name = "first_name")
+	private String firstName;
+	
+	@Column(name = "last_name")
+	private String lastName;
 	
 	@Column(name = "address")
 	private String address;
@@ -48,20 +59,38 @@ public class Customer {
 	@Column(name = "expired_date")
 	private Date expiredDate;
 	
-	@Column(name = "enable_status")
-	private Short enableStatus;
+	@Column(name = "status")
+	private Short status;
+	
+	@Column(name = "num_of_login_failed")
+	private Short numOfLoginFailed;
+	
+	// Relation
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="customer",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Feedback> feedback;
+	
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="customer",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Order> orders;
 	
 	public Customer() {
 		
 	}
 
-	public Customer(Long id, String userName, String password, String fullName, String address, String phoneNumber,
-			String email, Short gender, Date birthday, String avatar, Date expiredDate, Short enableStatus) {
+	public Customer(Long id, String userName, String password, String firstName, String lastName, String address,
+			String phoneNumber, String email, Short gender, Date birthday, String avatar, Date expiredDate,
+			Short status, Short numOfLoginFailed) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
-		this.fullName = fullName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
@@ -69,7 +98,8 @@ public class Customer {
 		this.birthday = birthday;
 		this.avatar = avatar;
 		this.expiredDate = expiredDate;
-		this.enableStatus = enableStatus;
+		this.status = status;
+		this.numOfLoginFailed = numOfLoginFailed;
 	}
 
 	public Long getId() {
@@ -97,11 +127,11 @@ public class Customer {
 	}
 
 	public String getFullName() {
-		return fullName;
+		return firstName;
 	}
 
 	public void setFullName(String fullName) {
-		this.fullName = fullName;
+		this.firstName = fullName;
 	}
 
 	public String getAddress() {
@@ -161,20 +191,68 @@ public class Customer {
 	}
 
 	public Short getEnableStatus() {
-		return enableStatus;
+		return status;
 	}
 
 	public void setEnableStatus(Short enableStatus) {
-		this.enableStatus = enableStatus;
+		this.status = enableStatus;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Short getStatus() {
+		return status;
+	}
+
+	public void setStatus(Short status) {
+		this.status = status;
+	}
+
+	public Short getNumOfLoginFailed() {
+		return numOfLoginFailed;
+	}
+
+	public void setNumOfLoginFailed(Short numOfLoginFailed) {
+		this.numOfLoginFailed = numOfLoginFailed;
+	}
+
+	public List<Feedback> getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(List<Feedback> feedback) {
+		this.feedback = feedback;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName
-				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", email=" + email + ", gender=" + gender
-				+ ", birthday=" + birthday + ", avatar=" + avatar + ", expiredDate=" + expiredDate + ", enableStatus="
-				+ enableStatus + "]";
+		return "Customer [id=" + id + ", userName=" + userName + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", address=" + address + ", phoneNumber=" + phoneNumber + ", email="
+				+ email + ", gender=" + gender + ", birthday=" + birthday + ", avatar=" + avatar + ", expiredDate="
+				+ expiredDate + ", status=" + status + ", numOfLoginFailed=" + numOfLoginFailed + "]";
 	}
-	
-	
+
+
 }

@@ -3,17 +3,17 @@ package com.atcud.icecreamapp.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.atcud.icecreamapp.entities.OnlineOrder;
+import com.atcud.icecreamapp.entities.Order;
 
 public interface OnlineOrderService {
 
-	public List<OnlineOrder> getAllOrders();
+	public List<Order> getAllOrders();
 	
-	public Optional<OnlineOrder> getOrderById(Long id);
+	public Optional<Order> getOrderById(Long id);
 	
-	public OnlineOrder save(OnlineOrder order);
+	public Order save(Order order);
 	
-	public void delete(OnlineOrder order);
+	public void delete(Order order);
 	
-	public void update(OnlineOrder order);
+	public void update(Order order);
 }
