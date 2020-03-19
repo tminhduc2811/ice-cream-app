@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.Icecream;
+import com.atcud.icecreamapp.entities.Recipe;
 import com.atcud.icecreamapp.repositories.IcecreamRepository;
 import com.atcud.icecreamapp.services.IcecreamService;
 
@@ -39,6 +40,12 @@ public class IcecreamServiceImpl implements IcecreamService {
 	@Override
 	public void update(Icecream icecream) {
 		icecreamRepository.update(icecream);
+	}
+
+	@Override
+	public List<Recipe> getAllRecipeByIcecreamId(Long id) {
+		Icecream icecream = icecreamRepository.findById(id).get();
+		return icecream.getRecipes();
 	}
 
 }
