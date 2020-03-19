@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.entities.UserRecipe;
 
 public interface CustomerService {
 
@@ -17,7 +16,5 @@ public interface CustomerService {
 	public void delete(Customer customer);
 	
 	public void update(Customer customer);
-	
-	public List<UserRecipe> getCustomerRecipes(Long id);
-	
+
 }

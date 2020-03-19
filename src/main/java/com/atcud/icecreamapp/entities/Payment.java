@@ -18,22 +18,22 @@ public class Payment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "id")
+	@Column(name = "card_type")
 	private String cardType;
 	
-	@Column(name = "id")
+	@Column(name = "card_number")
 	private String cardNumber;
 	
-	@Column(name = "id")
+	@Column(name = "cvv")
 	private String cvv;
 	
-	@Column(name = "id")
+	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "id")
+	@Column(name = "expired_date")
 	private Date expiredDate;
 	
-	@Column(name = "id")
+	@Column(name = "date_of_birth")
 	private Date dateOfBirth;
 	
 	public Payment() {

@@ -3,21 +3,31 @@ package com.atcud.icecreamapp.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail {
-
-	// An order has only one detail table, so the relation is one to one
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="order_id")
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
+	// An order has only one detail table, so the relation is one to one
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="order_id")
 	private Order order;
 	
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="recipe_id")
 	private Recipe recipe;
 	
 	@Column(name = "quantity")
@@ -33,12 +43,15 @@ public class OrderDetail {
 		
 	}
 
-	public OrderDetail(int quantity, Float price, String notes) {
+
+	public OrderDetail(Long id, int quantity, Float price, String notes) {
 		super();
+		this.id = id;
 		this.quantity = quantity;
 		this.price = price;
 		this.notes = notes;
 	}
+
 
 	public Order getOrder() {
 		return order;
@@ -83,6 +96,16 @@ public class OrderDetail {
 	@Override
 	public String toString() {
 		return "OrderDetail [quantity=" + quantity + ", price=" + price + ", notes=" + notes + "]";
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

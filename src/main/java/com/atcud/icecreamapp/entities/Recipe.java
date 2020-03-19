@@ -1,15 +1,18 @@
 package com.atcud.icecreamapp.entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +33,12 @@ public class Recipe {
 			 CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="icecream_id")
 	private Icecream icecream;
+	
+	@OneToMany(fetch=FetchType.LAZY,
+			   mappedBy="recipe",
+			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+						 CascadeType.DETACH, CascadeType.REFRESH})
+	private List<OrderDetail> orders;
 	
 	@Column(name = "title")
 	private String title;
@@ -161,11 +170,21 @@ public class Recipe {
 		this.uploadedDate = uploadedDate;
 	}
 
+	public List<OrderDetail> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderDetail> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public String toString() {
 		return "Recipe [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
 				+ ", status=" + status + ", viewCount=" + viewCount + ", image=" + image + ", details=" + details
 				+ ", uploadedDate=" + uploadedDate + "]";
 	}
+
+
 }
 

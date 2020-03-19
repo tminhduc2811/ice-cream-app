@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.entities.UserRecipe;
 import com.atcud.icecreamapp.repositories.CustomerRepository;
 import com.atcud.icecreamapp.services.CustomerService;
 
@@ -41,10 +40,4 @@ public class CustomerServiceImpl implements CustomerService {
 	public void update(Customer customer) {
 		customerRepository.update(customer);
 	}
-
-	@Override
-	public List<UserRecipe> getCustomerRecipes(Long id) {
-		return customerRepository.getCustomerRecipes(id);
-	}
-
 }

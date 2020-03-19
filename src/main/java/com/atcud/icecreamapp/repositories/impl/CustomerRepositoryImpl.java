@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.entities.UserRecipe;
 import com.atcud.icecreamapp.repositories.CustomerRepository;
 
 @Repository
@@ -49,12 +48,4 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	public void update(Customer customer) {
 		entityManager.merge(customer);
 	}
-
-	@Override
-	@Transactional
-	public List<UserRecipe> getCustomerRecipes(Long id) {
-		Customer customer = entityManager.find(Customer.class, id);
-		return customer.getUserRecipes();
-	}
-
 }
