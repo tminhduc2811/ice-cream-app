@@ -7,7 +7,7 @@ import com.atcud.icecreamapp.entities.Customer;
 
 public interface CustomerService {
 
-	public List<Customer> getAllCustomer();
+	public List<Customer> getAllCustomers();
 	
 	public Optional<Customer> getCustomerById(Long id);
 	

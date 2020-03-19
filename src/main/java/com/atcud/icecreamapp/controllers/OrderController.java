@@ -36,7 +36,7 @@ public class OrderController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
 	public ResponseEntity<Order> deleteOrder(@PathVariable Long id){
-		Optional<Order> feedback = service.getOrderById(id);
+		Optional<Order> feedback = service.getOptionalOrderById(id);
 		if (!feedback.isPresent()) {
 			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		}
@@ -46,7 +46,7 @@ public class OrderController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
 	public ResponseEntity<Order> update(@RequestBody Order newOrder, @PathVariable Long id) {
-		Optional<Order> order = service.getOrderById(id);
+		Optional<Order> order = service.getOptionalOrderById(id);
 		if (!order.isPresent()) {
 			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		}

@@ -25,7 +25,7 @@ public class CustomerController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Customer>> getCustomerCustomers() {
-		List<Customer> customers = service.getAllCustomer();
+		List<Customer> customers = service.getAllCustomers();
 		if (customers.isEmpty()) {
 			return new ResponseEntity<List<Customer>>(HttpStatus.NO_CONTENT);
 		}

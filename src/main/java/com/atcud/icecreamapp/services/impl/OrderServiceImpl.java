@@ -19,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
 	@Override
 	public List<OrderDTO> getAllOrders() {
 		List<Order> entities =  orderRepository.findAll();
@@ -33,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Optional<Order> getOrderById(Long id) {
+	public Optional<Order> getOptionalOrderById(Long id) {
 		return orderRepository.findById(id);
 	}
 
@@ -50,6 +51,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void update(Order order) {
 		orderRepository.update(order);
+	}
+
+	@Override
+	public OrderDTO getOrderById(Long id) {
+		return DTOBuilder.orderToDTO(orderRepository.findById(id).get());
 	}
 
 }
