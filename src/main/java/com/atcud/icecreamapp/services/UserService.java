@@ -10,11 +10,15 @@ public interface UserService {
 	public List<User> getAllUsers();
 	
 	public Optional<User> getUserById(Long id);
-	
+
+	public User findUserByUsername(String username);
+
+	public User registerUser(User user);
+
 	public User save(User user);
 	
 	public void delete(User user);
 	
 	public void update(User user);
-	
+
 }
