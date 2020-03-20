@@ -16,13 +16,12 @@ import com.atcud.icecreamapp.repositories.CustomerRepository;
 public class CustomerRepositoryImpl implements CustomerRepository {
 
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 	
 	@Override
 	@Transactional
 	public List<Customer> findAll() {
-		List<Customer> customers = entityManager.createQuery("FROM Customer", Customer.class).getResultList();
-		return customers;
+		return entityManager.createQuery("FROM Customer", Customer.class).getResultList();
 	}
 
 	@Override

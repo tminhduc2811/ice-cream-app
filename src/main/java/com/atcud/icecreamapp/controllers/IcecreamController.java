@@ -19,7 +19,7 @@ import com.atcud.icecreamapp.services.IcecreamService;
 @RestController
 @RequestMapping("/icecream")
 public class IcecreamController {
-	
+
 	@Autowired
 	IcecreamService service;
 	

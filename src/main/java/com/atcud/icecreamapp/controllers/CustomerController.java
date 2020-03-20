@@ -28,9 +28,9 @@ public class CustomerController {
 	public ResponseEntity<List<CustomerDTO>> getCustomerCustomers() {
 		List<CustomerDTO> customers = service.getAllCustomers();
 		if (customers.isEmpty()) {
-			return new ResponseEntity<List<CustomerDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<CustomerDTO>>(customers, HttpStatus.OK);
+		return new ResponseEntity<>(customers, HttpStatus.OK);
 	}
 
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
@@ -39,33 +39,33 @@ public class CustomerController {
 		String hashPassword = passwordEncoder.encode(customer.getPassword());
 		customer.setPassword(hashPassword);
 		Customer result = service.save(customer);
-		return new ResponseEntity<Customer>(result, HttpStatus.CREATED);
+		return new ResponseEntity<>(result, HttpStatus.CREATED);
 	}	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
 	public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id){
 		Optional<Customer> customer = service.getCustomerById(id);
 		if (!customer.isPresent()) {
-			return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		service.delete(customer.get());
-		return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
 	public ResponseEntity<Customer> update(@RequestBody Customer customer, @PathVariable Long id) {
 		Optional<Customer> currentCustomer = service.getCustomerById(id);
 		if (!currentCustomer.isPresent()) {
-			return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		
-		if (customer.getPassword() == "") {
+		if (customer.getPassword().equals("")) {
 			customer.setPassword(currentCustomer.get().getPassword());
 		} else {
 			customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 		}
 		service.update(customer);
-		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+		return new ResponseEntity<>(customer, HttpStatus.OK);
 	}
 }

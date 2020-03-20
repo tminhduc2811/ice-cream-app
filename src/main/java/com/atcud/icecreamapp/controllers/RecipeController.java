@@ -25,33 +25,33 @@ public class RecipeController {
 	public ResponseEntity<List<Recipe>> getAllRecipes() {
 		List<Recipe> recipes = service.getAllRecipes();
 		if (recipes.isEmpty()) {
-			return new ResponseEntity<List<Recipe>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Recipe>>(recipes, HttpStatus.OK);
+		return new ResponseEntity<>(recipes, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
 	public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
-		return new ResponseEntity<Recipe>(service.save(recipe), HttpStatus.CREATED);
+		return new ResponseEntity<>(service.save(recipe), HttpStatus.CREATED);
 	}	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
 	public ResponseEntity<Recipe> deleteRecipe(@PathVariable Long id){
 		Optional<Recipe> recipe = service.getRecipeById(id);
 		if (!recipe.isPresent()) {
-			return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		service.delete(recipe.get());
-		return new ResponseEntity<Recipe>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
 	public ResponseEntity<Recipe> update(@RequestBody Recipe newRecipe, @PathVariable Long id) {
 		Optional<Recipe> currentRecipe = service.getRecipeById(id);
 		if (!currentRecipe.isPresent()) {
-			return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		service.update(newRecipe);
-		return new ResponseEntity<Recipe>(newRecipe, HttpStatus.OK);
+		return new ResponseEntity<>(newRecipe, HttpStatus.OK);
 	}
 }

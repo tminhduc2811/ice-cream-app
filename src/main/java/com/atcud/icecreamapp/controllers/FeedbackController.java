@@ -25,32 +25,32 @@ public class FeedbackController {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Feedback>> getAllFeedback() {
 		List<Feedback> feedback = service.getAllFeedback();
-		return new ResponseEntity<List<Feedback>>(feedback, HttpStatus.OK);
+		return new ResponseEntity<>(feedback, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
 	public ResponseEntity<Feedback> createFAQ(@RequestBody Feedback feedback) {
 		feedback = service.save(feedback);
-		return new ResponseEntity<Feedback>(feedback, HttpStatus.CREATED);
+		return new ResponseEntity<>(feedback, HttpStatus.CREATED);
 	}	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
 	public ResponseEntity<Feedback> deleteFeedback(@PathVariable Long id){
 		Optional<Feedback> feedback = service.getFeedbackById(id);
 		if (!feedback.isPresent()) {
-			return new ResponseEntity<Feedback>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		service.delete(feedback.get());
-		return new ResponseEntity<Feedback>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
 	public ResponseEntity<Feedback> update(@RequestBody Feedback newFeedback, @PathVariable Long id) {
 		Optional<Feedback> feedback = service.getFeedbackById(id);
 		if (!feedback.isPresent()) {
-			return new ResponseEntity<Feedback>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		service.update(newFeedback);
-		return new ResponseEntity<Feedback>(newFeedback, HttpStatus.OK);
+		return new ResponseEntity<>(newFeedback, HttpStatus.OK);
 	}
 }
