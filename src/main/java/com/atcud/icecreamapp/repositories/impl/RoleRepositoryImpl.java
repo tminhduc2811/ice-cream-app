@@ -15,38 +15,38 @@ import com.atcud.icecreamapp.repositories.RoleRepository;
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
 
-	@PersistenceContext
-	EntityManager entityManager;
-	
-	@Override
-	@Transactional
-	public List<Role> findAll() {
-		return entityManager.createQuery("FROM Role", Role.class).getResultList();
-	}
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Override
-	@Transactional
-	public Optional<Role> findById(Long id) {
-		return Optional.of(entityManager.find(Role.class, id));
-	}
+    @Override
+    @Transactional
+    public List<Role> findAll() {
+        return entityManager.createQuery("FROM Role", Role.class).getResultList();
+    }
 
-	@Override
-	@Transactional
-	public Role save(Role role) {
-		entityManager.persist(role);
-		return role;
-	}
+    @Override
+    @Transactional
+    public Optional<Role> findById(Long id) {
+        return Optional.of(entityManager.find(Role.class, id));
+    }
 
-	@Override
-	@Transactional
-	public void delete(Role role) {
-		entityManager.remove(role);
-	}
+    @Override
+    @Transactional
+    public Role save(Role role) {
+        entityManager.persist(role);
+        return role;
+    }
 
-	@Override
-	@Transactional
-	public void update(Role role) {
-		entityManager.merge(role);
-	}
+    @Override
+    @Transactional
+    public void delete(Role role) {
+        entityManager.remove(role);
+    }
+
+    @Override
+    @Transactional
+    public void update(Role role) {
+        entityManager.merge(role);
+    }
 
 }

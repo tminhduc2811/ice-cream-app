@@ -3,165 +3,165 @@ package com.atcud.icecreamapp.DTO;
 import java.sql.Date;
 
 public class CustomerDTO {
-	
-	private Long id;
-	
-	private String userName;
-	
-	private String password;
-	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String address;
-	
-	private String phoneNumber;
-	
-	private String email;
-	
-	private Short gender;
-	
-	private Date birthday;
-	
-	private String avatar;
-	
-	private Date expiredDate;
-	
-	private Short status;
 
-	private Short numOfLoginFailed;
+    private Long id;
 
-	public CustomerDTO(Long id, String userName, String password, String firstName, String lastName, String address,
-			String phoneNumber, String email, Short gender, Date birthday, String avatar, Date expiredDate,
-			Short status, Short numOfLoginFailed) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.gender = gender;
-		this.birthday = birthday;
-		this.avatar = avatar;
-		this.expiredDate = expiredDate;
-		this.status = status;
-		this.numOfLoginFailed = numOfLoginFailed;
-	}
+    private String userName;
 
-	public Long getId() {
-		return id;
-	}
+    private String password;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String firstName;
 
-	public String getUserName() {
-		return userName;
-	}
+    private String lastName;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    private String address;
 
-	public String getPassword() {
-		return password;
-	}
+    private String phoneNumber;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private String email;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    private Short gender;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    private Date birthday;
 
-	public String getLastName() {
-		return lastName;
-	}
+    private String avatar;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    private Date expiredDate;
 
-	public String getAddress() {
-		return address;
-	}
+    private Short status;
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    private Short numOfLoginFailed;
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public CustomerDTO(Long id, String userName, String password, String firstName, String lastName, String address,
+                       String phoneNumber, String email, Short gender, Date birthday, String avatar, Date expiredDate,
+                       Short status, Short numOfLoginFailed) {
+        super();
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.avatar = avatar;
+        this.expiredDate = expiredDate;
+        this.status = status;
+        this.numOfLoginFailed = numOfLoginFailed;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public Short getGender() {
-		return gender;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setGender(Short gender) {
-		this.gender = gender;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Date getBirthday() {
-		return birthday;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getAvatar() {
-		return avatar;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Date getExpiredDate() {
-		return expiredDate;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setExpiredDate(Date expiredDate) {
-		this.expiredDate = expiredDate;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public Short getStatus() {
-		return status;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setStatus(Short status) {
-		this.status = status;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public Short getNumOfLoginFailed() {
-		return numOfLoginFailed;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public void setNumOfLoginFailed(Short numOfLoginFailed) {
-		this.numOfLoginFailed = numOfLoginFailed;
-	}
-	
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Short getGender() {
+        return gender;
+    }
+
+    public void setGender(Short gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
+    }
+
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
+    }
+
+    public Short getNumOfLoginFailed() {
+        return numOfLoginFailed;
+    }
+
+    public void setNumOfLoginFailed(Short numOfLoginFailed) {
+        this.numOfLoginFailed = numOfLoginFailed;
+    }
+
 }

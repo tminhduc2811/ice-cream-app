@@ -15,37 +15,37 @@ import com.atcud.icecreamapp.repositories.RecipeRepository;
 @Repository
 public class RecipeRepositoryImpl implements RecipeRepository {
 
-	@PersistenceContext
-	EntityManager entityManager;
-	
-	@Override
-	@Transactional
-	public List<Recipe> findAll() {
-		return entityManager.createQuery("FROM Recipe", Recipe.class).getResultList();
-	}
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Override
-	@Transactional
-	public Optional<Recipe> findById(Long id) {
-		return Optional.of(entityManager.find(Recipe.class, id));
-	}
+    @Override
+    @Transactional
+    public List<Recipe> findAll() {
+        return entityManager.createQuery("FROM Recipe", Recipe.class).getResultList();
+    }
 
-	@Override
-	@Transactional
-	public Recipe save(Recipe recipe) {
-		entityManager.persist(recipe);
-		return recipe;
-	}
+    @Override
+    @Transactional
+    public Optional<Recipe> findById(Long id) {
+        return Optional.of(entityManager.find(Recipe.class, id));
+    }
 
-	@Override
-	@Transactional
-	public void delete(Recipe recipe) {
-		entityManager.remove(recipe);
-	}
+    @Override
+    @Transactional
+    public Recipe save(Recipe recipe) {
+        entityManager.persist(recipe);
+        return recipe;
+    }
 
-	@Override
-	public void update(Recipe recipe) {
-		entityManager.merge(recipe);
-	}
+    @Override
+    @Transactional
+    public void delete(Recipe recipe) {
+        entityManager.remove(recipe);
+    }
+
+    @Override
+    public void update(Recipe recipe) {
+        entityManager.merge(recipe);
+    }
 
 }

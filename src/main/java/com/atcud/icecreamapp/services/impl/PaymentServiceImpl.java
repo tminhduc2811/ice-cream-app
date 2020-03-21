@@ -13,32 +13,32 @@ import com.atcud.icecreamapp.services.PaymentService;
 @Component
 public class PaymentServiceImpl implements PaymentService {
 
-	@Autowired
-	PaymentRepository paymentRepository;
-	
-	@Override
-	public List<Payment> getAllPayment() {
-		return paymentRepository.findAll();
-	}
+    @Autowired
+    PaymentRepository paymentRepository;
 
-	@Override
-	public Optional<Payment> getPaymentById(Long id) {
-		return paymentRepository.findById(id);
-	}
+    @Override
+    public List<Payment> getAllPayment() {
+        return paymentRepository.findAll();
+    }
 
-	@Override
-	public Payment save(Payment payment) {
-		return paymentRepository.save(payment);
-	}
+    @Override
+    public Optional<Payment> getPaymentById(Long id) {
+        return paymentRepository.findById(id);
+    }
 
-	@Override
-	public void delete(Payment payment) {
-		paymentRepository.delete(payment);
-	}
+    @Override
+    public Payment save(Payment payment) {
+        return paymentRepository.save(payment);
+    }
 
-	@Override
-	public void update(Payment payment) {
-		paymentRepository.update(payment);
-	}
+    @Override
+    public void delete(Payment payment) {
+        paymentRepository.delete(payment);
+    }
+
+    @Override
+    public void update(Payment payment) {
+        paymentRepository.update(payment);
+    }
 
 }

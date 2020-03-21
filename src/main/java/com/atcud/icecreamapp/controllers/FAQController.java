@@ -1,11 +1,14 @@
 package com.atcud.icecreamapp.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +32,8 @@ public class FAQController {
 		if (FAQList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
+		System.out.println("principle: " + SecurityContextHolder.getContext().getAuthentication());
+		System.out.println("roles: "+ Arrays.toString(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()));
 		return new ResponseEntity<>(FAQList, HttpStatus.OK);
 	}
 	

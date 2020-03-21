@@ -17,83 +17,83 @@ import javax.persistence.Table;
 @Table(name = "feedback")
 public class Feedback {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "feedback_id")
-	private Long id;
-	
-	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name="customer_id")
-	private Customer customer;
-	
-	// A feedback belongs only to one order, so the relation is one to one
-	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name = "order_id")
-	private Order order;
-	
-	@Column(name = "details")
-	private String details;
-	
-	@Column(name = "created_date")
-	private Timestamp createdDate;
-	
-	public Feedback() {
-		
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "feedback_id")
+    private Long id;
 
-	public Feedback(Long id, Long customerId, Long orderId, String details, Timestamp createdDate) {
-		super();
-		this.id = id;
-		this.details = details;
-		this.createdDate = createdDate;
-	}
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-	public Long getId() {
-		return id;
-	}
+    // A feedback belongs only to one order, so the relation is one to one
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Column(name = "details")
+    private String details;
 
-	public String getDetails() {
-		return details;
-	}
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
+    public Feedback() {
 
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
+    }
 
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
-	}
+    public Feedback(Long id, Long customerId, Long orderId, String details, Timestamp createdDate) {
+        super();
+        this.id = id;
+        this.details = details;
+        this.createdDate = createdDate;
+    }
 
-	public Customer getCustomer() {
-		return customer;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Order getOrder() {
-		return order;
-	}
+    public String getDetails() {
+        return details;
+    }
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
-	@Override
-	public String toString() {
-		return "Feedback [id=" + id + ", details=" + details
-				+ ", createdDate=" + createdDate + "]";
-	}
-	
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "Feedback [id=" + id + ", details=" + details
+                + ", createdDate=" + createdDate + "]";
+    }
+
 }

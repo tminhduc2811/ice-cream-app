@@ -13,32 +13,32 @@ import com.atcud.icecreamapp.services.OrderDetailService;
 @Component
 public class OrderDetailServiceImpl implements OrderDetailService {
 
-	@Autowired
-	OrderDetailRepository orderDetailRepository;
-	
-	@Override
-	public List<OrderDetail> getAllOrderDetails() {
-		return orderDetailRepository.findAll();
-	}
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
 
-	@Override
-	public Optional<OrderDetail> getOrderDetailById(Long id) {
-		return orderDetailRepository.findById(id);
-	}
+    @Override
+    public List<OrderDetail> getAllOrderDetails() {
+        return orderDetailRepository.findAll();
+    }
 
-	@Override
-	public OrderDetail save(OrderDetail orderDetail) {
-		return orderDetailRepository.save(orderDetail);
-	}
+    @Override
+    public Optional<OrderDetail> getOrderDetailById(Long id) {
+        return orderDetailRepository.findById(id);
+    }
 
-	@Override
-	public void delete(OrderDetail orderDetail) {
-		orderDetailRepository.delete(orderDetail);
-	}
+    @Override
+    public OrderDetail save(OrderDetail orderDetail) {
+        return orderDetailRepository.save(orderDetail);
+    }
 
-	@Override
-	public void update(OrderDetail orderDetail) {
-		orderDetailRepository.update(orderDetail);
-	}
+    @Override
+    public void delete(OrderDetail orderDetail) {
+        orderDetailRepository.delete(orderDetail);
+    }
+
+    @Override
+    public void update(OrderDetail orderDetail) {
+        orderDetailRepository.update(orderDetail);
+    }
 
 }

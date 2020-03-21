@@ -15,37 +15,37 @@ import com.atcud.icecreamapp.repositories.CustomerRepository;
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-	
-	@Override
-	@Transactional
-	public List<Customer> findAll() {
-		return entityManager.createQuery("FROM Customer", Customer.class).getResultList();
-	}
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Override
-	@Transactional
-	public Optional<Customer> findById(Long id) {
-		return Optional.of(entityManager.find(Customer.class, id));
-	}
+    @Override
+    @Transactional
+    public List<Customer> findAll() {
+        return entityManager.createQuery("FROM Customer", Customer.class).getResultList();
+    }
 
-	@Override
-	@Transactional
-	public Customer save(Customer customer) {
-		entityManager.persist(customer);
-		return customer;
-	}
+    @Override
+    @Transactional
+    public Optional<Customer> findById(Long id) {
+        return Optional.of(entityManager.find(Customer.class, id));
+    }
 
-	@Override
-	@Transactional
-	public void delete(Customer customer) {
-		entityManager.remove(customer);
-	}
+    @Override
+    @Transactional
+    public Customer save(Customer customer) {
+        entityManager.persist(customer);
+        return customer;
+    }
 
-	@Override
-	@Transactional
-	public void update(Customer customer) {
-		entityManager.merge(customer);
-	}
+    @Override
+    @Transactional
+    public void delete(Customer customer) {
+        entityManager.remove(customer);
+    }
+
+    @Override
+    @Transactional
+    public void update(Customer customer) {
+        entityManager.merge(customer);
+    }
 }

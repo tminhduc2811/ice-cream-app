@@ -14,38 +14,38 @@ import com.atcud.icecreamapp.services.IcecreamService;
 @Component
 public class IcecreamServiceImpl implements IcecreamService {
 
-	@Autowired
-	IcecreamRepository icecreamRepository;
-	
-	@Override
-	public List<Icecream> getAllIcecreams() {
-		return icecreamRepository.findAll();
-	}
+    @Autowired
+    IcecreamRepository icecreamRepository;
 
-	@Override
-	public Optional<Icecream> getIcecreamById(Long id) {
-		return icecreamRepository.findById(id);
-	}
+    @Override
+    public List<Icecream> getAllIcecreams() {
+        return icecreamRepository.findAll();
+    }
 
-	@Override
-	public Icecream save(Icecream icecream) {
-		return icecreamRepository.save(icecream);
-	}
+    @Override
+    public Optional<Icecream> getIcecreamById(Long id) {
+        return icecreamRepository.findById(id);
+    }
 
-	@Override
-	public void delete(Icecream icecream) {
-		icecreamRepository.delete(icecream);
-	}
+    @Override
+    public Icecream save(Icecream icecream) {
+        return icecreamRepository.save(icecream);
+    }
 
-	@Override
-	public void update(Icecream icecream) {
-		icecreamRepository.update(icecream);
-	}
+    @Override
+    public void delete(Icecream icecream) {
+        icecreamRepository.delete(icecream);
+    }
 
-	@Override
-	public List<Recipe> getAllRecipeByIcecreamId(Long id) {
-		Icecream icecream = icecreamRepository.findById(id).get();
-		return icecream.getRecipes();
-	}
+    @Override
+    public void update(Icecream icecream) {
+        icecreamRepository.update(icecream);
+    }
+
+    @Override
+    public List<Recipe> getAllRecipeByIcecreamId(Long id) {
+        Icecream icecream = icecreamRepository.findById(id).get();
+        return icecream.getRecipes();
+    }
 
 }

@@ -19,38 +19,38 @@ import com.atcud.icecreamapp.services.OrderService;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
-	@Autowired
-	private OrderService service;
-	
-	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<OrderDTO>> getAllOrder() {
-		List<OrderDTO> orders = service.getAllOrders();
-		return new ResponseEntity<>(orders, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="", method=RequestMethod.POST, produces="application/json" )
-	public ResponseEntity<Order> createFAQ(@RequestBody Order order) {
-		order = service.save(order);
-		return new ResponseEntity<>(order, HttpStatus.CREATED);
-	}	
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
-	public ResponseEntity<Order> deleteOrder(@PathVariable Long id){
-		Optional<Order> feedback = service.getOptionalOrderById(id);
-		if (!feedback.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		service.delete(feedback.get());
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces="application/json" )
-	public ResponseEntity<Order> update(@RequestBody Order newOrder, @PathVariable Long id) {
-		Optional<Order> order = service.getOptionalOrderById(id);
-		if (!order.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		service.update(newOrder);
-		return new ResponseEntity<>(newOrder, HttpStatus.OK);
-	}
+    @Autowired
+    private OrderService service;
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<List<OrderDTO>> getAllOrder() {
+        List<OrderDTO> orders = service.getAllOrders();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<Order> createFAQ(@RequestBody Order order) {
+        order = service.save(order);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<Order> deleteOrder(@PathVariable Long id) {
+        Optional<Order> feedback = service.getOptionalOrderById(id);
+        if (!feedback.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        service.delete(feedback.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<Order> update(@RequestBody Order newOrder, @PathVariable Long id) {
+        Optional<Order> order = service.getOptionalOrderById(id);
+        if (!order.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        service.update(newOrder);
+        return new ResponseEntity<>(newOrder, HttpStatus.OK);
+    }
 }

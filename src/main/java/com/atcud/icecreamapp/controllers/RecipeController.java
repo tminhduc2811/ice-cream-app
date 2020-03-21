@@ -35,7 +35,7 @@ public class RecipeController {
 		return new ResponseEntity<>(service.save(recipe), HttpStatus.CREATED);
 	}	
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	public ResponseEntity<Recipe> deleteRecipe(@PathVariable Long id){
 		Optional<Recipe> recipe = service.getRecipeById(id);
 		if (!recipe.isPresent()) {

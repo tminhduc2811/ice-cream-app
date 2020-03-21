@@ -6,21 +6,21 @@ import java.util.Optional;
 import com.atcud.icecreamapp.entities.User;
 
 public interface UserService {
-	
-	public List<User> getAllUsers();
-	
-	public Optional<User> getUserById(Long id);
 
-	public User findUserByUsername(String username);
+    public List<User> getAllUsers();
 
-	public User registerUser(User user);
+    public Optional<User> getUserById(Long id);
 
-	public String login(String username, String password);
+    public User findUserByUsername(String username);
 
-	public User save(User user);
-	
-	public void delete(User user);
-	
-	public void update(User user);
+    public User registerUser(User user);
+
+    public String login(String username, String password);
+
+    public User save(User user);
+
+    public void delete(User user);
+
+    public void update(User user);
 
 }

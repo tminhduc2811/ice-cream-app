@@ -20,55 +20,55 @@ import com.atcud.icecreamapp.repositories.UserRepository;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-	@PersistenceContext
-	EntityManager entityManager;
-	
-	@Override
-	@Transactional
-	public List<User> findAll() {
-		return entityManager.createQuery("FROM User", User.class).getResultList();
-	}
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Override
-	@Transactional
-	public Optional<User> findById(Long id) {
-		return Optional.of(entityManager.find(User.class, id));
-	}
+    @Override
+    @Transactional
+    public List<User> findAll() {
+        return entityManager.createQuery("FROM User", User.class).getResultList();
+    }
 
-	@Override
-	public boolean isExist(String userName) {
-		return false;
-	}
+    @Override
+    @Transactional
+    public Optional<User> findById(Long id) {
+        return Optional.of(entityManager.find(User.class, id));
+    }
 
-	@Override
-	@Transactional
-	public User findUserByUsername(String userName) {
+    @Override
+    public boolean isExist(String userName) {
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public User findUserByUsername(String userName) {
 //		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 //		CriteriaQuery<User> query = builder.createQuery(User.class);
 //		Root<User> root = query.from(User.class);
 //		query.select(root).where(builder.equal(root.get("userName"), userName));
 //
-		User user = entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult();
-		return user;
-	}
+        User user = entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult();
+        return user;
+    }
 
-	@Override
-	@Transactional
-	public User save(User user) {
-		entityManager.persist(user);
-		return user;
-	}
+    @Override
+    @Transactional
+    public User save(User user) {
+        entityManager.persist(user);
+        return user;
+    }
 
-	@Override
-	@Transactional
-	public void delete(User user) {
-		entityManager.remove(user);
-	}
+    @Override
+    @Transactional
+    public void delete(User user) {
+        entityManager.remove(user);
+    }
 
-	@Override
-	@Transactional
-	public void update(User user) {
-		entityManager.merge(user);
-	}
+    @Override
+    @Transactional
+    public void update(User user) {
+        entityManager.merge(user);
+    }
 
 }

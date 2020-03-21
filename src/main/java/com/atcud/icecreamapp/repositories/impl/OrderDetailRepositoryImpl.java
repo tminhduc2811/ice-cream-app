@@ -13,34 +13,34 @@ import com.atcud.icecreamapp.repositories.OrderDetailRepository;
 
 @Repository
 public class OrderDetailRepositoryImpl implements OrderDetailRepository {
-	
-	@PersistenceContext
-	EntityManager entityManager;
 
-	@Override
-	public List<OrderDetail> findAll() {
-		return entityManager.createQuery("FROM OrderDetail", OrderDetail.class).getResultList();
-	}
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Override
-	public Optional<OrderDetail> findById(Long id) {
-		return Optional.of(entityManager.find(OrderDetail.class, id));
-	}
+    @Override
+    public List<OrderDetail> findAll() {
+        return entityManager.createQuery("FROM OrderDetail", OrderDetail.class).getResultList();
+    }
 
-	@Override
-	public OrderDetail save(OrderDetail orderDetail) {
-		entityManager.persist(orderDetail);
-		return orderDetail;
-	}
+    @Override
+    public Optional<OrderDetail> findById(Long id) {
+        return Optional.of(entityManager.find(OrderDetail.class, id));
+    }
 
-	@Override
-	public void delete(OrderDetail orderDetail) {
-		entityManager.remove(orderDetail);
-	}
+    @Override
+    public OrderDetail save(OrderDetail orderDetail) {
+        entityManager.persist(orderDetail);
+        return orderDetail;
+    }
 
-	@Override
-	public void update(OrderDetail orderDetail) {
-		entityManager.merge(orderDetail);
-	}
+    @Override
+    public void delete(OrderDetail orderDetail) {
+        entityManager.remove(orderDetail);
+    }
+
+    @Override
+    public void update(OrderDetail orderDetail) {
+        entityManager.merge(orderDetail);
+    }
 
 }

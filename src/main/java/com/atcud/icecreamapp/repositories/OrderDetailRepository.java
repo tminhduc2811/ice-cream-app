@@ -6,15 +6,15 @@ import java.util.Optional;
 import com.atcud.icecreamapp.entities.OrderDetail;
 
 public interface OrderDetailRepository {
-	
-	public List<OrderDetail> findAll();
-	
-	public Optional<OrderDetail> findById(Long id);
-	
-	public OrderDetail save(OrderDetail orderDetail);
-	
-	public void delete(OrderDetail orderDetail);
-	
-	public void update(OrderDetail orderDetail);
-	
+
+    public List<OrderDetail> findAll();
+
+    public Optional<OrderDetail> findById(Long id);
+
+    public OrderDetail save(OrderDetail orderDetail);
+
+    public void delete(OrderDetail orderDetail);
+
+    public void update(OrderDetail orderDetail);
+
 }

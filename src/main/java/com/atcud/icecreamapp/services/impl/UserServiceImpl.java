@@ -58,16 +58,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(String username, String password) {
         try {
-            System.out.println(password);
+
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
+            // Inject current user into security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            String token = jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-            System.out.println(token);
-            return token;
+            return jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
         } catch (AuthenticationException ex) {
-            throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new CustomException("Invalid username or password", HttpStatus.BAD_REQUEST);
         }
     }
 

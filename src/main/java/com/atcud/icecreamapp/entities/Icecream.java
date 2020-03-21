@@ -16,68 +16,68 @@ import javax.persistence.Table;
 @Table(name = "icecream")
 public class Icecream {
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "name")
-	private String name;
-	
-	@Column(name = "description")
-	private String description;
-	
-	@OneToMany(fetch=FetchType.LAZY,
-			   mappedBy="icecream",
-			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-						 CascadeType.DETACH, CascadeType.REFRESH})
-	private List<Recipe> recipes;
-	
-	public Icecream() {
-		
-	}
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Icecream(Long id, String name, String description) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-	}
+    @Column(name = "name")
+    private String name;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "description")
+    private String description;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "icecream",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Recipe> recipes;
 
-	public String getName() {
-		return name;
-	}
+    public Icecream() {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public Icecream(Long id, String name, String description) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public List<Recipe> getRecipes() {
-		return recipes;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setRecipes(List<Recipe> recipes) {
-		this.recipes = recipes;
-	}
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public String toString() {
-		return "Icecream [id=" + id + ", name=" + name + ", description=" + description + "]";
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    @Override
+    public String toString() {
+        return "Icecream [id=" + id + ", name=" + name + ", description=" + description + "]";
+    }
 }

@@ -13,34 +13,34 @@ import com.atcud.icecreamapp.repositories.IcecreamRepository;
 
 @Repository
 public class IcecreamRepositoryImpl implements IcecreamRepository {
-	
-	@PersistenceContext
-	EntityManager entityManager;
-	
-	@Override
-	public List<Icecream> findAll() {
-		return entityManager.createQuery("FROM Icecream", Icecream.class).getResultList();
-	}
 
-	@Override
-	public Optional<Icecream> findById(Long id) {
-		return Optional.of(entityManager.find(Icecream.class, id));
-	}
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Override
-	public Icecream save(Icecream icecream) {
-		entityManager.persist(icecream);
-		return icecream;
-	}
+    @Override
+    public List<Icecream> findAll() {
+        return entityManager.createQuery("FROM Icecream", Icecream.class).getResultList();
+    }
 
-	@Override
-	public void delete(Icecream icecream) {
-		entityManager.remove(icecream);
-	}
+    @Override
+    public Optional<Icecream> findById(Long id) {
+        return Optional.of(entityManager.find(Icecream.class, id));
+    }
 
-	@Override
-	public void update(Icecream icecream) {
-		entityManager.merge(icecream);
-	}
+    @Override
+    public Icecream save(Icecream icecream) {
+        entityManager.persist(icecream);
+        return icecream;
+    }
+
+    @Override
+    public void delete(Icecream icecream) {
+        entityManager.remove(icecream);
+    }
+
+    @Override
+    public void update(Icecream icecream) {
+        entityManager.merge(icecream);
+    }
 
 }

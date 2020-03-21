@@ -39,14 +39,14 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<User> getUser(@PathVariable String id) {
         User user = service.findUserByUsername(id);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
         String token = service.login(userLogin.getUserName(), userLogin.getPassword());
 
-        return new ResponseEntity<LoginResponseDTO>(new LoginResponseDTO(userLogin.getUserName(), token), HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUserName(), token), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")

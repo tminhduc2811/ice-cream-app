@@ -139,6 +139,7 @@ public class User {
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
+
     @JsonIgnore
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

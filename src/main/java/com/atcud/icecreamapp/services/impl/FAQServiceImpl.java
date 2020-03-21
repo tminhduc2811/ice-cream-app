@@ -13,32 +13,32 @@ import com.atcud.icecreamapp.services.FAQService;
 @Component
 public class FAQServiceImpl implements FAQService {
 
-	@Autowired
-	private FAQRepository faqRepository;
-	
-	@Override
-	public List<FAQ> getAllFAQ() {
-		return faqRepository.findAll();
-	}
+    @Autowired
+    private FAQRepository faqRepository;
 
-	@Override
-	public Optional<FAQ> getFAQById(Long id) {
-		return faqRepository.findById(id);
-	}
+    @Override
+    public List<FAQ> getAllFAQ() {
+        return faqRepository.findAll();
+    }
 
-	@Override
-	public FAQ save(FAQ faq) {
-		return faqRepository.save(faq);
-	}
+    @Override
+    public Optional<FAQ> getFAQById(Long id) {
+        return faqRepository.findById(id);
+    }
 
-	@Override
-	public void delete(FAQ faq) {
-		faqRepository.delete(faq);
-	}
+    @Override
+    public FAQ save(FAQ faq) {
+        return faqRepository.save(faq);
+    }
 
-	@Override
-	public void update(FAQ faq) {
-		faqRepository.update(faq);
-	}
+    @Override
+    public void delete(FAQ faq) {
+        faqRepository.delete(faq);
+    }
+
+    @Override
+    public void update(FAQ faq) {
+        faqRepository.update(faq);
+    }
 
 }

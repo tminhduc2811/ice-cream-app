@@ -13,32 +13,32 @@ import com.atcud.icecreamapp.services.RoleService;
 @Component
 public class RoleServiceImpl implements RoleService {
 
-	@Autowired
-	RoleRepository roleRepository;
-	
-	@Override
-	public List<Role> getAllRoles() {
-		return roleRepository.findAll();
-	}
+    @Autowired
+    RoleRepository roleRepository;
 
-	@Override
-	public Optional<Role> getRoleById(Long id) {
-		return roleRepository.findById(id);
-	}
+    @Override
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
 
-	@Override
-	public Role save(Role role) {
-		return roleRepository.save(role);
-	}
+    @Override
+    public Optional<Role> getRoleById(Long id) {
+        return roleRepository.findById(id);
+    }
 
-	@Override
-	public void delete(Role role) {
-		roleRepository.delete(role);
-	}
+    @Override
+    public Role save(Role role) {
+        return roleRepository.save(role);
+    }
 
-	@Override
-	public void update(Role role) {
-		roleRepository.update(role);
-	}
+    @Override
+    public void delete(Role role) {
+        roleRepository.delete(role);
+    }
+
+    @Override
+    public void update(Role role) {
+        roleRepository.update(role);
+    }
 
 }

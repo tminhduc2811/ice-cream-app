@@ -13,31 +13,32 @@ import com.atcud.icecreamapp.services.FeedbackService;
 @Component
 public class FeedbackServiceImpl implements FeedbackService {
 
-	@Autowired
-	FeedbackRepository feedbackRepository;
-	@Override
-	public List<Feedback> getAllFeedback() {
-		return feedbackRepository.findAll();
-	}
+    @Autowired
+    FeedbackRepository feedbackRepository;
 
-	@Override
-	public Optional<Feedback> getFeedbackById(Long id) {
-		return feedbackRepository.findById(id);
-	}
+    @Override
+    public List<Feedback> getAllFeedback() {
+        return feedbackRepository.findAll();
+    }
 
-	@Override
-	public Feedback save(Feedback feedback) {
-		return feedbackRepository.save(feedback);
-	}
+    @Override
+    public Optional<Feedback> getFeedbackById(Long id) {
+        return feedbackRepository.findById(id);
+    }
 
-	@Override
-	public void delete(Feedback feedback) {
-		feedbackRepository.delete(feedback);
-	}
+    @Override
+    public Feedback save(Feedback feedback) {
+        return feedbackRepository.save(feedback);
+    }
 
-	@Override
-	public void update(Feedback feedback) {
-		feedbackRepository.update(feedback);
-	}
+    @Override
+    public void delete(Feedback feedback) {
+        feedbackRepository.delete(feedback);
+    }
+
+    @Override
+    public void update(Feedback feedback) {
+        feedbackRepository.update(feedback);
+    }
 
 }

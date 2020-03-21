@@ -1,7 +1,6 @@
 package com.atcud.icecreamapp.controllers;
 
 import com.atcud.icecreamapp.entities.Role;
-import com.atcud.icecreamapp.entities.User;
 import com.atcud.icecreamapp.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -7,14 +7,14 @@ import com.atcud.icecreamapp.entities.Feedback;
 
 public interface FeedbackService {
 
-	public List<Feedback> getAllFeedback();
-	
-	public Optional<Feedback> getFeedbackById(Long id);
-	
-	public Feedback save(Feedback feedback);
-	
-	public void delete(Feedback feedback);
-	
-	public void update(Feedback feedback);
-	
+    public List<Feedback> getAllFeedback();
+
+    public Optional<Feedback> getFeedbackById(Long id);
+
+    public Feedback save(Feedback feedback);
+
+    public void delete(Feedback feedback);
+
+    public void update(Feedback feedback);
+
 }
