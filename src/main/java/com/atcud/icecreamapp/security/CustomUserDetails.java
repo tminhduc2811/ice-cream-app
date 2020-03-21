@@ -55,6 +55,7 @@ public class CustomUserDetails implements UserDetails {
     // TODO: Change enable status later
     @Override
     public boolean isEnabled() {
-        return true;
+        // User is activated when status = 1
+        return user.getStatus() == 1;
     }
 }
