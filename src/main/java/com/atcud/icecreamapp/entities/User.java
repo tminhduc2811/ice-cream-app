@@ -149,6 +149,14 @@ public class User {
         return authorities;
     }
 
+    public void modifyRoles(List<Role> roles) {
+        if (this.roles == null) {
+            this.roles = new ArrayList<>();
+        }
+        this.roles.clear();
+        this.roles.addAll(roles);
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName

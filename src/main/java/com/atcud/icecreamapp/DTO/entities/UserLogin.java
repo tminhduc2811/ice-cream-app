@@ -1,4 +1,4 @@
-package com.atcud.icecreamapp.entities;
+package com.atcud.icecreamapp.DTO.entities;
 
 public class UserLogin {
     private String userName;

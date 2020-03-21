@@ -15,6 +15,7 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.expire-length:3600000}")
     private final long JWT_EXPIRATION = 3600000;
 
+    // Generate JWT Token base on user's information
     public String generateToken(CustomUserDetails userDetails) {
 
         Date now = new Date();

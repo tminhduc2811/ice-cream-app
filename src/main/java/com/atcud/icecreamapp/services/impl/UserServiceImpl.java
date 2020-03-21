@@ -1,9 +1,12 @@
 package com.atcud.icecreamapp.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.exceptions.CustomException;
+import com.atcud.icecreamapp.repositories.RoleRepository;
 import com.atcud.icecreamapp.security.CustomUserDetails;
 import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
@@ -48,11 +54,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
-    }
-
-    @Override
-    public User registerUser(User user) {
-        return null;
     }
 
     @Override
@@ -83,6 +84,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         userRepository.update(user);
+    }
+
+    @Override
+    public List<Role> getUserRoles(Long id) {
+
+        return userRepository.findById(id).get().getRoles();
+    }
+
+    @Override
+    public void updateUserRoles(Long id, List<Long> roleIds) {
+        Optional<User> optional = userRepository.findById(id);
+        if (!optional.isPresent()) {
+            throw new CustomException("User with Id: " + "not found", HttpStatus.NOT_FOUND);
+        }
+        User user = optional.get();
+        List<Role> roles = new ArrayList<>();
+        for (Long i : roleIds) {
+            Optional<Role> temp = roleRepository.findById(i);
+            if (!temp.isPresent()) {
+                throw new CustomException("Role not exist", HttpStatus.NOT_FOUND);
+
+            }
+            roles.add(temp.get());
+        }
+        user.modifyRoles(roles);
+        userRepository.save(user);
     }
 
 }

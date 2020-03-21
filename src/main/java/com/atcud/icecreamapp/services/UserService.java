@@ -3,6 +3,7 @@ package com.atcud.icecreamapp.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.entities.User;
 
 public interface UserService {
@@ -13,8 +14,6 @@ public interface UserService {
 
     public User findUserByUsername(String username);
 
-    public User registerUser(User user);
-
     public String login(String username, String password);
 
     public User save(User user);
@@ -23,4 +22,7 @@ public interface UserService {
 
     public void update(User user);
 
+    public List<Role> getUserRoles(Long id);
+
+    public void updateUserRoles(Long id, List<Long> roleIds);
 }

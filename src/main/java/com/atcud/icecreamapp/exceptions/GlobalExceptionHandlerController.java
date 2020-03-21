@@ -43,4 +43,5 @@ public class GlobalExceptionHandlerController {
     public void handleException(HttpServletResponse res) throws IOException {
         res.sendError(HttpStatus.BAD_REQUEST.value(), "Something went wrong");
     }
+
 }
