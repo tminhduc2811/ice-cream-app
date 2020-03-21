@@ -15,6 +15,8 @@ public interface UserService {
 
 	public User registerUser(User user);
 
+	public String login(String username, String password);
+
 	public User save(User user);
 	
 	public void delete(User user);

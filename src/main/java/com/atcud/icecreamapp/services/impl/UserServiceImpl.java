@@ -3,7 +3,17 @@ package com.atcud.icecreamapp.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.exceptions.CustomException;
+import com.atcud.icecreamapp.security.CustomUserDetails;
+import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.User;
@@ -13,42 +23,65 @@ import com.atcud.icecreamapp.services.UserService;
 @Component
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	UserRepository userRepository;
-	
-	@Override
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public Optional<User> getUserById(Long id) {
-		return userRepository.findById(id);
-	}
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
-	@Override
-	public User findUserByUsername(String username) {
-		return userRepository.findUserByUsername(username);
-	}
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Override
-	public User registerUser(User user) {
-		return null;
-	}
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Override
-	public User save(User user) {
-		return userRepository.save(user);
-	}
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-	@Override
-	public void delete(User user) {
-		userRepository.delete(user);
-	}
+    @Override
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
 
-	@Override
-	public void update(User user) {
-		userRepository.update(user);
-	}
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public User registerUser(User user) {
+        return null;
+    }
+
+    @Override
+    public String login(String username, String password) {
+        try {
+            System.out.println(password);
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            return jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+        } catch (AuthenticationException ex) {
+            throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public void update(User user) {
+        userRepository.update(user);
+    }
 
 }
