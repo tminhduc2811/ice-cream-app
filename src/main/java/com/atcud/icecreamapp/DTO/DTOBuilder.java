@@ -32,4 +32,11 @@ public class DTOBuilder {
 				customer.getStatus(), 
 				customer.getNumOfLoginFailed());
 	}
+
+	public static LoginResponseDTO loginResponseDTO(LoginResponseDTO loginResponseDTO) {
+		return new LoginResponseDTO(
+				loginResponseDTO.getUserName(),
+				loginResponseDTO.getToken()
+		);
+	}
 }

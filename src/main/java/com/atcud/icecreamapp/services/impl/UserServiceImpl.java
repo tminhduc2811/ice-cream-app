@@ -63,7 +63,9 @@ public class UserServiceImpl implements UserService {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            return jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+            String token = jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+            System.out.println(token);
+            return token;
         } catch (AuthenticationException ex) {
             throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
         }

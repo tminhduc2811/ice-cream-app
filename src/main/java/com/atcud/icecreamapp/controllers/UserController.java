@@ -1,5 +1,6 @@
 package com.atcud.icecreamapp.controllers;
 
+import com.atcud.icecreamapp.DTO.LoginResponseDTO;
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.FAQ;
 import com.atcud.icecreamapp.entities.User;
@@ -41,13 +42,15 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/login", method=RequestMethod.POST, produces="application/json" )
-    public ResponseEntity<String> login(@RequestBody UserLogin userLogin) {
-        return new ResponseEntity<String>(service.login(userLogin.getUserName(), userLogin.getPassword()), HttpStatus.OK);
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
+        String token = service.login(userLogin.getUserName(), userLogin.getPassword());
+
+        return new ResponseEntity<LoginResponseDTO>(new LoginResponseDTO(userLogin.getUserName(), token), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE, produces="application/json" )
-    public ResponseEntity<FAQ> deleteUser(@PathVariable Long id){
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<FAQ> deleteUser(@PathVariable Long id) {
         Optional<User> user = service.getUserById(id);
         if (!user.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -57,7 +60,7 @@ public class UserController {
     }
 
     // TODO: modify this controller later
-    @RequestMapping(value="/create", method=RequestMethod.POST, produces="application/json" )
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<User> createCustomer(@RequestBody User user) {
         String hashPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashPassword);
