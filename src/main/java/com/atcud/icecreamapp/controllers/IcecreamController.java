@@ -17,7 +17,7 @@ import com.atcud.icecreamapp.entities.Recipe;
 import com.atcud.icecreamapp.services.IcecreamService;
 
 @RestController
-@RequestMapping("/icecream")
+@RequestMapping("/icecreams")
 public class IcecreamController {
 
     @Autowired

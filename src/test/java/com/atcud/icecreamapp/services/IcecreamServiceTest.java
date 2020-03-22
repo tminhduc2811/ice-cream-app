@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-public class IcecreamServiceMockTest {
+public class IcecreamServiceTest {
 
     @TestConfiguration
     public static class IcecreamServiceTestConfiguration{
@@ -48,6 +48,7 @@ public class IcecreamServiceMockTest {
     @DisplayName("Testing Icecream service")
     @Test
     public void testGetAllIcecream() {
+
         Icecream icecream1 = new Icecream((long) 1, "Chocolate Icecream", "New Icecream");
         Icecream icecream2 = new Icecream((long) 2, "Vanilla Icecream", "New Icecream");
         List<Icecream> expected = new ArrayList<>(Arrays.asList(icecream1, icecream2));
