@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.atcud.icecreamapp.entities.User;
 import org.springframework.stereotype.Repository;
 
 import com.atcud.icecreamapp.entities.Icecream;
@@ -41,6 +42,15 @@ public class IcecreamRepositoryImpl implements IcecreamRepository {
     @Override
     public void update(Icecream icecream) {
         entityManager.merge(icecream);
+    }
+
+    @Override
+    public boolean isExisted(String icecreamName) {
+        try {
+            return entityManager.createQuery("SELECT c FROM Icecream c WHERE c.name = '" + icecreamName + "'", Icecream.class).getSingleResult() != null;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
 }

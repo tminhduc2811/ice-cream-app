@@ -37,19 +37,21 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean isExist(String userName) {
-        return false;
+        try {
+            return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult() != null;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     @Override
     @Transactional
     public User findUserByUsername(String userName) {
-//		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//		CriteriaQuery<User> query = builder.createQuery(User.class);
-//		Root<User> root = query.from(User.class);
-//		query.select(root).where(builder.equal(root.get("userName"), userName));
-//
-        User user = entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult();
-        return user;
+        try {
+            return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override

@@ -3,7 +3,9 @@ package com.atcud.icecreamapp.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.exceptions.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.Icecream;
@@ -28,24 +30,38 @@ public class IcecreamServiceImpl implements IcecreamService {
     }
 
     @Override
-    public Icecream save(Icecream icecream) {
+    public Icecream createIcecream(Icecream icecream) {
+        if (icecreamRepository.isExisted(icecream.getName())) {
+            throw new CustomException("Icecream already existed", HttpStatus.CONFLICT);
+        }
         return icecreamRepository.save(icecream);
     }
 
     @Override
-    public void delete(Icecream icecream) {
-        icecreamRepository.delete(icecream);
+    public void delete(Long id) {
+        Optional<Icecream> icecream = icecreamRepository.findById(id);
+        if (!icecream.isPresent()) {
+            throw new CustomException("Icecream not found", HttpStatus.NOT_FOUND);
+        }
+        icecreamRepository.delete(icecream.get());
     }
 
     @Override
     public void update(Icecream icecream) {
+        Optional<Icecream> entity = icecreamRepository.findById(icecream.getId());
+        if (!entity.isPresent()) {
+            throw new CustomException("Icecream not found", HttpStatus.NOT_FOUND);
+        }
         icecreamRepository.update(icecream);
     }
 
     @Override
     public List<Recipe> getAllRecipeByIcecreamId(Long id) {
-        Icecream icecream = icecreamRepository.findById(id).get();
-        return icecream.getRecipes();
+        Optional<Icecream> icecream = icecreamRepository.findById(id);
+        if (!icecream.isPresent()) {
+            throw new CustomException("Icecream not found", HttpStatus.NOT_FOUND);
+        }
+        return icecream.get().getRecipes();
     }
 
 }

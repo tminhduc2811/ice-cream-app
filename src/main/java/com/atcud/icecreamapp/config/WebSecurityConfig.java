@@ -1,5 +1,7 @@
-package com.atcud.icecreamapp.security;
+package com.atcud.icecreamapp.config;
 
+import com.atcud.icecreamapp.security.CustomUserService;
+import com.atcud.icecreamapp.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +18,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomUserService customUserService;
+
+    private static final String[] AUTH_WHITELIST = {
+
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -53,6 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/users").permitAll()
                 .antMatchers("/customers").hasAnyRole("ADMIN")

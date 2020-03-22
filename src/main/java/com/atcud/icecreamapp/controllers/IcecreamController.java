@@ -30,33 +30,25 @@ public class IcecreamController {
     }
 
     @RequestMapping(value = "/{id}/recipes", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Recipe>> getRecipesofIcecream(@PathVariable Long id) {
+    public ResponseEntity<List<Recipe>> getRecipesOfIcecreamById(@PathVariable Long id) {
         List<Recipe> recipes = service.getAllRecipeByIcecreamId(id);
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Icecream> createIcecream(@RequestBody Icecream iceCream) {
-        iceCream = service.save(iceCream);
+        iceCream = service.createIcecream(iceCream);
         return new ResponseEntity<>(iceCream, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public ResponseEntity<Icecream> deleteOrder(@PathVariable Long id) {
-        Optional<Icecream> iceCream = service.getIcecreamById(id);
-        if (!iceCream.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        service.delete(iceCream.get());
+    public ResponseEntity<Icecream> deleteIcecream(@PathVariable Long id) {
+        service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Icecream> update(@RequestBody Icecream newIcecream, @PathVariable Long id) {
-        Optional<Icecream> order = service.getIcecreamById(id);
-        if (!order.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Icecream> updateIcecream(@RequestBody Icecream newIcecream) {
         service.update(newIcecream);
         return new ResponseEntity<>(newIcecream, HttpStatus.OK);
     }

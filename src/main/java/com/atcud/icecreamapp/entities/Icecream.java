@@ -1,6 +1,7 @@
 package com.atcud.icecreamapp.entities;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ public class Icecream {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "description")
@@ -80,4 +81,32 @@ public class Icecream {
     public String toString() {
         return "Icecream [id=" + id + ", name=" + name + ", description=" + description + "]";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(!Icecream.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final Icecream other = (Icecream) obj;
+
+        // If both names are not equal, return false
+        if(!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+
+        // If both descriptions are not equal, return false
+        if(!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+
+        // If both Ids are not equal, return false
+        if(!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 }

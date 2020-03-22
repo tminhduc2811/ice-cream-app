@@ -17,4 +17,5 @@ public interface IcecreamRepository {
 
     public void update(Icecream icecream);
 
+    public boolean isExisted(String icecreamName);
 }

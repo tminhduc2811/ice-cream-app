@@ -14,9 +14,9 @@ public interface IcecreamService {
 
     public Optional<Icecream> getIcecreamById(Long id);
 
-    public Icecream save(Icecream icecream);
+    public Icecream createIcecream(Icecream icecream);
 
-    public void delete(Icecream icecream);
+    public void delete(Long id);
 
     public void update(Icecream icecream);
 

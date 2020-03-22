@@ -3,6 +3,7 @@ package com.atcud.icecreamapp.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.UserDTO;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.entities.User;
 
@@ -16,7 +17,7 @@ public interface UserService {
 
     public String login(String username, String password);
 
-    public User save(User user);
+    public User register(User user);
 
     public void delete(User user);
 

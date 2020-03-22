@@ -2,6 +2,7 @@ package com.atcud.icecreamapp.DTO;
 
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Order;
+import com.atcud.icecreamapp.entities.User;
 
 public class DTOBuilder {
 
@@ -33,10 +34,22 @@ public class DTOBuilder {
                 customer.getNumOfLoginFailed());
     }
 
+    // TODO: something wrong here, modify later
     public static LoginResponseDTO loginResponseDTO(LoginResponseDTO loginResponseDTO) {
         return new LoginResponseDTO(
                 loginResponseDTO.getUserName(),
                 loginResponseDTO.getToken()
+        );
+    }
+
+    public static UserDTO userToDTO(User user) {
+        return new UserDTO(
+                user.getId(),
+                user.getUserName(),
+                "",
+                user.getFullName(),
+                user.getStatus(),
+                user.getAvatar()
         );
     }
 }

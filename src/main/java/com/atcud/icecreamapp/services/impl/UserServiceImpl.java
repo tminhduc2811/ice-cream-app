@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.UserDTO;
+import com.atcud.icecreamapp.DTO.entities.UserLogin;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.exceptions.CustomException;
 import com.atcud.icecreamapp.repositories.RoleRepository;
@@ -67,29 +69,43 @@ public class UserServiceImpl implements UserService {
 
             return jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
         } catch (AuthenticationException ex) {
-            throw new CustomException("Invalid username or password", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
     @Override
-    public User save(User user) {
+    public User register(User user) {
+        if (userRepository.isExist(user.getUserName())) {
+            throw new CustomException("User already existed", HttpStatus.CONFLICT);
+        }
+        String hashPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
         return userRepository.save(user);
     }
 
     @Override
     public void delete(User user) {
+        if (!userRepository.isExist(user.getUserName())) {
+            throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
+        }
         userRepository.delete(user);
     }
 
     @Override
     public void update(User user) {
+        if (!userRepository.isExist(user.getUserName())) {
+            throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
+        }
         userRepository.update(user);
     }
 
     @Override
     public List<Role> getUserRoles(Long id) {
-
-        return userRepository.findById(id).get().getRoles();
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
+        }
+        return user.get().getRoles();
     }
 
     @Override
