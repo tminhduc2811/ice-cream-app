@@ -71,12 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationManagerBuilder.authenticationProvider(userAuthenticationProvider).userDetailsService(customUserService).passwordEncoder(passwordEncoder());
 
     }
-//
-//    @Override
-//    protected void configureCustomerAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 
-//    }
-
+    // TODO: Change HTTP Security later, this is just a temporary configuration for Authentication/Authorization
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
