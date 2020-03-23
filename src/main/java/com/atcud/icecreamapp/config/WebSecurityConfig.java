@@ -90,6 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users").permitAll()
                 .antMatchers("/customers/**").permitAll()
                 .antMatchers("/users/**").permitAll()
+                .antMatchers("/faq").hasAnyRole("ADMIN", "CUSTOMER")
                 .antMatchers(HttpMethod.POST, "/users/create").permitAll()
                 .anyRequest().authenticated()
                 .and()

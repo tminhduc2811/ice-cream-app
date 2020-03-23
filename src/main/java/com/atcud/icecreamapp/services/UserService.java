@@ -19,7 +19,7 @@ public interface UserService {
 
     public User register(User user);
 
-    public void delete(User user);
+    public void delete(Long id);
 
     public void update(User user);
 

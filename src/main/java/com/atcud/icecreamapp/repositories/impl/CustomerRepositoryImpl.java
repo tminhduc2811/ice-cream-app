@@ -58,4 +58,13 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void update(Customer customer) {
         entityManager.merge(customer);
     }
+
+    @Override
+    public boolean isExisted(String username) {
+        try {
+            return entityManager.createQuery("SELECT c FROM Customer c WHERE c.userName = '" + username + "'", Customer.class).getSingleResult() != null;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }

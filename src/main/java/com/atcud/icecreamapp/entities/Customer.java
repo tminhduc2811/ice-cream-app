@@ -191,14 +191,6 @@ public class Customer {
         this.expiredDate = expiredDate;
     }
 
-    public Short getEnableStatus() {
-        return status;
-    }
-
-    public void setEnableStatus(Short enableStatus) {
-        this.status = enableStatus;
-    }
-
     public String getFirstName() {
         return firstName;
     }

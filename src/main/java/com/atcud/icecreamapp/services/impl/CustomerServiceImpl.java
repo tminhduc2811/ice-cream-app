@@ -71,17 +71,31 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer save(Customer customer) {
+    public Customer register(Customer customer) {
+
+        if (customerRepository.isExisted(customer.getUserName())) {
+            throw new CustomException("Customer already existed", HttpStatus.CONFLICT);
+        }
+
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return customerRepository.save(customer);
     }
 
     @Override
-    public void delete(Customer customer) {
-        customerRepository.delete(customer);
+    public void delete(Long id) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        if (!optionalCustomer.isPresent()) {
+            throw new CustomException("Customer not found", HttpStatus.NOT_FOUND);
+        }
+        customerRepository.delete(optionalCustomer.get());
     }
 
     @Override
     public void update(Customer customer) {
+        if (!customerRepository.isExisted(customer.getUserName())) {
+            throw new CustomException("Customer not existed", HttpStatus.NOT_FOUND);
+        }
         customerRepository.update(customer);
     }
+
 }

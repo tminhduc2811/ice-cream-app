@@ -19,4 +19,5 @@ public interface CustomerRepository {
 
     public void update(Customer customer);
 
+    public boolean isExisted(String username);
 }

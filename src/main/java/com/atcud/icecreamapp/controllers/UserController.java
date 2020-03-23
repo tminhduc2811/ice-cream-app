@@ -25,9 +25,6 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @ApiOperation(value = "Get information of all users")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Getting users successfully"),
@@ -82,11 +79,7 @@ public class UserController {
     })
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<FAQ> deleteUser(@PathVariable Long id) {
-        Optional<User> user = service.getUserById(id);
-        if (!user.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        service.delete(user.get());
+        service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

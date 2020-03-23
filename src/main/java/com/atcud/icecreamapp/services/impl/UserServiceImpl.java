@@ -81,23 +81,30 @@ public class UserServiceImpl implements UserService {
         if (userRepository.isExist(user.getUserName())) {
             throw new CustomException("User already existed", HttpStatus.CONFLICT);
         }
-        String hashPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hashPassword);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public void delete(User user) {
-        if (!userRepository.isExist(user.getUserName())) {
-            throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
+    public void delete(Long id) {
+        Optional<User> optional = userRepository.findById(id);
+        if (!optional.isPresent()) {
+            throw new CustomException("User not found", HttpStatus.NOT_FOUND);
         }
-        userRepository.delete(user);
+        userRepository.delete(optional.get());
     }
 
     @Override
     public void update(User user) {
-        if (!userRepository.isExist(user.getUserName())) {
+        Optional<User> currentUser = userRepository.findById(user.getId());
+        if (!currentUser.isPresent()) {
             throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
+        }
+        if(user.getPassword().equals("")) {
+            user.setPassword(currentUser.get().getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userRepository.update(user);
     }

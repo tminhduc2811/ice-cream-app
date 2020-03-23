@@ -14,9 +14,9 @@ public interface CustomerService {
 
     public String login(String username, String password);
 
-    public Customer save(Customer customer);
+    public Customer register(Customer customer);
 
-    public void delete(Customer customer);
+    public void delete(Long id);
 
     public void update(Customer customer);
 

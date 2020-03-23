@@ -5,11 +5,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -36,9 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean isExist(String userName) {
+    public boolean isExist(String username) {
         try {
-            return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult() != null;
+            return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + username + "'", User.class).getSingleResult() != null;
         } catch (Exception ex) {
             return false;
         }
@@ -46,9 +41,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public User findUserByUsername(String userName) {
+    public User findUserByUsername(String username) {
         try {
-            return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + userName + "'", User.class).getSingleResult();
+            return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + username + "'", User.class).getSingleResult();
         } catch (Exception ex) {
             return null;
         }
