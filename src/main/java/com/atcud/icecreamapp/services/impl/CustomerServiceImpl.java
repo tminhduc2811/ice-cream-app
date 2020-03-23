@@ -4,7 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.exceptions.CustomException;
+import com.atcud.icecreamapp.security.CustomerDetails;
+import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.DTO.CustomerDTO;
@@ -19,6 +29,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @Override
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> entities = customerRepository.findAll();
@@ -32,6 +51,23 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Optional<Customer> getCustomerById(Long id) {
         return customerRepository.findById(id);
+    }
+
+    @Override
+    public String login(String username, String password) {
+        try {
+            Authentication authentication =
+                    authenticationManager
+                            .authenticate(
+                                    new UsernamePasswordAuthenticationToken(
+                                            username,
+                                            password));
+            // Inject current customer into security context
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return jwtTokenProvider.generateTokenForCustomer((CustomerDetails) authentication.getPrincipal());
+        } catch (AuthenticationException ex) {
+            throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @Override

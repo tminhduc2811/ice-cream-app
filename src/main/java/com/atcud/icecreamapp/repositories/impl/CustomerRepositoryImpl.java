@@ -32,6 +32,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     @Transactional
+    public Customer findCustomerByUsername(String username) {
+        try {
+            return entityManager.createQuery("SELECT c FROM Customer c WHERE c.userName = '" + username + "'", Customer.class).getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
     public Customer save(Customer customer) {
         entityManager.persist(customer);
         return customer;

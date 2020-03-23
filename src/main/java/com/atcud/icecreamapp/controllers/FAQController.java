@@ -22,7 +22,7 @@ import com.atcud.icecreamapp.services.FAQService;
 @RequestMapping("/faq")
 public class FAQController {
 
-	//TODO: Add Exception Class to handle all exceptions
+	//TODO: remove test system out later
 	@Autowired
 	private FAQService service;
 	

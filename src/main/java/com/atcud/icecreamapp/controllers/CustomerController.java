@@ -3,6 +3,8 @@ package com.atcud.icecreamapp.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.LoginResponseDTO;
+import com.atcud.icecreamapp.DTO.entities.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,5 +69,12 @@ public class CustomerController {
         }
         service.update(customer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    // TODO: Refactor later
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
+        String token = service.login(userLogin.getUserName(), userLogin.getPassword());
+        return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUserName(), token), HttpStatus.OK);
     }
 }

@@ -1,11 +1,11 @@
 package com.atcud.icecreamapp.config;
 
-import com.atcud.icecreamapp.security.CustomUserService;
-import com.atcud.icecreamapp.security.JwtAuthenticationFilter;
+import com.atcud.icecreamapp.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -27,6 +27,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomUserService customUserService;
+
+    @Autowired
+    UserAuthenticationProvider userAuthenticationProvider;
+
+    @Autowired
+    CustomerAuthenticationProvider customerAuthenticationProvider;
+
+    @Autowired
+    CustomerDetailsService customerDetailsService;
 
     private static final String[] AUTH_WHITELIST = {
 
@@ -56,9 +65,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         assert authenticationManagerBuilder != null;
-        authenticationManagerBuilder.userDetailsService(customUserService)
-                .passwordEncoder(passwordEncoder());
+
+        authenticationManagerBuilder.authenticationProvider(customerAuthenticationProvider).userDetailsService(customerDetailsService).passwordEncoder(passwordEncoder());
+
+        authenticationManagerBuilder.authenticationProvider(userAuthenticationProvider).userDetailsService(customUserService).passwordEncoder(passwordEncoder());
+
     }
+//
+//    @Override
+//    protected void configureCustomerAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+
+//    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -71,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/users").permitAll()
-                .antMatchers("/customers").hasAnyRole("ADMIN")
+                .antMatchers("/customers/**").permitAll()
                 .antMatchers("/users/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/create").permitAll()
                 .anyRequest().authenticated()

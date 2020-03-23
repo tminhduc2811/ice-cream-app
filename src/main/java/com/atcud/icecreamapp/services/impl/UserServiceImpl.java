@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.atcud.icecreamapp.DTO.UserDTO;
-import com.atcud.icecreamapp.DTO.entities.UserLogin;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.exceptions.CustomException;
 import com.atcud.icecreamapp.repositories.RoleRepository;
@@ -62,12 +60,17 @@ public class UserServiceImpl implements UserService {
     public String login(String username, String password) {
         try {
 
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            Authentication authentication =
+                    authenticationManager
+                            .authenticate(
+                                    new UsernamePasswordAuthenticationToken(
+                                            username,
+                                            password));
 
             // Inject current user into security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            return jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+            return jwtTokenProvider.generateTokenForUser((CustomUserDetails) authentication.getPrincipal());
         } catch (AuthenticationException ex) {
             throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
         }

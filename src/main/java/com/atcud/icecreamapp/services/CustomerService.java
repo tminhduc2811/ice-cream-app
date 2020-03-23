@@ -12,6 +12,8 @@ public interface CustomerService {
 
     public Optional<Customer> getCustomerById(Long id);
 
+    public String login(String username, String password);
+
     public Customer save(Customer customer);
 
     public void delete(Customer customer);
