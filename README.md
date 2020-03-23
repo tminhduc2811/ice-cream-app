@@ -51,3 +51,31 @@ Server Build Tools| Maven(Java)
     |-- web-ui                                  # Frontend
 
 ```
+
+### Features
+* Backend
+  * RESTful APIs
+  * Token Based Security with multiple authentication providers
+  * API documentationwith Swagger 
+  * Persisting relational database with Spring JPA, JDBC
+  * Unit-testing with JUnit and Mockito
+ 
+* Frontend
+  * Updating...
+  
+### Build & start Backend
+```bash
+# Maven Build : Navigate to the root folder where pom.xml is present 
+mvn clean install
+
+# Start: (port 8080)
+# port and other configurations for API servere is in [./src/main/resources/application.properties](/src/main/resources/application.properties) file
+
+# If you build with maven jar location will be 
+java -jar ./target/app-1.0.0.jar
+
+```
+
+
+
+
