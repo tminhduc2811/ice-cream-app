@@ -118,8 +118,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
-    <build>
         <testResources>
             <testResource>
                 <directory>src/main/webapp</directory>
