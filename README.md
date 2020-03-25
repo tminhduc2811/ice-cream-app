@@ -48,7 +48,7 @@ Server Build Tools| Maven(Java)
     |       |               |-- [services]      # Unit test for service layer
     |       |-- resources
     |           |-- application-test.yml
-    |-- web-ui                                  # Frontend
+    |-- frontend                                # Frontend
 
 ```
 
