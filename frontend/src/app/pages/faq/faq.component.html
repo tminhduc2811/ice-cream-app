@@ -1,0 +1,42 @@
+<!-- <div class="jumbotron"> -->
+  <!-- <h1 class="display-1">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p> -->
+
+<!-- </div> -->
+<div class="row" style="padding-top: 70;">
+  <div class="col-md-5">
+    <img src="../../../assets/images/bgfaq.jpg" class="img-fluid" alt="Frequently asked questions">
+    <form>
+      <fieldset>
+        <legend>Feel free to leave a question</legend>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleTextarea">Question</label>
+          <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </fieldset>
+    </form>
+  </div>
+  <div class="col-md-7">
+    <div class="jumbotron">
+      <h1 class="display-12">Frequently asked questions</h1>
+      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+      <hr class="my-4">
+      <app-faq-item *ngFor="let faq of faqs" [faqItem]="faq"></app-faq-item>
+      <!-- <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Add question</a>
+      </p> -->
+    </div>
+  </div>
+</div>

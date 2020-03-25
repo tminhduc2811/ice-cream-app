@@ -1,0 +1,21 @@
+.text-xs-center {
+  margin-top: 50px;
+  text-align: center;
+}
+.button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+.disabled-wrapper {
+  display: inline-block;
+  cursor: not-allowed;
+}
+
+.disabled-wrapper a,
+.disabled-wrapper button {
+  pointer-events: none;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+}

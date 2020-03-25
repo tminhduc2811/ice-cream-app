@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="assets/images/ic-logo.jpg" alt="logo" class="img-responsive" style="max-height: 70px;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+    aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="recipes">Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="users">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="customers">Customers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="faq">FAQ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="feedback">Feedback</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="orders">Orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="setting">Setting</a>
+      </li>
+    </ul>
+    <!-- <div class="btn-group show" role="group">
+      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="true">Profile</button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"
+        style="position: absolute; transform: translate3d(0px, 48px, 0px); top: 0px; left: 0px; will-change: transform;"
+        x-placement="bottom-start">
+        <a class="dropdown-item show" href="#">Update profile</a>
+        <a class="dropdown-item show" href="#">Log out</a>
+      </div>
+    </div> -->
+    <form class="form-inline my-2 my-lg-0">
+      <button type="button" class="btn btn-link" routerLink="login">Login</button>
+      <button type="button" class="btn btn-link" routerLink="register">Register</button>
+    </form>
+  </div>
+</nav>
