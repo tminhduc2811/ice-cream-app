@@ -1,3 +1,11 @@
+import { JwtInterceptor } from './auth/Jwt.Interceptor';
+import { AdminGuard } from './services/auth-admin.service';
+import { AuthService } from './services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
+import { FeedbackService } from './services/feedback.service';
+import { RecipeListComponent } from './pages/recipes/recipe-list/recipe-list.component';
+import { RecipeService } from './services/recipe.service';
+import { CustomerService } from './services/customer.service';
 import { UserService } from './services/user.service';
 import { FaqItemComponent } from './pages/faq/faq-item/faq-item.component';
 import { FaqService } from './services/faq.service';
@@ -17,14 +25,12 @@ import { UsersComponent } from './pages/users/users.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-import { RecipeListComponent } from './pages/recipes/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './pages/recipes/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './pages/recipes/recipe-list/recipe-item/recipe-item.component';
 import { AuthComponent } from './auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaqComponent } from './pages/faq/faq.component';
-import { HttpClientModule } from '@angular/common/http';
-import { UserItemComponent } from './pages/users/user-item/user-item.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,8 +50,7 @@ import { UserItemComponent } from './pages/users/user-item/user-item.component';
     AuthComponent,
     ListErrorsComponent,
     FaqComponent,
-    FaqItemComponent,
-    UserItemComponent
+    FaqItemComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,14 @@ import { UserItemComponent } from './pages/users/user-item/user-item.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ApiService, FaqService, UserService],
+  providers: [ApiService, FaqService, UserService,
+    CustomerService, RecipeService, FeedbackService,
+    OrderService, AuthService, AdminGuard,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

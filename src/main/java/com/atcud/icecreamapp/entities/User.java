@@ -146,7 +146,7 @@ public class User {
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRole()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
         }
         return authorities;
     }

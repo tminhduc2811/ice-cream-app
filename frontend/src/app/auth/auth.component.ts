@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+import { AuthService } from './../services/auth.service';
 import { Errors } from './../shared/list-errors.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -16,12 +18,15 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   errors: Errors = { errors: {} };
 
-  constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private auth: AuthService) {
     this.authForm = this.formBuilder.group({
       // tslint:disable-next-line:object-literal-key-quotes
-      'username': ['', Validators.minLength(4)],
+      'username': ['', Validators.required],
       // tslint:disable-next-line:object-literal-key-quotes
-      'password': ['', Validators.minLength(6)]
+      'password': ['', Validators.required]
     });
   }
 
@@ -30,10 +35,23 @@ export class AuthComponent implements OnInit {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType === 'login') ? 'Login' : 'Register';
       if (this.authType === 'register') {
-        console.log('asdf');
         this.authForm.addControl('email', new FormControl('email', Validators.required));
       }
     });
   }
 
+  submitForm() {
+    console.log('Starting to authenticate');
+    this.isSubmitting = true;
+    this.errors = { errors: {} };
+    const credentials = this.authForm.value;
+    this.auth.login(credentials)
+      .subscribe(
+        response => this.auth.finishAuthentication(response.token),
+        err => {
+          this.errors = err;
+          this.isSubmitting = false;
+        }
+      );
+  }
 }

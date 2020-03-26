@@ -1,8 +1,12 @@
 package com.atcud.icecreamapp.services.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.DTOBuilder;
+import com.atcud.icecreamapp.DTO.entities.RecipeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +21,13 @@ public class RecipeServiceImpl implements RecipeService {
     private RecipeRepository recipeRepository;
 
     @Override
-    public List<Recipe> getAllRecipes() {
-        return recipeRepository.findAll();
+    public List<RecipeDTO> getAllRecipes() {
+        List<Recipe> recipes = recipeRepository.findAll();
+        List<RecipeDTO> result = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            result.add(DTOBuilder.recipeToDTO(recipe));
+        }
+        return result;
     }
 
     @Override

@@ -3,11 +3,12 @@ package com.atcud.icecreamapp.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.entities.FeedbackDTO;
 import com.atcud.icecreamapp.entities.Feedback;
 
 public interface FeedbackService {
 
-    public List<Feedback> getAllFeedback();
+    public List<FeedbackDTO> getAllFeedback();
 
     public Optional<Feedback> getFeedbackById(Long id);
 

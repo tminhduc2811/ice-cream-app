@@ -1,1 +1,31 @@
-<p>customers works!</p>
+<div class="container pt-xl-5" style="padding-top: 40px;">
+  <div class="row">
+    <h3>Customer Table</h3>
+  </div>
+  <div class="row pt-xl-3">
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-active">
+          <th scope="col">ID</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <th scope="row">{{customer.id}}</th>
+          <td>{{customer.firstName}} {{customer.lastName}}</td>
+          <td>{{customer.email}}</td>
+          <td *ngIf="customer.gender === 1">Male</td>
+          <td *ngIf="customer.gender !== 1">Female</td>
+          <td>{{customer.phoneNumber}}</td>
+          <td *ngIf="customer.status===1">Enable</td>
+          <td *ngIf="customer.status!==1">Disabled</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

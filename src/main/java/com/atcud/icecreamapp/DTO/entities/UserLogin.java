@@ -1,16 +1,16 @@
 package com.atcud.icecreamapp.DTO.entities;
 
 public class UserLogin {
-    private String userName;
+    private String username;
 
     private String password;
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -21,8 +21,8 @@ public class UserLogin {
         this.password = password;
     }
 
-    public UserLogin(String userName, String password) {
-        this.userName = userName;
+    public UserLogin(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 }

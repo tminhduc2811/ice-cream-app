@@ -1,7 +1,7 @@
 package com.atcud.icecreamapp.controllers;
 
 import java.util.List;
-import com.atcud.icecreamapp.DTO.LoginResponseDTO;
+import com.atcud.icecreamapp.DTO.entities.LoginResponseDTO;
 import com.atcud.icecreamapp.DTO.entities.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atcud.icecreamapp.DTO.CustomerDTO;
+import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.services.CustomerService;
 
@@ -53,7 +53,7 @@ public class CustomerController {
     // TODO: Refactor later
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
-        String token = service.login(userLogin.getUserName(), userLogin.getPassword());
-        return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUserName(), token), HttpStatus.OK);
+        String token = service.login(userLogin.getUsername(), userLogin.getPassword());
+        return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUsername(), token), HttpStatus.OK);
     }
 }

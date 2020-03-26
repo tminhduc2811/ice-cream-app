@@ -2,16 +2,7 @@ package com.atcud.icecreamapp.entities;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "feedback")
@@ -19,10 +10,11 @@ public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "feedback_id")
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id")
     private Customer customer;

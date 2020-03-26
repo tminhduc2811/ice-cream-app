@@ -3,6 +3,7 @@ package com.atcud.icecreamapp.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.entities.FeedbackDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class FeedbackController {
     private FeedbackService service;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Feedback>> getAllFeedback() {
-        List<Feedback> feedback = service.getAllFeedback();
+    public ResponseEntity<List<FeedbackDTO>> getAllFeedback() {
+        List<FeedbackDTO> feedback = service.getAllFeedback();
         return new ResponseEntity<>(feedback, HttpStatus.OK);
     }
 

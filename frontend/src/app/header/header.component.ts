@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  // isLoggedIn$: Observable<boolean>;
+  isLoggedIn = false;
+  roles: string[] = [];
 
-  ngOnInit(): void {
+  constructor(private auth: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.auth.authInfo.subscribe(val => {
+      this.isLoggedIn = val.isLoggedIn;
+      this.roles = val.roles;
+    });
   }
 
+  btnLogout() {
+    this.auth.logout().subscribe(val => this.isLoggedIn = val);
+    this.router.navigate(['/home']);
+  }
 }

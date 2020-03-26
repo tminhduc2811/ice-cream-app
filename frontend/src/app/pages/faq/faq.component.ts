@@ -13,7 +13,6 @@ export class FaqComponent implements OnInit {
   faqsLoaded = false;
 
   constructor(private faqService: FaqService) {
-
   }
 
   ngOnInit(): void {

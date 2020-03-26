@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.atcud.icecreamapp.DTO.CustomerDTO;
+import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.repositories.CustomerRepository;

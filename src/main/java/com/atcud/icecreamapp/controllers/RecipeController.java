@@ -3,6 +3,7 @@ package com.atcud.icecreamapp.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.entities.RecipeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,8 @@ public class RecipeController {
 	private RecipeService service;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<Recipe>> getAllRecipes() {
-		List<Recipe> recipes = service.getAllRecipes();
+	public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
+		List<RecipeDTO> recipes = service.getAllRecipes();
 		if (recipes.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}

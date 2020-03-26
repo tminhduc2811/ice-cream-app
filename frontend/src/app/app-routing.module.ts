@@ -1,3 +1,4 @@
+import { AdminGuard } from './services/auth-admin.service';
 import { FaqComponent } from './pages/faq/faq.component';
 import { AuthComponent } from './auth/auth.component';
 import { OrdersComponent } from './pages/orders/orders.component';
@@ -13,16 +14,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   {
     path: 'recipes', component: RecipesComponent, children: [
       { path: ':id/:name', component: RecipesComponent }
     ]
   },
-  { path: 'users', component: UsersComponent },
+  { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
   { path: 'faq', component: FaqComponent },
   { path: 'login', component: AuthComponent },
   { path: 'register', component: AuthComponent },
-  { path: 'customers', component: CustomersComponent },
+  { path: 'customers', component: CustomersComponent, canActivate: [AdminGuard] },
   { path: 'feedback', component: FeedbackComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },

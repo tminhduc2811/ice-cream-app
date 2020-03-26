@@ -1,4 +1,4 @@
-<div class="container pt-xl-5">
+<div class="container pt-xl-5" style="padding-top: 40px;">
   <div class="row">
     <h3>User Table</h3>
   </div>
@@ -19,7 +19,8 @@
           <td>{{user.userName}}</td>
           <td>{{user.fullName}}</td>
           <td>add role later</td>
-          <td>{{user.status}}</td>
+          <td *ngIf="user.status===1">Enable</td>
+          <td *ngIf="user.status!==1">Disabled</td>
         </tr>
       </tbody>
     </table>

@@ -3,7 +3,7 @@ package com.atcud.icecreamapp.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.atcud.icecreamapp.DTO.OrderDTO;
+import com.atcud.icecreamapp.DTO.entities.OrderDTO;
 import com.atcud.icecreamapp.entities.Order;
 
 public interface OrderService {

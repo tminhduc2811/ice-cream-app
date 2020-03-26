@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.DTO.DTOBuilder;
-import com.atcud.icecreamapp.DTO.OrderDTO;
+import com.atcud.icecreamapp.DTO.entities.OrderDTO;
 import com.atcud.icecreamapp.entities.Order;
 import com.atcud.icecreamapp.repositories.OrderRepository;
 import com.atcud.icecreamapp.services.OrderService;
@@ -24,10 +24,8 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDTO> getAllOrders() {
         List<Order> entities = orderRepository.findAll();
         List<OrderDTO> orders = new ArrayList<OrderDTO>();
-        Iterator<Order> iterator = entities.iterator();
 
-        while (iterator.hasNext()) {
-            Order order = iterator.next();
+        for (Order order : entities) {
             orders.add(DTOBuilder.orderToDTO(order));
         }
         return orders;

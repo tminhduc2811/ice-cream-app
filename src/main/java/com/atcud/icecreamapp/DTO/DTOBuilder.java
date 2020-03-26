@@ -1,20 +1,27 @@
 package com.atcud.icecreamapp.DTO;
 
-import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.entities.Order;
-import com.atcud.icecreamapp.entities.User;
+import com.atcud.icecreamapp.DTO.entities.*;
+import com.atcud.icecreamapp.entities.*;
 
 public class DTOBuilder {
 
     public static OrderDTO orderToDTO(Order order) {
-        return new OrderDTO(order.getId(),
+        return new OrderDTO(
+                order.getId(),
                 order.getCustomer().getId(),
+                order.getCustomer().getFullName(),
+                order.getCustomer().getPhoneNumber(),
+                order.getCustomer().getEmail(),
+                order.getPayment().getCardType(),
+                order.getPayment().getCardNumber(),
                 order.getPayment().getId(),
                 order.getPaymentOption(),
                 order.getCreatedDate(),
                 order.getDeliveryDetail(),
                 order.getNotes(),
-                order.getStatus());
+                order.getStatus(),
+                order.getOrderDetails()
+        );
     }
 
     public static CustomerDTO customerToDTO(Customer customer) {
@@ -50,6 +57,32 @@ public class DTOBuilder {
                 user.getFullName(),
                 user.getStatus(),
                 user.getAvatar()
+        );
+    }
+
+    public static RecipeDTO recipeToDTO(Recipe recipe) {
+        return new RecipeDTO(
+                recipe.getId(),
+                recipe.getUser().getId(),
+                recipe.getIcecream().getId(),
+                recipe.getTitle(),
+                recipe.getDescription(),
+                recipe.getPrice(),
+                recipe.getStatus(),
+                recipe.getViewCount(),
+                recipe.getImage(),
+                recipe.getDetails(),
+                recipe.getUploadedDate()
+        );
+    }
+
+    public static FeedbackDTO feedbackToDTO(Feedback feedback) {
+        return new FeedbackDTO(
+                feedback.getId(),
+                feedback.getCustomer().getFullName(),
+                feedback.getOrder().getId(),
+                feedback.getDetails(),
+                feedback.getCreatedDate()
         );
     }
 }

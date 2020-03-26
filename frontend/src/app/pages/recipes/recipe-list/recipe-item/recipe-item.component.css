@@ -1,0 +1,19 @@
+.card-custom {
+  max-width: 210px;
+  /* cursor: pointer; */
+}
+.custom-header {
+  max-height: 110px;
+  min-height: 110px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 1.8;
+}
+.custom-img {
+  height: 150px;
+  width: 100%;
+  display: block;
+}
+.custom-btn {
+  width: 80px;
+}

@@ -1,24 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="#">
-    <img src="assets/images/ic-logo.jpg" alt="logo" class="img-responsive" style="max-height: 70px;">
+    <img src="assets/images/logo.png" alt="logo" class="img-responsive" style="max-height: 40px;">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
-    aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor03">
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+  <div class="collapse navbar-collapse larger-text" id="navbarColor01">
+    <ul class="navbar-nav mr-auto pointer" routerLinkActive="active">
       <li class="nav-item active">
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="recipes">Recipes</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
         <a class="nav-link" routerLink="users">Users</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
         <a class="nav-link" routerLink="customers">Customers</a>
       </li>
       <li class="nav-item">
@@ -27,26 +27,19 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="feedback">Feedback</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="orders">Orders</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="setting">Setting</a>
       </li>
     </ul>
-    <!-- <div class="btn-group show" role="group">
-      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="true">Profile</button>
-      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"
-        style="position: absolute; transform: translate3d(0px, 48px, 0px); top: 0px; left: 0px; will-change: transform;"
-        x-placement="bottom-start">
-        <a class="dropdown-item show" href="#">Update profile</a>
-        <a class="dropdown-item show" href="#">Log out</a>
-      </div>
-    </div> -->
-    <form class="form-inline my-2 my-lg-0">
-      <button type="button" class="btn btn-link" routerLink="login">Login</button>
-      <button type="button" class="btn btn-link" routerLink="register">Register</button>
-    </form>
+    <div class="form-inline my-2 my-lg-0 larger-text" *ngIf="!isLoggedIn">
+      <button type="button" class="btn btn-primary" routerLink="login">Login</button>
+      <button type="button" class="btn btn-primary" routerLink="register">Register</button>
+    </div>
+    <div class="form-inline my-2 my-lg-0 larger-text" *ngIf="isLoggedIn">
+      <button type="button" class="btn btn-primary"(click)="btnLogout()">Logout</button>
+    </div>
   </div>
 </nav>

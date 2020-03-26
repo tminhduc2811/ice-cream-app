@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atcud.icecreamapp.DTO.OrderDTO;
+import com.atcud.icecreamapp.DTO.entities.OrderDTO;
 import com.atcud.icecreamapp.entities.Order;
 import com.atcud.icecreamapp.services.OrderService;
 

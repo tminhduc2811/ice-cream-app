@@ -128,11 +128,7 @@ public class Customer {
     }
 
     public String getFullName() {
-        return firstName;
-    }
-
-    public void setFullName(String fullName) {
-        this.firstName = fullName;
+        return firstName + " " + lastName;
     }
 
     public String getAddress() {

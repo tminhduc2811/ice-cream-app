@@ -21,7 +21,7 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recipe_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,

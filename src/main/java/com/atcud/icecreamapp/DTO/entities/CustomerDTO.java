@@ -1,4 +1,4 @@
-package com.atcud.icecreamapp.DTO;
+package com.atcud.icecreamapp.DTO.entities;
 
 import java.sql.Date;
 
