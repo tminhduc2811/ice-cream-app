@@ -85,4 +85,20 @@ public class DTOBuilder {
                 feedback.getCreatedDate()
         );
     }
+
+    public static AuthInfo authInfoToDTO(User user) {
+        return new AuthInfo(
+                true,
+                user.getAllRoles(),
+                user.getUserName(),
+                user.getAvatar()
+        );
+    }
+
+    public static AuthResponseDTO authResponseToDTO(AuthInfo authInfo, String token) {
+        return new AuthResponseDTO(
+                token,
+                authInfo
+        );
+    }
 }

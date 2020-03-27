@@ -104,12 +104,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/customers/**").permitAll()
-                .antMatchers("/users/").hasRole("ADMIN")
+                .antMatchers("/users/register").permitAll()
                 .antMatchers("/faq").permitAll()
                 .antMatchers("/recipes").permitAll()
                 .antMatchers("/orders").permitAll()
                 .antMatchers("/feedback").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers("/customers").hasAnyRole("ADMIN", "USER")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

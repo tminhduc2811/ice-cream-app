@@ -1,9 +1,7 @@
 package com.atcud.icecreamapp.controllers;
 
 import com.atcud.icecreamapp.DTO.DTOBuilder;
-import com.atcud.icecreamapp.DTO.entities.LoginResponseDTO;
-import com.atcud.icecreamapp.DTO.entities.UserDTO;
-import com.atcud.icecreamapp.DTO.entities.UserLogin;
+import com.atcud.icecreamapp.DTO.entities.*;
 import com.atcud.icecreamapp.entities.*;
 import com.atcud.icecreamapp.services.UserService;
 import io.swagger.annotations.*;
@@ -64,10 +62,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "Internal server error, there was an exception")
     })
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody UserLogin userLogin) {
         String token = service.login(userLogin.getUsername(), userLogin.getPassword());
-
-        return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUsername(), token), HttpStatus.OK);
+        User user = service.findUserByUsername(userLogin.getUsername());
+        return new ResponseEntity<>(DTOBuilder.authResponseToDTO(DTOBuilder.authInfoToDTO(user), token), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete user by Id")

@@ -53,7 +53,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+        User user = userRepository.findUserByUsername(username);
+        if (user == null) {
+            throw new CustomException("User not found", HttpStatus.NOT_FOUND);
+        }
+        return user;
     }
 
     @Override
@@ -69,7 +73,6 @@ public class UserServiceImpl implements UserService {
 
             // Inject current user into security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
             return jwtTokenProvider.generateTokenForUser((CustomUserDetails) authentication.getPrincipal());
         } catch (AuthenticationException ex) {
             throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
@@ -81,7 +84,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.isExist(user.getUserName())) {
             throw new CustomException("User already existed", HttpStatus.CONFLICT);
         }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -101,7 +103,7 @@ public class UserServiceImpl implements UserService {
         if (!currentUser.isPresent()) {
             throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
         }
-        if(user.getPassword().equals("")) {
+        if (user.getPassword().equals("")) {
             user.setPassword(currentUser.get().getPassword());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

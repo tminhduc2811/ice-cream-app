@@ -5,4 +5,5 @@ export interface User {
   fullName: string;
   status: number;
   avatar: string;
+  roles: string[];
 }

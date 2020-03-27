@@ -31,6 +31,8 @@ import { AuthComponent } from './auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaqComponent } from './pages/faq/faq.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { UserProfileComponent } from './pages/profile/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AuthComponent,
     ListErrorsComponent,
     FaqComponent,
-    FaqItemComponent
+    FaqItemComponent,
+    ProfileComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

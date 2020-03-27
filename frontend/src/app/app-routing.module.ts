@@ -1,3 +1,4 @@
+import { ProfileComponent } from './pages/profile/profile.component';
 import { AdminGuard } from './services/auth-admin.service';
 import { FaqComponent } from './pages/faq/faq.component';
 import { AuthComponent } from './auth/auth.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: ':id/:name', component: RecipesComponent }
     ]
   },
+  { path: 'my-profile', component: ProfileComponent },
   { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
   { path: 'faq', component: FaqComponent },
   { path: 'login', component: AuthComponent },

@@ -47,7 +47,7 @@ export class AuthComponent implements OnInit {
     const credentials = this.authForm.value;
     this.auth.login(credentials)
       .subscribe(
-        response => this.auth.finishAuthentication(response.token),
+        response => this.auth.finishAuthentication(response),
         err => {
           this.errors = err;
           this.isSubmitting = false;

@@ -18,13 +18,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.auth.authInfo.subscribe(val => {
+      console.log('this val', val);
       this.isLoggedIn = val.isLoggedIn;
       this.roles = val.roles;
     });
   }
 
   btnLogout() {
-    this.auth.logout().subscribe(val => this.isLoggedIn = val);
+    this.auth.logout();
     this.router.navigate(['/home']);
   }
 }

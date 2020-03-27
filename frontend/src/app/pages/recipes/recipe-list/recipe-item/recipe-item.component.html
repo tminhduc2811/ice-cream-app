@@ -1,11 +1,21 @@
 <div class="card mx-2 mb-3 card-custom">
-  <h6 class="card-header custom-header">{{recipe.title}}</h6>
-  <!-- <div class="card-body">
-
-  </div> -->
-  <img class="custom-img" src="{{recipe.image}}" alt="Recipe">
+  <h6 class="card-header custom-header" style="cursor: pointer;">{{recipe.title}}</h6>
+  <img class="custom-img" src="{{recipe.image}}" alt="Recipe" style="cursor: pointer;">
   <div class="card-body text-center">
+    <p style="font-size: 16px;">Price: <strong style="color: red;">{{recipe.price}}$</strong></p>
+    <p class="text-primary">{{recipe.viewCount}} views</p>
+  </div>
+  <div class="card-body text-center" *ngIf="roles.includes('ROLE_USER')">
     <button type="button" class="btn btn-warning btn-sm custom-btn">Edit</button>
     <button type="button" class="btn btn-danger btn-sm custom-btn">Remove</button>
+  </div>
+  <div class="card-body text-center" *ngIf="!roles.includes('ROLE_USER') && !roles.includes('ROLE_ADMIN')">
+    <div class="form-group">
+      <label class="col-form-label" for="inputDefault">Input quantity</label>
+      <input class="form-control text-center" type="number" value="0" min="0" max="1000" step="1"/>
+    </div>
+    <button type="button" class="btn btn-danger btn-sm">
+      <img src="../../../../../assets/images/cart.webp" style="height: 30px; cursor: pointer;" alt="Add to cart">
+    </button>
   </div>
 </div>

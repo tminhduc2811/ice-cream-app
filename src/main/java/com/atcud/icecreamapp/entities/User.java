@@ -143,6 +143,15 @@ public class User {
     }
 
     @JsonIgnore
+    public List<String> getAllRoles() {
+        List<String> listRoles = new ArrayList<>();
+        for (Role role: roles) {
+            listRoles.add(role.getRole());
+        }
+        return listRoles;
+    }
+
+    @JsonIgnore
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
