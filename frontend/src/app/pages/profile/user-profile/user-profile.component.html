@@ -1,8 +1,76 @@
 <div class="row" style="padding-top: 40px;">
-  <div class="col-md-4">
-    <img [src]="user.avatar" class="img-fluid" alt="Frequently asked questions">
+  <div class="col-md-5">
+    <div class="card border-primary mb-5" style="max-width: 20rem;">
+      <div class="card-header text-center">User Profile</div>
+      <div class="card-body text-center">
+        <img src="../../../../assets/images/male.jpg" class="img-fluid" alt="Profile avatar">
+        <h4 class="card-title">{{user.fullName}}</h4>
+        <p class="card-text">Email: {{user.email}}</p>
+        <div class="form-group">
+          <label for="exampleInputFile">Choose your avatar</label>
+          <input [formControl]="image" type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp">
+          <small id="fileHelp" class="form-text text-muted">Please make sure that your avatar has the right solution</small>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-7">
     <h3>User Detail Information</h3>
+    <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+      <fieldset>
+        <div class="form-group">
+          <label for="fullName">Full name</label>
+          <input formControlName="fullname" type="fullName" class="form-control" id="fullName" aria-describedby="emailHelp" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input formControlName="username" type="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username" disabled="true">
+        </div>
+        <div class="form-group">
+          <label for="password">Current password</label>
+          <input formControlName="currentPassword" type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="password">New password</label>
+          <input formControlName="newPassword" type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <fieldset class="form-group">
+          <legend>Status</legend>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="" [checked]="user.status" [disabled]="user.roles.includes('ADMIN')">
+              Activated
+            </label>
+          </div>
+        </fieldset>
+        <fieldset class="form-group">
+          <legend>Roles</legend>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('ADMIN')" disabled="true">
+              Admin
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('USER')" disabled="true">
+              User
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('CUSTOMER')" disabled="true">
+              Customer
+            </label>
+          </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary not-allowed" [disabled]="!formGroup.valid">Save</button>
+      </fieldset>
+    </form>
   </div>
 </div>

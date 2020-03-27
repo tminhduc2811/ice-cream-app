@@ -3,6 +3,6 @@ export interface AuthInfo {
   isLoggedIn: boolean;
   roles: string[];
   username: string;
-  // avatar: string;
+  avatar: string;
 }
 

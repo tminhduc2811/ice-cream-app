@@ -12,7 +12,8 @@ export class AuthService {
   private authInfoSubject = new BehaviorSubject<AuthInfo>({
     isLoggedIn: this.isAuthenticated(),
     roles: this.getRoles(),
-    username: this.getUsername()
+    username: this.getUsername(),
+    avatar: this.getAvatar()
   });
   public authInfo = this.authInfoSubject.pipe(distinctUntilChanged());
   public isLoggedIn = this.loggedIn.asObservable().pipe(distinctUntilChanged());
@@ -35,7 +36,12 @@ export class AuthService {
     localStorage.setItem('user-role', token.role);
     this.loggedIn.next(true);
     // set current data to observable
-    this.authInfoSubject.next({ isLoggedIn: true, roles: this.getRoles(), username: this.getUsername() });
+    this.authInfoSubject.next({
+      isLoggedIn: true,
+      roles: this.getRoles(),
+      username: this.getUsername(),
+      avatar: this.getAvatar()
+    });
 
     this.router.navigate(['home']);
   }
@@ -45,7 +51,12 @@ export class AuthService {
     localStorage.removeItem('access-token');
     localStorage.removeItem('expires-at');
     localStorage.removeItem('user-role');
-    this.authInfoSubject.next({ isLoggedIn: false, roles: this.getRoles(), username: this.getUsername() });
+    this.authInfoSubject.next({
+      isLoggedIn: false,
+      roles: this.getRoles(),
+      username: this.getUsername(),
+      avatar: this.getAvatar()
+    });
 
     return this.isLoggedIn;
   }
@@ -70,6 +81,11 @@ export class AuthService {
   getUsername(): string {
     return localStorage.getItem('user-name');
   }
+
+  getAvatar(): string {
+    return localStorage.getItem('avatar');
+  }
+
   isAdmin() {
     const roles = localStorage.getItem('user-role');
     if (roles) {
