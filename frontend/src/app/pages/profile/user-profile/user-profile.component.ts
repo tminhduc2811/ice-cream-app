@@ -7,6 +7,7 @@ import { User } from './../../../models/user.model';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -29,7 +30,10 @@ export class UserProfileComponent implements OnInit {
     newPassword: new FormControl('', Validators.required)
   });
 
-  constructor(private userService: UserService, private auth: AuthService, private fb: FormBuilder, private afStorage: AngularFireStorage) {
+  constructor(private userService: UserService,
+              private auth: AuthService,
+              private fb: FormBuilder,
+              private fbStorage: AngularFireStorage) {
     this.user.roles = [''];
     this.fb.group(this.formGroup);
   }
@@ -47,11 +51,12 @@ export class UserProfileComponent implements OnInit {
 
       this.imgLoading = true;
 
-      this.afStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
+      this.fbStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
         this.profileUrl = rs;
         this.imgLoading = false;
       }, () => {
-        this.afStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
+        // If cannot get the avatar, get default avatar
+        this.fbStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
           this.profileUrl = temp;
           this.imgLoading = false;
         }, () => {
@@ -75,18 +80,39 @@ export class UserProfileComponent implements OnInit {
     const randomId = Math.random().toString(36).substring(2);
     // Starting to upload to firebase storage
     const file = event.target.files[0];
-    const filePath = '/images/' + randomId;
-    const fileRef = this.afStorage.ref(filePath);
+    const filePath = '/images/' + randomId + file.name.substr(file.name.length - 4, file.name.length - 1);
+    const fileRef = this.fbStorage.ref(filePath);
+    this.imgLoading = true;
     const task = fileRef.put(file);
     // Save generated file name to store in backend
-    this.imageName = filePath;
-    console.log(event.target.files[0].name);
+    // this.imageName = filePath;
     this.uploadPercent = task.percentageChanges();
+    console.log('type ', file.name.substr(file.name.length - 4, file.name.length - 1));
     task.snapshotChanges().pipe(
-      finalize(() => this.profileUrl = fileRef.getDownloadURL())
-    ).subscribe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe(
+          data => {
+            this.profileUrl = data;
+            console.log('Saving to database', this.profileUrl);
+            this.user.avatar = filePath;
+            this.userService.updateProfile({ user: this.user, currentPassword: '' })
+              .subscribe(rs => {
+                console.log('Updated');
+                this.imgLoading = false;
+              },
+                err => {
 
-    );
+                  this.imgLoading = false;
+                  console.log('Error: ', err);
+                });
+          }
+        );
+      }))
+      .subscribe(
+        () => {
+
+        }
+      );
   }
   submitForm() {
   }

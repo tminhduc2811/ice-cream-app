@@ -16,6 +16,12 @@ export class UserService {
   }
 
   getProfileByName(username: string): Observable<User> {
-    return this.apiService.get('/profile/' + username).pipe(map(data => data));
+    return this.apiService.get('/profile/user/' + username).pipe(map(data => data));
   }
+
+  updateProfile(obj: {}): Observable<User> {
+    console.log('got here ', obj);
+    return this.apiService.put('/profile/user/', obj).pipe(map(data => data));
+  }
+
 }

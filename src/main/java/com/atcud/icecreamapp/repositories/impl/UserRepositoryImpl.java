@@ -64,8 +64,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public void update(User user) {
-        entityManager.merge(user);
+    public User update(User user) {
+        return entityManager.merge(user);
     }
 
 }

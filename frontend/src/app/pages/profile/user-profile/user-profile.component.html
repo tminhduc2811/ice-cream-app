@@ -11,7 +11,7 @@
         <p class="card-text">Email: {{user.email}}</p>
         <div class="form-group">
           <label for="exampleInputFile">Choose your avatar</label>
-          <input type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp" accept=".png,.jpg"
+          <input type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp" accept=".png,.jpg,.gif"
           (change)="uploadAvatar($event)">
           <small id="fileHelp" class="form-text text-muted">Please make sure that your avatar has the right solution</small>
         </div>
@@ -37,11 +37,11 @@
         </div>
         <div class="form-group">
           <label for="password">Current password</label>
-          <input formControlName="currentPassword" type="password" class="form-control" id="password" placeholder="Password">
+          <input formControlName="currentPassword" type="password" class="form-control" id="currentPassword" placeholder="Password">
         </div>
         <div class="form-group">
           <label for="password">New password</label>
-          <input formControlName="newPassword" type="password" class="form-control" id="password" placeholder="Password">
+          <input formControlName="newPassword" type="password" class="form-control" id="newPassword" placeholder="Password">
         </div>
         <fieldset class="form-group">
           <legend>Status</legend>

@@ -36,6 +36,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UserProfileComponent } from './pages/profile/user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -76,17 +77,18 @@ import { AngularFireStorage } from '@angular/fire/storage';
       appId: '1:363876808617:web:89dc1c9f8ee47b4f2036b8',
       measurementId: 'G-JS6HP4V3VH'
     },
-    AngularFireStorage
-    )
+      AngularFireStorage,
+    ),
+
   ],
   providers: [ApiService, FaqService, UserService,
     CustomerService, RecipeService, FeedbackService,
     OrderService, AuthService, AdminGuard,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: JwtInterceptor,
-    multi: true
-  }],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

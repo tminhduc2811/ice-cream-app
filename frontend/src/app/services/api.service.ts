@@ -30,13 +30,17 @@ export class ApiService {
       , { headers: this.headers }).pipe(catchError(this.formatErrors));
   }
 
-  private handleError(errorResponse: HttpErrorResponse) {
-    let errorMessage = 'An unknown error has occurred';
-    if (!errorResponse.error || !errorResponse.error.error) {
-      return throwError(errorMessage);
-    }
-    errorMessage = errorResponse.error.error.message;
-    console.log(errorResponse.error.message);
-    return throwError(errorMessage);
+  put(path: string, body: {}): Observable<any> {
+    return this.http.put(
+      `${environment.api_url}${path}`,
+      JSON.stringify(body)
+      , { headers: this.headers }).pipe(catchError(this.formatErrors)
+    );
+  }
+
+  delete(path): Observable<any> {
+    return this.http.delete(
+      `${environment.api_url}${path}`
+    ).pipe(catchError(this.formatErrors));
   }
 }

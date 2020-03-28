@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.exceptions.CustomException;
 import com.atcud.icecreamapp.repositories.RoleRepository;
@@ -98,17 +99,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
-        Optional<User> currentUser = userRepository.findById(user.getId());
-        if (!currentUser.isPresent()) {
-            throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
+    public User update(UserUpdateDTO user) {
+        User currentUser = userRepository.findUserByUsername(user.getUser().getUserName());
+        if (currentUser == null) {
+            throw new CustomException("User " + user.getUser().getUserName() + "not found", HttpStatus.NOT_FOUND);
         }
-        if (user.getPassword().equals("")) {
-            user.setPassword(currentUser.get().getPassword());
-        } else {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String currentPass = user.getUser().getPassword();
+        if (!currentPass.equals("")) {
+            if(passwordEncoder.matches(currentPass, currentUser.getPassword())) {
+                currentUser.setPassword(passwordEncoder.encode(user.getUser().getPassword()));
+            } else {
+                throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);
+            }
         }
-        userRepository.update(user);
+        List<Role> roles = roleRepository.findRolesByNames(user.getUser().getRoles());
+        // Update roles
+        currentUser.setRoles(roles);
+        currentUser.setEmail(user.getUser().getEmail());
+        currentUser.setStatus(user.getUser().getStatus());
+        currentUser.setAvatar(user.getUser().getAvatar());
+        return userRepository.update(currentUser);
     }
 
     @Override
