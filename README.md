@@ -51,6 +51,11 @@ Server Build Tools| Maven(Java)
     |-- frontend                                # Frontend
 
 ```
+### Database
+
+<p align="center">
+  <img src="resources/images/db_diagram.png" width="800">
+</p>
 
 ### Features
 * Backend
