@@ -1,10 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthInfo } from './../models/auth-info.model';
 import { ApiService } from './api.service';
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, catchError } from 'rxjs/operators';
+import { error } from 'protractor';
 
 @Injectable()
 export class AuthService {
@@ -23,9 +25,25 @@ export class AuthService {
   }
 
   login(credentials): Observable<any> {
-    return this.apiService.post('/users/login', credentials);
+    return this.apiService.post('/users/login', credentials)
+      .pipe(map(
+        data => {
+          this.finishAuthentication(data);
+          return data;
+        }
+      ));
   }
-
+  // private handleError(errorResponse: HttpErrorResponse) {
+  //   let errorMessage = 'An unknown error has occurred';
+  //   console.log('aad');
+  //   if (!errorResponse.error || !errorResponse.error.error) {
+  //     console.log('aad');
+  //     return throwError(errorMessage);
+  //   }
+  //   errorMessage = errorResponse.error.error.message;
+  //   console.log(errorResponse.error.message);
+  //   return throwError(errorMessage);
+  // }
   finishAuthentication(data): void {
     const token = this.helper.decodeToken(data.token);
     const expiresAt = JSON.stringify((token.exp * 1000));

@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   title: string;
   isSubmitting = false;
   authForm: FormGroup;
-  errors: Errors = { errors: {} };
+  error = '';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,14 +43,16 @@ export class AuthComponent implements OnInit {
   submitForm() {
     console.log('Starting to authenticate');
     this.isSubmitting = true;
-    this.errors = { errors: {} };
+    this.error = '';
     const credentials = this.authForm.value;
     this.auth.login(credentials)
       .subscribe(
-        response => this.auth.finishAuthentication(response),
-        err => {
-          this.errors = err;
+        response => {
           this.isSubmitting = false;
+        },
+        err => {
+          this.isSubmitting = false;
+          this.error = err.message;
         }
       );
   }

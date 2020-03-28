@@ -1,3 +1,4 @@
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading.component';
 import { JwtInterceptor } from './auth/Jwt.Interceptor';
 import { AdminGuard } from './services/auth-admin.service';
 import { AuthService } from './services/auth.service';
@@ -54,7 +55,8 @@ import { UserProfileComponent } from './pages/profile/user-profile/user-profile.
     FaqComponent,
     FaqItemComponent,
     ProfileComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

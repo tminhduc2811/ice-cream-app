@@ -3,12 +3,15 @@
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">{{title}}</h1>
-        <p class="text-xs-center">
+        <p class="text-xs-center" *ngIf="!isSubmitting">
           <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
           <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
         </p>
-        <app-list-errors [errors]="errors"></app-list-errors>
-        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+        <!-- <app-list-errors [errors]="errors"></app-list-errors> -->
+        <div *ngIf="isSubmitting" class="text-xs-center">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()" *ngIf="!isSubmitting">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
               <input
@@ -32,6 +35,10 @@
                 class="form-control form-control-lg"
                 type="password" />
             </fieldset>
+            <div class="alert alert-dismissible alert-danger" *ngIf="error != ''">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <a href="#" class="alert-link">{{error}}.</a> Try submitting again.
+            </div>
             <button class="btn btn-lg btn-primary not-allowed" [disabled]="!authForm.valid" type="submit">
               {{ title }}
             </button>

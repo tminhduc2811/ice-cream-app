@@ -11,12 +11,15 @@ export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = [];
   recipesLoaded = false;
+  isLoading = false;
 
   constructor(private recipeService: RecipeService) {
+    this.isLoading = true;
     this.recipeService.getAll()
       .subscribe(recipes => {
         this.recipes = recipes;
         this.recipesLoaded = true;
+        this.isLoading = false;
       });
   }
 

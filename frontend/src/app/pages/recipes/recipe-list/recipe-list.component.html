@@ -1,6 +1,9 @@
 
 <div class="container">
-  <div class="row mt5 justify-content-center">
+  <div *ngIf="isLoading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="row mt5 justify-content-center" *ngIf="!isLoading">
     <app-recipe-item
     *ngFor="let recipeEl of recipes"
     [recipe]="recipeEl">
