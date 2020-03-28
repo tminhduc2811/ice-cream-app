@@ -55,8 +55,10 @@ public class DTOBuilder {
                 user.getUserName(),
                 "",
                 user.getFullName(),
+                user.getEmail(),
                 user.getStatus(),
-                user.getAvatar()
+                user.getAvatar(),
+                user.getAllRoles()
         );
     }
 

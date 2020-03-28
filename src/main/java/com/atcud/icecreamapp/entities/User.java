@@ -40,6 +40,9 @@ public class User {
     @Column(name = "fullname")
     private String fullName;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "status")
     private Short status;
 
@@ -68,14 +71,24 @@ public class User {
 
     }
 
-    public User(Long id, String userName, String password, String fullName, Short status, String avatar) {
-        super();
+    public User(Long id, String userName, String password, String fullName, String email, Short status, String avatar, List<Role> roles, List<Recipe> recipes) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.fullName = fullName;
+        this.email = email;
         this.status = status;
         this.avatar = avatar;
+        this.roles = roles;
+        this.recipes = recipes;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {
@@ -154,6 +167,7 @@ public class User {
     @JsonIgnore
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
+        System.out.println("------------------------------------------------------" +roles);
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
         }
