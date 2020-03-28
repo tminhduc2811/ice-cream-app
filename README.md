@@ -6,6 +6,8 @@ An application to depict how to make a RESTful web services with clientside usin
 Component         | Technology
 ---               | ---
 Frontend          | [Angular 5](https://github.com/angular/angular)
+Bootstrap         | [Bootstrap](https://getbootstrap.com.vn)
+Firebase          | Using [Angularfire](https://github.com/angular/angularfire) to store and retrieve images
 Backend (REST)    | [SpringBoot](https://projects.spring.io/spring-boot) (Java)
 Security          | Token Based (Spring Security and JWT Authentication & Authorization )
 REST Documentation| [Swagger UI / Springfox](https://github.com/springfox/springfox) and [ReDoc](https://github.com/Rebilly/ReDoc)
