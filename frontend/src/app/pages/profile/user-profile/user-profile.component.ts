@@ -1,9 +1,12 @@
+import { AngularFireStorage } from '@angular/fire/storage';
+import 'firebase/storage';
+import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from './../../../services/auth.service';
 import { User } from './../../../models/user.model';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-
+import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -12,7 +15,12 @@ import { Component, OnInit } from '@angular/core';
 export class UserProfileComponent implements OnInit {
 
   user: User = {} as User;
-  image = new FormControl();
+  uploadPercent: Observable<number>;
+  profileUrl: Observable<string | null>;
+  imageName = '';
+  imgLoading = false;
+
+  // image = new FormControl();
   formGroup = new FormGroup({
     fullname: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -21,7 +29,7 @@ export class UserProfileComponent implements OnInit {
     newPassword: new FormControl('', Validators.required)
   });
 
-  constructor(private userService: UserService, private auth: AuthService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private auth: AuthService, private fb: FormBuilder, private afStorage: AngularFireStorage) {
     this.user.roles = [''];
     this.fb.group(this.formGroup);
   }
@@ -33,8 +41,24 @@ export class UserProfileComponent implements OnInit {
       this.user = data;
       this.setForm();
       console.log('user', this.user);
-    });
 
+      // If user doesn't have an avatar, set default
+      const imagePath = this.user.avatar === '' ? 'images/default.jpg' : this.user.avatar;
+
+      this.imgLoading = true;
+
+      this.afStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
+        this.profileUrl = rs;
+        this.imgLoading = false;
+      }, () => {
+        this.afStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
+          this.profileUrl = temp;
+          this.imgLoading = false;
+        }, () => {
+          this.imgLoading = false;
+        });
+      });
+    });
   }
 
   setForm() {
@@ -46,8 +70,26 @@ export class UserProfileComponent implements OnInit {
       newPassword: '',
     });
   }
-  submitForm() {
-    console.log('image link ', this.image.value);
-    console.log(this.formGroup.getRawValue());
+
+  uploadAvatar(event: any) {
+    const randomId = Math.random().toString(36).substring(2);
+    // Starting to upload to firebase storage
+    const file = event.target.files[0];
+    const filePath = '/images/' + randomId;
+    const fileRef = this.afStorage.ref(filePath);
+    const task = fileRef.put(file);
+    // Save generated file name to store in backend
+    this.imageName = filePath;
+    console.log(event.target.files[0].name);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges().pipe(
+      finalize(() => this.profileUrl = fileRef.getDownloadURL())
+    ).subscribe(
+
+    );
   }
+  submitForm() {
+  }
+
 }
+

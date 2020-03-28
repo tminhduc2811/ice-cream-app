@@ -10,16 +10,19 @@ import { Component, OnInit } from '@angular/core';
 export class FaqComponent implements OnInit {
 
   faqs: FAQ[] = [];
-  faqsLoaded = false;
+  isLoaded = false;
+  isLoading = false;
 
   constructor(private faqService: FaqService) {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.faqService.getAll().subscribe(
       faqs => {
         this.faqs = faqs;
-        this.faqsLoaded = true;
+        this.isLoaded = true;
+        this.isLoading = false;
       }
     );
   }

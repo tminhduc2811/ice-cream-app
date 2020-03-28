@@ -34,6 +34,8 @@ import { FaqComponent } from './pages/faq/faq.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UserProfileComponent } from './pages/profile/user-profile/user-profile.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,19 @@ import { UserProfileComponent } from './pages/profile/user-profile/user-profile.
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp({
+      apiKey: 'AIzaSyAd8rrLHWQDDq9Tgo9bmyoiKjC0b-ybwyA',
+      authDomain: 'ice-cream-web.firebaseapp.com',
+      databaseURL: 'https://ice-cream-web.firebaseio.com',
+      projectId: 'ice-cream-web',
+      storageBucket: 'ice-cream-web.appspot.com',
+      messagingSenderId: '363876808617',
+      appId: '1:363876808617:web:89dc1c9f8ee47b4f2036b8',
+      measurementId: 'G-JS6HP4V3VH'
+    },
+    AngularFireStorage
+    )
   ],
   providers: [ApiService, FaqService, UserService,
     CustomerService, RecipeService, FeedbackService,

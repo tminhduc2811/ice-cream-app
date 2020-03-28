@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ice-cream-web": {
+      "hosting": {
+        "frontend": [
+          "ice-cream-web"
+        ]
+      }
+    }
+  }
+}

@@ -10,15 +10,18 @@ import { Feedback } from 'src/app/models/feedback.model';
 export class FeedbackComponent implements OnInit {
 
   feedbacks: Feedback[] = [];
-  feedbacksLoaded = false;
+  isLoaded = false;
+  isLoading = false;
 
   constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.feedbackService.getAll()
     .subscribe(feedbacks => {
       this.feedbacks = feedbacks;
-      this.feedbacksLoaded = true;
+      this.isLoaded = true;
+      this.isLoading = false;
     });
   }
 

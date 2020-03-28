@@ -3,12 +3,16 @@
     <div class="card border-primary mb-5" style="max-width: 20rem;">
       <div class="card-header text-center">User Profile</div>
       <div class="card-body text-center">
-        <img src="../../../../assets/images/male.jpg" class="img-fluid" alt="Profile avatar">
+        <div *ngIf="imgLoading" style="text-align: center;">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+        <img [src]="profileUrl" class="img-fluid" alt="Profile avatar" *ngIf="!imgLoading">
         <h4 class="card-title">{{user.fullName}}</h4>
         <p class="card-text">Email: {{user.email}}</p>
         <div class="form-group">
           <label for="exampleInputFile">Choose your avatar</label>
-          <input [formControl]="image" type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp">
+          <input type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp" accept=".png,.jpg"
+          (change)="uploadAvatar($event)">
           <small id="fileHelp" class="form-text text-muted">Please make sure that your avatar has the right solution</small>
         </div>
       </div>

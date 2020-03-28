@@ -10,15 +10,18 @@ import { User } from './../../models/user.model';
 export class UsersComponent implements OnInit {
 
   users: User[] = [];
-  usersLoaded = false;
+  isLoaded = false;
+  isLoading = false;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.userService.getAll().subscribe(
       users => {
         this.users = users;
-        this.usersLoaded = true;
+        this.isLoaded = true;
+        this.isLoading = false;
       }
     );
   }

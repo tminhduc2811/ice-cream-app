@@ -10,15 +10,18 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrdersComponent implements OnInit {
 
   orders: Order[] = [];
-  ordersLoaded = false;
+  isLoaded = false;
+  isLoading = false;
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.orderService.getAll().subscribe(
       orders => {
         this.orders = orders;
-        this.ordersLoaded = true;
+        this.isLoaded = true;
+        this.isLoading = false;
       }
     );
   }
