@@ -26,4 +26,6 @@ public interface UserService {
     public List<Role> getUserRoles(Long id);
 
     public void updateUserRoles(Long id, List<Long> roleIds);
+
+    public boolean isExist(String username);
 }
