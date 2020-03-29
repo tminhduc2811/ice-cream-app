@@ -167,7 +167,6 @@ public class User {
     @JsonIgnore
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println("------------------------------------------------------" +roles);
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
         }

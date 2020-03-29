@@ -10,11 +10,11 @@ import { Component, OnInit } from '@angular/core';
 import { finalize, debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-customer-profile',
+  templateUrl: './customer-profile.component.html',
+  styleUrls: ['./customer-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class CustomerProfileComponent implements OnInit {
 
   user: User = {} as User;
   uploadPercent: Observable<number>;

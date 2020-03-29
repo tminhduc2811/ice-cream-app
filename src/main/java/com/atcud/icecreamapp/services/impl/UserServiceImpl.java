@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         if (currentUser == null) {
             throw new CustomException("User " + user.getUser().getUserName() + "not found", HttpStatus.NOT_FOUND);
         }
-        String currentPass = user.getUser().getPassword();
+        String currentPass = user.getCurrentPassword();
         if (!currentPass.equals("")) {
             if(passwordEncoder.matches(currentPass, currentUser.getPassword())) {
                 currentUser.setPassword(passwordEncoder.encode(user.getUser().getPassword()));
@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = roleRepository.findRolesByNames(user.getUser().getRoles());
         // Update roles
         currentUser.setRoles(roles);
+        currentUser.setFullName(user.getUser().getFullName());
         currentUser.setEmail(user.getUser().getEmail());
         currentUser.setStatus(user.getUser().getStatus());
         currentUser.setAvatar(user.getUser().getAvatar());

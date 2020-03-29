@@ -1,3 +1,4 @@
+
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading.component';
 import { JwtInterceptor } from './auth/Jwt.Interceptor';
 import { AdminGuard } from './services/auth-admin.service';
@@ -13,7 +14,6 @@ import { FaqService } from './services/faq.service';
 import { ApiService } from './services/api.service';
 import { ListErrorsComponent } from './shared/list-errors.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +36,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UserProfileComponent } from './pages/profile/user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+import { CustomerProfileComponent } from './pages/profile/customer-profile/customer-profile.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     FaqItemComponent,
     ProfileComponent,
     UserProfileComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    CustomerProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     },
       AngularFireStorage,
     ),
+    NgbModule
 
   ],
   providers: [ApiService, FaqService, UserService,

@@ -33,17 +33,7 @@ export class AuthService {
         }
       ));
   }
-  // private handleError(errorResponse: HttpErrorResponse) {
-  //   let errorMessage = 'An unknown error has occurred';
-  //   console.log('aad');
-  //   if (!errorResponse.error || !errorResponse.error.error) {
-  //     console.log('aad');
-  //     return throwError(errorMessage);
-  //   }
-  //   errorMessage = errorResponse.error.error.message;
-  //   console.log(errorResponse.error.message);
-  //   return throwError(errorMessage);
-  // }
+
   finishAuthentication(data): void {
     const token = this.helper.decodeToken(data.token);
     const expiresAt = JSON.stringify((token.exp * 1000));

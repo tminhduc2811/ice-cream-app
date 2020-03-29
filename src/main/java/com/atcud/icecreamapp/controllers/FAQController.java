@@ -32,8 +32,7 @@ public class FAQController {
 		if (FAQList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		System.out.println("principle: " + SecurityContextHolder.getContext().getAuthentication());
-		System.out.println("roles: "+ Arrays.toString(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()));
+
 		return new ResponseEntity<>(FAQList, HttpStatus.OK);
 	}
 	
