@@ -1,3 +1,4 @@
+import { PageService } from './services/page.service';
 import { IceCreamService } from './services/ice-cream.service';
 import { CustomerGuard } from './services/auth-customer.service';
 
@@ -88,7 +89,7 @@ import { CustomerProfileComponent } from './pages/profile/customer-profile/custo
 
   ],
   providers: [ApiService, FaqService, UserService, IceCreamService,
-    CustomerService, RecipeService, FeedbackService,
+    CustomerService, RecipeService, FeedbackService, PageService,
     OrderService, AuthService, AdminGuard, CustomerGuard,
     {
       provide: HTTP_INTERCEPTORS,

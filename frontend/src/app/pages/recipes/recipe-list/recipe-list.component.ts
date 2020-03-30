@@ -1,3 +1,7 @@
+import { PageService } from './../../../services/page.service';
+import { RecipeView } from './../../../auth/views/recipes.view.model';
+import { Page } from './../../../models/page.model';
+import { Pageable } from './../../../models/view.model';
 import { Recipe } from './../../../models/recipe.model';
 import { RecipeService } from './../../../services/recipe.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -11,44 +15,66 @@ export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = [];
   recipesLoaded = false;
+  result: RecipeView;
+  page: Page;
   isLoading = false;
+  size = 4;
   // Params
 
-  constructor(private recipeService: RecipeService) {
-    this.isLoading = true;
-    this.recipeService.getAll()
-      .subscribe(rs => {
-        this.recipes = rs.content;
-        this.recipesLoaded = true;
-        this.isLoading = false;
-      });
+  constructor(private recipeService: RecipeService, private pageService: PageService) {
   }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.recipeService.typeSelected
-      .subscribe(idType => {
-        console.log('Type id:', idType);
-        if (idType === 0) {
-          this.recipeService.getAll()
-            .subscribe(rs => {
-              this.recipes = rs.content;
-              this.isLoading = false;
-            }, err => {
-              // TODO: Handle error later
-              this.isLoading = false;
-            });
-        } else {
-          this.recipeService.getAllByType(idType)
-            .subscribe(recipes => {
-              this.recipes = recipes;
-              this.isLoading = false;
-            }, err => {
-              // TODO: Handle error later
-              this.isLoading = false;
-            });
-        }
+    this.recipeService.getAll({ page: 0, size: this.size })
+      .subscribe(rs => {
+        this.recipes = rs.content;
+        this.result = rs;
+        this.setPage(1);
+        this.recipesLoaded = true;
+        this.isLoading = false;
       });
+    // this.isLoading = true;
+    // this.recipeService.typeSelected
+    //   .subscribe(idType => {
+    //     console.log('Type id:', idType);
+    //     if (idType === 0) {
+    //       this.recipeService.getAll()
+    //         .subscribe(rs => {
+    //           this.recipes = rs.content;
+    //           this.isLoading = false;
+    //         }, err => {
+    //           // TODO: Handle error later
+    //           this.isLoading = false;
+    //         });
+    //     } else {
+    //       this.recipeService.getAllByType(idType)
+    //         .subscribe(recipes => {
+    //           this.recipes = recipes;
+    //           this.isLoading = false;
+    //         }, err => {
+    //           // TODO: Handle error later
+    //           this.isLoading = false;
+    //         });
+    //     }
+    //   });
   }
 
+  setPage(currentPage: number) {
+    if (currentPage < 0 || currentPage >= this.result.totalPages + 1) {
+      return;
+    }
+    this.page = this.pageService.getPage(this.result.totalPages, currentPage);
+    this.isLoading = true;
+    // get new recipes
+    this.recipeService.getAll({ page: currentPage - 1, size: this.size })
+      .subscribe(rs => {
+        this.result = rs;
+        this.recipes = rs.content;
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
+      });
+
+  }
 }

@@ -1,12 +1,28 @@
-
 <div class="container">
   <div *ngIf="isLoading" style="text-align: center;">
     <app-loading-spinner></app-loading-spinner>
   </div>
   <div class="row mt5 justify-content-center" *ngIf="!isLoading">
-    <app-recipe-item
-    *ngFor="let recipeEl of recipes"
-    [recipe]="recipeEl">
+    <app-recipe-item *ngFor="let recipeEl of recipes" [recipe]="recipeEl">
     </app-recipe-item>
   </div>
+</div>
+<div class="text-center" *ngIf="recipesLoaded" style="cursor: pointer;">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}" >
+      <a class="page-link" (click)="setPage(1)">&laquo;</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}">
+      <a class="page-link" (click)="setPage(page.currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item active" *ngFor="let p of page.pages" [ngClass]="{active:page.currentPage === p}">
+      <a class="page-link" (click)="setPage(p)">{{p}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === (result.totalPages)}">
+      <a class="page-link" (click)="setPage(page.currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === (result.totalPages)}">
+      <a class="page-link" (click)="setPage(result.totalPages)">&raquo;</a>
+    </li>
+  </ul>
 </div>

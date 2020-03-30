@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Recipe } from './../models/recipe.model';
 import { RecipeView } from './../auth/views/recipes.view.model';
 import { Observable } from 'rxjs';
@@ -14,7 +15,11 @@ export class RecipeService {
 
   constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<RecipeView> {
+  getAll(query): Observable<RecipeView> {
+    if (query) {
+      const params = new HttpParams().set('page', query.page).set('size', query.size);
+      return this.apiService.get('/recipes', params).pipe(map(data => data));
+    }
     return this.apiService.get('/recipes').pipe(map(data => data));
   }
 
