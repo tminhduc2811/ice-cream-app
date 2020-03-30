@@ -1,9 +1,13 @@
 package com.atcud.icecreamapp.controllers;
 
 import com.atcud.icecreamapp.DTO.DTOBuilder;
+import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
+import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
 import com.atcud.icecreamapp.DTO.entities.UserDTO;
 import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
+import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.User;
+import com.atcud.icecreamapp.services.CustomerService;
 import com.atcud.icecreamapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,21 +20,37 @@ import org.springframework.web.bind.annotation.*;
 public class ProfileController {
 
     @Autowired
-    private UserService service;
+    private UserService userService;
+
+    @Autowired
+    private CustomerService customerService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<UserDTO> getUserByName(@PathVariable String username) {
-        User user = service.findUserByUsername(username);
+        User user = userService.findUserByUsername(username);
         return new ResponseEntity<>(DTOBuilder.userToDTO(user), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserUpdateDTO userUpdateDTO) {
-        User updatedUser = service.update(userUpdateDTO);
+        User updatedUser = userService.update(userUpdateDTO);
         System.out.println("Update user successfully");
         return new ResponseEntity<>(DTOBuilder.userToDTO(updatedUser), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/customer/{username}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<CustomerDTO> getCustomerByName(@PathVariable String username) {
+        Customer customer = customerService.findUserByName(username);
+        return new ResponseEntity<>(DTOBuilder.customerToDTO(customer), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/customer", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerUpdateDTO customerUpdateDTO) {
+        Customer updatedCustomer = customerService.update(customerUpdateDTO);
+        System.out.println("Update customer successfully");
+        return new ResponseEntity<>(DTOBuilder.customerToDTO(updatedCustomer), HttpStatus.OK);
     }
 }

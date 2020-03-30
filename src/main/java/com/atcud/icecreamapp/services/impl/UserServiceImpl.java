@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.User;
+
 import com.atcud.icecreamapp.repositories.UserRepository;
 import com.atcud.icecreamapp.services.UserService;
 
@@ -102,11 +103,12 @@ public class UserServiceImpl implements UserService {
     public User update(UserUpdateDTO user) {
         User currentUser = userRepository.findUserByUsername(user.getUser().getUserName());
         if (currentUser == null) {
-            throw new CustomException("User " + user.getUser().getUserName() + "not found", HttpStatus.NOT_FOUND);
+            throw new CustomException("User " + user.getUser().getUserName() + " not found",
+                    HttpStatus.NOT_FOUND);
         }
         String currentPass = user.getCurrentPassword();
         if (!currentPass.equals("")) {
-            if(passwordEncoder.matches(currentPass, currentUser.getPassword())) {
+            if (passwordEncoder.matches(currentPass, currentUser.getPassword())) {
                 currentUser.setPassword(passwordEncoder.encode(user.getUser().getPassword()));
             } else {
                 throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);

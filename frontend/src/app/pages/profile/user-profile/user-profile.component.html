@@ -1,3 +1,12 @@
+<div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{successMessage}}
+</div>
+<div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{warningMessage}}
+</div>
+
 <div class="row text" style="padding-top: 40px;">
   <div class="col-md-5">
     <div class="card border-primary mb-5" style="max-width: 40rem;">
@@ -78,12 +87,4 @@
       </fieldset>
     </form>
   </div>
-</div>
-<div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  {{successMessage}}
-</div>
-<div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  {{warningMessage}}
 </div>

@@ -1,4 +1,12 @@
-<div class="row text" style="padding-top: 40px;">
+<div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{successMessage}}
+</div>
+<div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{warningMessage}}
+</div>
+<div class="row text" style="padding-top: 50px; padding-bottom: 80px;">
   <div class="col-md-5">
     <div class="card border-primary mb-5" style="max-width: 40rem;">
       <div class="card-header text-center">User Profile</div>
@@ -38,13 +46,13 @@
           <label>Gender</label>
           <div class="form-check">
             <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="male" value="option1" checked="{{customer.gender == 1}}">
+              <input formControlName="gender" type="radio" class="form-check-input" name="gender" id="male" value="male">
               Male
             </label>
           </div>
           <div class="form-check">
           <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="female" value="option2" checked="{{customer.gender == 0}}">
+              <input formControlName="gender" type="radio" class="form-check-input" name="gender" id="female" value="female">
               Female
             </label>
           </div>
@@ -64,19 +72,19 @@
         </div>
         <div class="form-group">
           <label for="expiredDate">Expired date</label>
-          <input formControlName="expiredDate" type="text" class="form-control" id="expiredDate" aria-describedby="emailHelp" placeholder="Expired date" disable="true">
+          <input formControlName="expiredDate" type="text" class="form-control" id="expiredDate" aria-describedby="emailHelp" placeholder="Expired date" disabled="true">
         </div>
         <div class="form-group">
-          <label for="username">Username</label>
-          <input formControlName="username" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username" disabled="true">
+          <label for="userName">Username</label>
+          <input formControlName="userName" type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Username" disabled="true">
         </div>
         <div class="form-group">
           <label for="password">Current password</label>
-          <input formControlName="currentPassword" type="password" class="form-control" id="currentPassword" placeholder="Password">
+          <input formControlName="currentPassword" type="password" class="form-control" id="currentPassword" placeholder="Current password">
         </div>
         <div class="form-group">
           <label for="password">New password</label>
-          <input formControlName="newPassword" type="password" class="form-control" id="newPassword" placeholder="Password">
+          <input formControlName="newPassword" type="password" class="form-control" id="newPassword" placeholder="New password">
         </div>
         <fieldset class="form-group">
           <legend>Status</legend>
@@ -92,12 +100,4 @@
       </fieldset>
     </form>
   </div>
-</div>
-<div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  {{successMessage}}
-</div>
-<div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  {{warningMessage}}
 </div>

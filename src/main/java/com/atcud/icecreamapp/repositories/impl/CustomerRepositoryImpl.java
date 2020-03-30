@@ -55,8 +55,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     @Transactional
-    public void update(Customer customer) {
+    public Customer update(Customer customer) {
         entityManager.merge(customer);
+        return customer;
     }
 
     @Override

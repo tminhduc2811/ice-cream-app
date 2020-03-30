@@ -129,24 +129,26 @@ export class UserProfileComponent implements OnInit {
   }
   submitForm() {
     this.isSubmitting = true;
-    console.log(this.formGroup.get('fullname').value);
-    this.user.fullName = this.formGroup.get('fullname').value;
-    this.user.email = this.formGroup.get('email').value;
-    this.user.password = this.formGroup.get('newPassword').value;
+    this.getForm();
     this.userService.updateProfile({user: this.user, currentPassword: this.formGroup.get('currentPassword').value})
     .subscribe(res => {
       this.user = res;
       this.success.next('Your information has been saved successfully');
       this.isSubmitting = false;
     }, err => {
-      console.log(err.message);
-      this.isSubmitting = true;
+      this.isSubmitting = false;
       this.warning.next(err.message);
     });
   }
 
   onCancel() {
     this.router.navigate(['home']);
+  }
+
+  getForm() {
+    this.user.fullName = this.formGroup.get('fullname').value;
+    this.user.email = this.formGroup.get('email').value;
+    this.user.password = this.formGroup.get('newPassword').value;
   }
 }
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
+import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
 import com.atcud.icecreamapp.entities.Customer;
 
 public interface CustomerService {
@@ -12,12 +13,14 @@ public interface CustomerService {
 
     public Optional<Customer> getCustomerById(Long id);
 
+    public Customer findUserByName(String username);
+
     public String login(String username, String password);
 
     public Customer register(Customer customer);
 
     public void delete(Long id);
 
-    public void update(Customer customer);
+    public Customer update(CustomerUpdateDTO customer);
 
 }

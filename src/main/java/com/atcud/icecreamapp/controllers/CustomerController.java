@@ -44,11 +44,11 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Customer> update(@RequestBody Customer customer) {
-        service.update(customer);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+//    public ResponseEntity<Customer> update(@RequestBody Customer customer) {
+//        ;
+//        return new ResponseEntity<>(service.update(customer), HttpStatus.OK);
+//    }
 
     // TODO: Refactor later
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")

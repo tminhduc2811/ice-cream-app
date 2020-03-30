@@ -34,6 +34,7 @@ export class CustomerProfileComponent implements OnInit {
   formGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -67,6 +68,7 @@ export class CustomerProfileComponent implements OnInit {
     this.formGroup.setValue({
       firstName: this.customer.firstName,
       lastName: this.customer.lastName,
+      gender: this.customer.gender === 1 ? 'male' : 'female',
       address: this.customer.address,
       phoneNumber: this.customer.phoneNumber,
       email: this.customer.email,
@@ -115,17 +117,14 @@ export class CustomerProfileComponent implements OnInit {
     // Save generated file name to store in backend
     // this.imageName = filePath;
     this.uploadPercent = task.percentageChanges();
-    console.log('type ', file.name.substr(file.name.length - 4, file.name.length - 1));
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(
           data => {
             this.profileUrl = data;
-            console.log('Saving to database', this.profileUrl);
             this.customer.avatar = filePath;
-            this.customerService.updateProfile({ user: this.customer, currentPassword: '' })
+            this.customerService.updateProfile({ customer: this.customer, currentPassword: '' })
               .subscribe(rs => {
-                console.log('Updated');
                 this.imgLoading = false;
                 this.success.next('Your avatar has been saved');
               },
@@ -139,25 +138,32 @@ export class CustomerProfileComponent implements OnInit {
       .subscribe();
   }
   submitForm() {
-    // this.isSubmitting = true;
-    // console.log(this.formGroup.get('fullname').value);
-    // this.user.fullName = this.formGroup.get('fullname').value;
-    // this.user.email = this.formGroup.get('email').value;
-    // this.user.password = this.formGroup.get('newPassword').value;
-    // this.userService.updateProfile({user: this.user, currentPassword: this.formGroup.get('currentPassword').value})
-    // .subscribe(res => {
-    //   this.user = res;
-    //   this.success.next('Your information has been saved successfully');
-    //   this.isSubmitting = false;
-    // }, err => {
-    //   console.log(err.message);
-    //   this.isSubmitting = true;
-    //   this.warning.next(err.message);
-    // });
+    this.isSubmitting = true;
+    this.getForm();
+    this.customerService.updateProfile({ customer: this.customer, currentPassword: this.formGroup.get('currentPassword').value })
+      .subscribe(res => {
+        this.customer = res;
+        this.success.next('Your information has been saved successfully');
+        this.isSubmitting = false;
+      }, err => {
+        this.isSubmitting = false;
+        this.warning.next(err.message);
+      });
   }
 
   onCancel() {
     this.router.navigate(['home']);
+  }
+
+  getForm() {
+    this.customer.firstName = this.formGroup.get('firstName').value;
+    this.customer.lastName = this.formGroup.get('lastName').value;
+    this.customer.birthday = this.formGroup.get('birthday').value;
+    this.customer.gender = this.formGroup.get('gender').value === 'male' ? 1 : 0;
+    this.customer.address = this.formGroup.get('address').value;
+    this.customer.phoneNumber = this.formGroup.get('phoneNumber').value;
+    this.customer.email = this.formGroup.get('email').value;
+
   }
 }
 

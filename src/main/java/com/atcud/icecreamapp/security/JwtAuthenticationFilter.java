@@ -1,6 +1,7 @@
 package com.atcud.icecreamapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         } catch (Exception ex) {
             logger.error("Failed to set user authentication", ex);
+            throw new AccessDeniedException("Failed to authenticate");
         }
         filterChain.doFilter(request, response);
     }

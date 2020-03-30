@@ -20,11 +20,15 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         try {
             UserDetails user = customUserService.loadUserByUsername(authentication.getName());
 
-            // Check user
             UsernamePasswordAuthenticationToken result = null;
-            if(user.getUsername().equals(authentication.getName()) && user.getPassword().equals(authentication.getCredentials().toString())) {
-                result = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+            // Check user
+            if(user != null) {
+                if(user.getUsername().equals(authentication.getName()) && user.getPassword().equals(authentication.getCredentials().toString())) {
+                    result = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
 
+                }
+            } else {
+                throw new BadCredentialsException("User authentication failed");
             }
             return result;
         } catch (Exception ex) {
