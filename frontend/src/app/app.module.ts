@@ -1,3 +1,4 @@
+import { IceCreamService } from './services/ice-cream.service';
 import { CustomerGuard } from './services/auth-customer.service';
 
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading.component';
@@ -86,7 +87,7 @@ import { CustomerProfileComponent } from './pages/profile/customer-profile/custo
     NgbModule
 
   ],
-  providers: [ApiService, FaqService, UserService,
+  providers: [ApiService, FaqService, UserService, IceCreamService,
     CustomerService, RecipeService, FeedbackService,
     OrderService, AuthService, AdminGuard, CustomerGuard,
     {

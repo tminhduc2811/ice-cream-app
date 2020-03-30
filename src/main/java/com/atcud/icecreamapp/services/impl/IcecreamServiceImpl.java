@@ -1,8 +1,11 @@
 package com.atcud.icecreamapp.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.DTOBuilder;
+import com.atcud.icecreamapp.DTO.entities.RecipeDTO;
 import com.atcud.icecreamapp.exceptions.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,12 +59,17 @@ public class IcecreamServiceImpl implements IcecreamService {
     }
 
     @Override
-    public List<Recipe> getAllRecipeByIcecreamId(Long id) {
+    public List<RecipeDTO> getAllRecipeByIcecreamId(Long id) {
         Optional<Icecream> icecream = icecreamRepository.findById(id);
         if (!icecream.isPresent()) {
             throw new CustomException("Icecream not found", HttpStatus.NOT_FOUND);
         }
-        return icecream.get().getRecipes();
+        List<Recipe> recipes = icecream.get().getRecipes();
+        List<RecipeDTO> recipeDTO = new ArrayList<>();
+        for(Recipe recipe: recipes) {
+            recipeDTO.add(DTOBuilder.recipeToDTO(recipe));
+        }
+        return recipeDTO;
     }
 
 }

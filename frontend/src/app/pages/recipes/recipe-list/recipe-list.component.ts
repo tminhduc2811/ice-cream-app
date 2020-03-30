@@ -12,6 +12,7 @@ export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
   recipesLoaded = false;
   isLoading = false;
+  // Params
 
   constructor(private recipeService: RecipeService) {
     this.isLoading = true;
@@ -24,6 +25,30 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
+    this.recipeService.typeSelected
+      .subscribe(idType => {
+        console.log('Type id:', idType);
+        if (idType === 0) {
+          this.recipeService.getAll()
+            .subscribe(recipes => {
+              this.recipes = recipes;
+              this.isLoading = false;
+            }, err => {
+              // TODO: Handle error later
+              this.isLoading = false;
+            });
+        } else {
+          this.recipeService.getAllByType(idType)
+            .subscribe(recipes => {
+              this.recipes = recipes;
+              this.isLoading = false;
+            }, err => {
+              // TODO: Handle error later
+              this.isLoading = false;
+            });
+        }
+      });
   }
 
 }

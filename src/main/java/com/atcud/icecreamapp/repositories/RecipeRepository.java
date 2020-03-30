@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Recipe;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecipeRepository {
 
@@ -18,3 +19,4 @@ public interface RecipeRepository {
     public void update(Recipe recipe);
 
 }
+

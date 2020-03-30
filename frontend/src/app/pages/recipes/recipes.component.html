@@ -4,12 +4,9 @@
     <div class="form-group col-md-5">
       <legend>Ice Cream</legend>
       <label for="exampleSelect1">Selec type of Ice-cream you want</label>
-      <select class="form-control" id="exampleSelect1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+      <select class="form-control" id="exampleSelect1" (change)="iceCreamSelected($event.target.value)">
+        <option *ngFor="let iceCream of iceCreams; let i = index" [value]="i">{{iceCream.name}}</option>
+        <option [value]="iceCreams.length">All</option>
       </select>
     </div>
     <div class="form-group col-md-5">

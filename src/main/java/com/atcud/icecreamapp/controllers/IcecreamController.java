@@ -29,11 +29,11 @@ public class IcecreamController {
         return new ResponseEntity<>(iceCream, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/recipes", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Recipe>> getRecipesOfIcecreamById(@PathVariable Long id) {
-        List<Recipe> recipes = service.getAllRecipeByIcecreamId(id);
-        return new ResponseEntity<>(recipes, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/{id}/recipes", method = RequestMethod.GET, produces = "application/json")
+//    public ResponseEntity<List<Recipe>> getRecipesOfIcecreamById(@PathVariable Long id) {
+//        List<Recipe> recipes = service.getAllRecipeByIcecreamId(id);
+//        return new ResponseEntity<>(recipes, HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Icecream> createIcecream(@RequestBody Icecream iceCream) {

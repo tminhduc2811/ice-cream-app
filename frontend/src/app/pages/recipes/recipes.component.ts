@@ -1,6 +1,8 @@
+import { IceCreamService } from './../../services/ice-cream.service';
 import { Recipe } from './recipe.model';
 import { RecipeService } from './../../services/recipe.service';
 import { Component, OnInit } from '@angular/core';
+import { IceCream } from 'src/app/models/ice-cream.model';
 
 @Component({
   selector: 'app-recipes',
@@ -10,14 +12,30 @@ import { Component, OnInit } from '@angular/core';
 export class RecipesComponent implements OnInit {
 
   selectedRecipe: Recipe;
+  iceCreams: IceCream[] = [];
+  isLoaded = false;
+  selectedId: number;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private iceCreamService: IceCreamService) { }
 
   ngOnInit(): void {
-    this.recipeService.recipeSelected
-      .subscribe((recipe: Recipe) => {
-        this.selectedRecipe = recipe;
+    // this.recipeService.recipeSelected
+    //   .subscribe((recipe: Recipe) => {
+    //     this.selectedRecipe = recipe;
+    //   });
+
+    this.iceCreamService.getAll()
+      .subscribe(rs => {
+        this.iceCreams = rs;
+        this.isLoaded = true;
       });
   }
-
+  iceCreamSelected(index) {
+    console.log(index);
+    if (index < this.iceCreams.length) {
+      this.recipeService.typeSelected.emit(this.iceCreams[index].id);
+    } else {
+      this.recipeService.typeSelected.emit(0);
+    }
+  }
 }

@@ -1,5 +1,7 @@
 package com.atcud.icecreamapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -28,10 +30,11 @@ public class Icecream {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "icecream",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonIgnore
     private List<Recipe> recipes;
 
     public Icecream() {

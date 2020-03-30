@@ -9,11 +9,16 @@ import { map } from 'rxjs/operators';
 })
 export class RecipeService {
 
-  recipeSelected = new EventEmitter<Recipe>();
+  typeSelected = new EventEmitter<number>();
 
   constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<[Recipe]> {
+  getAll(): Observable<Recipe[]> {
     return this.apiService.get('/recipes').pipe(map(data => data));
   }
+
+  getAllByType(id): Observable<Recipe[]> {
+    return this.apiService.get('/recipes/type/' + id).pipe(map(data => data));
+  }
+
 }

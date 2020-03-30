@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.atcud.icecreamapp.DTO.entities.RecipeDTO;
+import com.atcud.icecreamapp.services.IcecreamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,10 @@ import com.atcud.icecreamapp.services.RecipeService;
 public class RecipeController {
 	@Autowired
 	private RecipeService service;
-	
+
+	@Autowired
+	private IcecreamService icecreamService;
+
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
 		List<RecipeDTO> recipes = service.getAllRecipes();
@@ -54,5 +58,10 @@ public class RecipeController {
 		}
 		service.update(newRecipe);
 		return new ResponseEntity<>(newRecipe, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/type/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<RecipeDTO>> getAllRecipesByType(@PathVariable Long id) {
+		return new ResponseEntity<>(icecreamService.getAllRecipeByIcecreamId(id), HttpStatus.OK);
 	}
 }
