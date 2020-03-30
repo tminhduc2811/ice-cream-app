@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.DTO.DTOBuilder;
+import com.atcud.icecreamapp.DTO.entities.UserDTO;
 import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.exceptions.CustomException;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.entities.User;
 
-import com.atcud.icecreamapp.repositories.UserRepository;
+import com.atcud.icecreamapp.repositories.user.UserRepository;
 import com.atcud.icecreamapp.services.UserService;
 
 @Component
@@ -44,22 +46,22 @@ public class UserServiceImpl implements UserService {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return DTOBuilder.mapList( userRepository.findAll(), UserDTO.class);
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public UserDTO getUserById(Long id) {
+        return DTOBuilder.mapObject(userRepository.findById(id), UserDTO.class);
     }
 
     @Override
-    public User findUserByUsername(String username) {
+    public UserDTO findUserByUsername(String username) {
         User user = userRepository.findUserByUsername(username);
         if (user == null) {
             throw new CustomException("User not found", HttpStatus.NOT_FOUND);
         }
-        return user;
+        return DTOBuilder.mapObject(user, UserDTO.class);
     }
 
     @Override
@@ -82,25 +84,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) {
+    public UserDTO register(User user) {
         if (userRepository.isExist(user.getUserName())) {
             throw new CustomException("User already existed", HttpStatus.CONFLICT);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return DTOBuilder.mapObject(userRepository.save(user), UserDTO.class);
     }
 
     @Override
     public void delete(Long id) {
-        Optional<User> optional = userRepository.findById(id);
-        if (!optional.isPresent()) {
+        User user = userRepository.findById(id);
+        if (user == null) {
             throw new CustomException("User not found", HttpStatus.NOT_FOUND);
         }
-        userRepository.delete(optional.get());
+        userRepository.delete(user);
     }
 
     @Override
-    public User update(UserUpdateDTO user) {
+    public UserDTO update(UserUpdateDTO user) {
         User currentUser = userRepository.findUserByUsername(user.getUser().getUserName());
         if (currentUser == null) {
             throw new CustomException("User " + user.getUser().getUserName() + " not found",
@@ -109,7 +111,7 @@ public class UserServiceImpl implements UserService {
         String currentPass = user.getCurrentPassword();
         if (!currentPass.equals("")) {
             if (passwordEncoder.matches(currentPass, currentUser.getPassword())) {
-                currentUser.setPassword(passwordEncoder.encode(user.getUser().getPassword()));
+                currentUser.setPassword(passwordEncoder.encode(user.getNewPassword()));
             } else {
                 throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);
             }
@@ -121,25 +123,24 @@ public class UserServiceImpl implements UserService {
         currentUser.setEmail(user.getUser().getEmail());
         currentUser.setStatus(user.getUser().getStatus());
         currentUser.setAvatar(user.getUser().getAvatar());
-        return userRepository.update(currentUser);
+        return DTOBuilder.mapObject(userRepository.update(currentUser), UserDTO.class);
     }
 
     @Override
     public List<Role> getUserRoles(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if (!user.isPresent()) {
+        User user = userRepository.findById(id);
+        if (user == null) {
             throw new CustomException("User not existed", HttpStatus.NOT_FOUND);
         }
-        return user.get().getRoles();
+        return user.getRoles();
     }
 
     @Override
     public void updateUserRoles(Long id, List<Long> roleIds) {
-        Optional<User> optional = userRepository.findById(id);
-        if (!optional.isPresent()) {
+        User user = userRepository.findById(id);
+        if (user == null) {
             throw new CustomException("User with Id: " + "not found", HttpStatus.NOT_FOUND);
         }
-        User user = optional.get();
         List<Role> roles = new ArrayList<>();
         for (Long i : roleIds) {
             Optional<Role> temp = roleRepository.findById(i);

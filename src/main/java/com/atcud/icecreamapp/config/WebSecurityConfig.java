@@ -107,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/recipes").permitAll()
                 .antMatchers("/orders").permitAll()
                 .antMatchers("/feedback").permitAll()
-                .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers("/users").permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

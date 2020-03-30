@@ -8,7 +8,6 @@ import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.DTO.entities.RecipeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -26,17 +25,12 @@ public class RecipeServiceImpl implements RecipeService {
     public Page<RecipeDTO> findPage(Pageable pageable) {
         Page<Recipe> entityPage = recipeRepository.findPage(pageable);
 
-        return DTOBuilder.mapEntityPageIntoDtoPage(entityPage, RecipeDTO.class);
+        return DTOBuilder.mapPage(entityPage, RecipeDTO.class);
     }
 
     @Override
     public List<RecipeDTO> getAllRecipes() {
-        List<Recipe> recipes = recipeRepository.findAll();
-        List<RecipeDTO> result = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            result.add(DTOBuilder.recipeToDTO(recipe));
-        }
-        return result;
+        return DTOBuilder.mapList(recipeRepository.findAll(), RecipeDTO.class);
     }
 
     @Override

@@ -25,15 +25,6 @@ public class RecipeController {
 
     @Autowired
     private IcecreamService icecreamService;
-//
-//	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-//	public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
-//		List<RecipeDTO> recipes = service.getAllRecipes();
-//		if (recipes.isEmpty()) {
-//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//		}
-//		return new ResponseEntity<>(recipes, HttpStatus.OK);
-//	}
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Page<RecipeDTO>> getRecipes(

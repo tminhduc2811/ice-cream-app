@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
 @Api(value = "User APIs")
 @RestController
 @RequestMapping("/users")
@@ -31,9 +29,9 @@ public class UserController {
             @ApiResponse(code = 500, message = "Internal server error, there was an exception")
     })
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<UserDTO>> getUsers() {
 
-        List<User> users = service.getAllUsers();
+        List<UserDTO> users = service.getAllUsers();
         if (users.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -49,24 +47,23 @@ public class UserController {
             @ApiResponse(code = 500, message = "Internal server error, there was an exception")
     })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> user = service.getUserById(id);
-        return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        UserDTO userDTO = service.getUserById(id);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Login for user")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Logged in successfully"),
-            @ApiResponse(code = 422, message = "Invalid username or password"),
-            @ApiResponse(code = 500, message = "Internal server error, there was an exception")
-    })
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody UserLogin userLogin) {
-        String token = service.login(userLogin.getUsername(), userLogin.getPassword());
-        User user = service.findUserByUsername(userLogin.getUsername());
-        return new ResponseEntity<>(DTOBuilder.authResponseToDTO(DTOBuilder.authInfoToDTO(user), token), HttpStatus.OK);
-    }
+//    @ApiOperation(value = "Login for user")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Logged in successfully"),
+//            @ApiResponse(code = 422, message = "Invalid username or password"),
+//            @ApiResponse(code = 500, message = "Internal server error, there was an exception")
+//    })
+//    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+//    public ResponseEntity<AuthResponseDTO> login(@RequestBody UserLogin userLogin) {
+//        String token = service.login(userLogin.getUsername(), userLogin.getPassword());
+//        UserDTO userDTO = service.findUserByUsername(userLogin.getUsername());
+//        return new ResponseEntity<>(DTOBuilder.authResponseToDTO(DTOBuilder.authInfoToDTO(user), token), HttpStatus.OK);
+//    }
 
     @ApiOperation(value = "Delete user by Id")
     @ApiResponses(value = {
@@ -88,8 +85,8 @@ public class UserController {
     })
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
-        User result = service.register(user);
-        return new ResponseEntity<>(DTOBuilder.userToDTO(result), HttpStatus.CREATED);
+        UserDTO result = service.register(user);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Get all roles of user")

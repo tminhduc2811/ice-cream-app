@@ -3,14 +3,45 @@ package com.atcud.icecreamapp.DTO;
 import com.atcud.icecreamapp.DTO.entities.*;
 import com.atcud.icecreamapp.entities.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DTOBuilder {
 
-    public static <D, T> Page<D> mapEntityPageIntoDtoPage(Page<T> entities, Class<D> dtoClass) {
-        ModelMapper modelMapper = new ModelMapper();
+    private static final ModelMapper modelMapper;
+
+    static {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
+
+    public static <D, T> Page<D> mapPage(Page<T> entities, Class<D> dtoClass) {
         return entities.map(objectEntity -> modelMapper.map(objectEntity, dtoClass));
 
+    }
+
+    public static <D, T> D mapObject(final T entity, Class<D> dtoClass) {
+        return modelMapper.map(entity, dtoClass);
+    }
+
+
+    public static <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        List<T> list = new ArrayList<>();
+        for (S s : source) {
+            list.add(modelMapper.map(s, targetClass));
+        }
+        return list;
+    }
+
+
+    public static <S, D> D map(final S source, D destination) {
+        modelMapper.map(source, destination);
+        return destination;
     }
 
     public static OrderDTO orderToDTO(Order order) {
@@ -54,35 +85,6 @@ public class DTOBuilder {
         return new LoginResponseDTO(
                 loginResponseDTO.getUserName(),
                 loginResponseDTO.getToken()
-        );
-    }
-
-    public static UserDTO userToDTO(User user) {
-        return new UserDTO(
-                user.getId(),
-                user.getUserName(),
-                "",
-                user.getFullName(),
-                user.getEmail(),
-                user.getStatus(),
-                user.getAvatar(),
-                user.getAllRoles()
-        );
-    }
-
-    public static RecipeDTO recipeToDTO(Recipe recipe) {
-        return new RecipeDTO(
-                recipe.getId(),
-                recipe.getUser().getId(),
-                recipe.getIcecream().getId(),
-                recipe.getTitle(),
-                recipe.getDescription(),
-                recipe.getPrice(),
-                recipe.getStatus(),
-                recipe.getViewCount(),
-                recipe.getImage(),
-                recipe.getDetails(),
-                recipe.getUploadedDate()
         );
     }
 

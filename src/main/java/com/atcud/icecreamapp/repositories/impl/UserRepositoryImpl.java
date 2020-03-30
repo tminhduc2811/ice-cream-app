@@ -7,16 +7,31 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import com.atcud.icecreamapp.entities.Recipe;
+import com.atcud.icecreamapp.repositories.user.UserRepositoryJpa;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.atcud.icecreamapp.entities.User;
-import com.atcud.icecreamapp.repositories.UserRepository;
+import com.atcud.icecreamapp.repositories.user.UserRepository;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
+    @Autowired
+    @Lazy
+    UserRepositoryJpa userRepositoryJpa;
+
     @PersistenceContext
     EntityManager entityManager;
+
+    @Override
+    public Page<User> findPage(Pageable pageable) {
+        return userRepositoryJpa.findAll(pageable);
+    }
 
     @Override
     @Transactional
@@ -26,8 +41,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public Optional<User> findById(Long id) {
-        return Optional.of(entityManager.find(User.class, id));
+    public User findById(Long id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override

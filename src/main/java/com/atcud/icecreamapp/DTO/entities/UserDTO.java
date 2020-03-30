@@ -8,8 +8,6 @@ public class UserDTO {
 
     private String userName;
 
-    private String password;
-
     private String fullName;
 
     private String email;
@@ -20,10 +18,13 @@ public class UserDTO {
 
     private List<String> roles;
 
-    public UserDTO(Long id, String userName, String password, String fullName, String email, Short status, String avatar, List<String> roles) {
+    public UserDTO() {
+
+    }
+
+    public UserDTO(Long id, String userName, String fullName, String email, Short status, String avatar, List<String> roles) {
         this.id = id;
         this.userName = userName;
-        this.password = password;
         this.fullName = fullName;
         this.email = email;
         this.status = status;
@@ -61,14 +62,6 @@ public class UserDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFullName() {

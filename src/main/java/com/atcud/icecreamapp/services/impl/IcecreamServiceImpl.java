@@ -64,12 +64,7 @@ public class IcecreamServiceImpl implements IcecreamService {
         if (!icecream.isPresent()) {
             throw new CustomException("Icecream not found", HttpStatus.NOT_FOUND);
         }
-        List<Recipe> recipes = icecream.get().getRecipes();
-        List<RecipeDTO> recipeDTO = new ArrayList<>();
-        for(Recipe recipe: recipes) {
-            recipeDTO.add(DTOBuilder.recipeToDTO(recipe));
-        }
-        return recipeDTO;
+        return DTOBuilder.mapList(icecream.get().getRecipes(), RecipeDTO.class);
     }
 
 }

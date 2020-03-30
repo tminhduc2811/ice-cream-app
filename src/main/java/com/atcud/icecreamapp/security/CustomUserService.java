@@ -1,10 +1,8 @@
 package com.atcud.icecreamapp.security;
 
 import com.atcud.icecreamapp.entities.User;
-import com.atcud.icecreamapp.exceptions.CustomException;
-import com.atcud.icecreamapp.repositories.UserRepository;
+import com.atcud.icecreamapp.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -30,15 +30,15 @@ public class ProfileController {
 
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<UserDTO> getUserByName(@PathVariable String username) {
-        User user = userService.findUserByUsername(username);
-        return new ResponseEntity<>(DTOBuilder.userToDTO(user), HttpStatus.OK);
+        UserDTO userDTO = userService.findUserByUsername(username);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserUpdateDTO userUpdateDTO) {
-        User updatedUser = userService.update(userUpdateDTO);
+        UserDTO updatedUser = userService.update(userUpdateDTO);
         System.out.println("Update user successfully");
-        return new ResponseEntity<>(DTOBuilder.userToDTO(updatedUser), HttpStatus.OK);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customer/{username}", method = RequestMethod.GET, produces = "application/json")
