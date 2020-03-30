@@ -1,12 +1,15 @@
-package com.atcud.icecreamapp.repositories;
+package com.atcud.icecreamapp.repositories.recipe;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.Recipe;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface RecipeRepository {
+
+    public Page<Recipe> findPage(Pageable pageable);
 
     public List<Recipe> findAll();
 

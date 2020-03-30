@@ -1,5 +1,5 @@
+import { Recipe } from './../../../models/recipe.model';
 import { RecipeService } from './../../../services/recipe.service';
-import { Recipe } from './../recipe.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -17,8 +17,8 @@ export class RecipeListComponent implements OnInit {
   constructor(private recipeService: RecipeService) {
     this.isLoading = true;
     this.recipeService.getAll()
-      .subscribe(recipes => {
-        this.recipes = recipes;
+      .subscribe(rs => {
+        this.recipes = rs.content;
         this.recipesLoaded = true;
         this.isLoading = false;
       });
@@ -31,8 +31,8 @@ export class RecipeListComponent implements OnInit {
         console.log('Type id:', idType);
         if (idType === 0) {
           this.recipeService.getAll()
-            .subscribe(recipes => {
-              this.recipes = recipes;
+            .subscribe(rs => {
+              this.recipes = rs.content;
               this.isLoading = false;
             }, err => {
               // TODO: Handle error later

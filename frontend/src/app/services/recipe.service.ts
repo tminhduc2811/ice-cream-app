@@ -1,4 +1,5 @@
-import { Recipe } from './../pages/recipes/recipe.model';
+import { Recipe } from './../models/recipe.model';
+import { RecipeView } from './../auth/views/recipes.view.model';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { Injectable, EventEmitter } from '@angular/core';
@@ -13,7 +14,7 @@ export class RecipeService {
 
   constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<Recipe[]> {
+  getAll(): Observable<RecipeView> {
     return this.apiService.get('/recipes').pipe(map(data => data));
   }
 

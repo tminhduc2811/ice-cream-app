@@ -1,5 +1,7 @@
 package com.atcud.icecreamapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class Recipe {
     @JoinColumn(name = "icecream_id")
     private Icecream icecream;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "recipe",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,

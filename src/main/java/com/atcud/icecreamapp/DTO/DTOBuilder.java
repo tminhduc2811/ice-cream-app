@@ -2,8 +2,16 @@ package com.atcud.icecreamapp.DTO;
 
 import com.atcud.icecreamapp.DTO.entities.*;
 import com.atcud.icecreamapp.entities.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 
 public class DTOBuilder {
+
+    public static <D, T> Page<D> mapEntityPageIntoDtoPage(Page<T> entities, Class<D> dtoClass) {
+        ModelMapper modelMapper = new ModelMapper();
+        return entities.map(objectEntity -> modelMapper.map(objectEntity, dtoClass));
+
+    }
 
     public static OrderDTO orderToDTO(Order order) {
         return new OrderDTO(

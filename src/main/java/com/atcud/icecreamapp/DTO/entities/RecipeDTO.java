@@ -25,6 +25,10 @@ public class RecipeDTO {
 
     private Timestamp uploadedDate;
 
+    public RecipeDTO() {
+
+    }
+
     public RecipeDTO(Long id, Long userId, Long icecreamId, String title, String description, Float price, Short status, int viewCount, String image, String details, Timestamp uploadedDate) {
         this.id = id;
         this.userId = userId;

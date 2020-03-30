@@ -1,8 +1,8 @@
 import { IceCreamService } from './../../services/ice-cream.service';
-import { Recipe } from './recipe.model';
 import { RecipeService } from './../../services/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { IceCream } from 'src/app/models/ice-cream.model';
+import { Recipe } from 'src/app/models/recipe.model';
 
 @Component({
   selector: 'app-recipes',
