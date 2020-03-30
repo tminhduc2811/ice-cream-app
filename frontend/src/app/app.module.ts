@@ -1,3 +1,4 @@
+import { CustomerGuard } from './services/auth-customer.service';
 
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading.component';
 import { JwtInterceptor } from './auth/Jwt.Interceptor';
@@ -87,7 +88,7 @@ import { CustomerProfileComponent } from './pages/profile/customer-profile/custo
   ],
   providers: [ApiService, FaqService, UserService,
     CustomerService, RecipeService, FeedbackService,
-    OrderService, AuthService, AdminGuard,
+    OrderService, AuthService, AdminGuard, CustomerGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

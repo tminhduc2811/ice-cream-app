@@ -7,8 +7,8 @@
           <app-loading-spinner></app-loading-spinner>
         </div>
         <img [src]="profileUrl" class="img-fluid" alt="Profile avatar" *ngIf="!imgLoading">
-        <h4 class="card-title">{{user.fullName}}</h4>
-        <p class="card-text">Email: {{user.email}}</p>
+        <h4 class="card-title">{{customer.firstName}} {{customer.lastName}}</h4>
+        <p class="card-text">Email: {{customer.email}}</p>
         <div class="form-group">
           <label for="exampleInputFile">Choose your avatar</label>
           <input type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp" accept=".png,.jpg,.gif"
@@ -23,8 +23,39 @@
     <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
       <fieldset>
         <div class="form-group">
-          <label for="fullName">Full name</label>
-          <input formControlName="fullname" type="fullName" class="form-control" id="fullName" aria-describedby="emailHelp" placeholder="Enter your full name">
+          <label for="firstName">First name</label>
+          <input formControlName="firstName" type="text" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Enter your first name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input formControlName="lastName" type="text" class="form-control" id="lastName" aria-describedby="emailHelp" placeholder="Enter your last name">
+        </div>
+        <div class="form-group">
+          <label for="birthday">Birthday</label>
+          <input formControlName="birthday" type="text" class="form-control" id="birthday" aria-describedby="emailHelp" placeholder="Enter your last name">
+        </div>
+        <fieldset class="form-group">
+          <label>Gender</label>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="male" value="option1" checked="{{customer.gender == 1}}">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+          <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="female" value="option2" checked="{{customer.gender == 0}}">
+              Female
+            </label>
+          </div>
+        </fieldset>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input formControlName="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Enter your address">
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone number</label>
+          <input formControlName="phoneNumber" type="tel" class="form-control" id="phoneNumber" aria-describedby="emailHelp" placeholder="Eg. +84 983182321">
         </div>
         <div class="form-group">
           <label for="email">Email address</label>
@@ -32,8 +63,12 @@
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
+          <label for="expiredDate">Expired date</label>
+          <input formControlName="expiredDate" type="text" class="form-control" id="expiredDate" aria-describedby="emailHelp" placeholder="Expired date" disable="true">
+        </div>
+        <div class="form-group">
           <label for="username">Username</label>
-          <input formControlName="username" type="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username" disabled="true">
+          <input formControlName="username" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username" disabled="true">
         </div>
         <div class="form-group">
           <label for="password">Current password</label>
@@ -47,29 +82,8 @@
           <legend>Status</legend>
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.status" [disabled]="user.roles.includes('ADMIN')">
+              <input class="form-check-input" type="checkbox" value="" [checked]="customer.status" [disabled]="true">
               Activated
-            </label>
-          </div>
-        </fieldset>
-        <fieldset class="form-group">
-          <legend>Roles</legend>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('ADMIN')" disabled="true">
-              Admin
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('USER')" disabled="true">
-              User
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('CUSTOMER')" disabled="true">
-              Customer
             </label>
           </div>
         </fieldset>

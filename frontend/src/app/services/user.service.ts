@@ -20,7 +20,6 @@ export class UserService {
   }
 
   updateProfile(obj: {}): Observable<User> {
-    console.log('got here ', obj);
     return this.apiService.put('/profile/user/', obj).pipe(map(data => data));
   }
 

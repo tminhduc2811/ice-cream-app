@@ -1,3 +1,4 @@
+import { CustomerGuard } from './services/auth-customer.service';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AdminGuard } from './services/auth-admin.service';
 import { FaqComponent } from './pages/faq/faq.component';
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'register', component: AuthComponent },
   { path: 'customers', component: CustomersComponent, canActivate: [AdminGuard] },
   { path: 'feedback', component: FeedbackComponent },
-  { path: 'orders', component: OrdersComponent },
+  { path: 'orders', component: OrdersComponent, canActivate: [AdminGuard, CustomerGuard]},
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' }
 ];

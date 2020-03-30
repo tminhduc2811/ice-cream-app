@@ -8,7 +8,6 @@ import com.atcud.icecreamapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,13 +27,12 @@ public class AuthController {
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
         // Check user/admin
-        String token = null;
+        String token = "";
         try {
-            token = userService.login(userLogin.getUsername(), userLogin.getPassword());
+            return new ResponseEntity<>(DTOBuilder.loginResponseDTO(new LoginResponseDTO(userLogin.getUsername(),
+                    userService.login(userLogin.getUsername(), userLogin.getPassword()))), HttpStatus.OK);
         } catch (Exception ex) {
-            if (ex.getMessage().equals("Invalid username or password")) {
-                token = customerService.login(userLogin.getUsername(), userLogin.getPassword());
-            }
+            token = customerService.login(userLogin.getUsername(), userLogin.getPassword());
         }
         return new ResponseEntity<>(DTOBuilder.loginResponseDTO(
                 new LoginResponseDTO(

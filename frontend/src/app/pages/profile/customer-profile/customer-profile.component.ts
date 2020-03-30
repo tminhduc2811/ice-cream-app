@@ -1,3 +1,5 @@
+import { CustomerService } from './../../../services/customer.service';
+import { Customer } from './../../../models/customer.model';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import 'firebase/storage';
@@ -16,7 +18,7 @@ import { finalize, debounceTime } from 'rxjs/operators';
 })
 export class CustomerProfileComponent implements OnInit {
 
-  user: User = {} as User;
+  customer: Customer = {} as Customer;
   uploadPercent: Observable<number>;
   profileUrl: Observable<string | null>;
   imageName = '';
@@ -30,43 +32,52 @@ export class CustomerProfileComponent implements OnInit {
 
   // image = new FormControl();
   formGroup = new FormGroup({
-    fullname: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    username: new FormControl(),
+    birthday: new FormControl('', Validators.required),
+    expiredDate: new FormControl('', Validators.required),
+    userName: new FormControl(),
     currentPassword: new FormControl('', Validators.minLength(4)),
     newPassword: new FormControl('', Validators.minLength(4))
   });
 
-  constructor(private userService: UserService,
+  constructor(private customerService: CustomerService,
               private auth: AuthService,
               private fb: FormBuilder,
               private fbStorage: AngularFireStorage,
               private router: Router) {
-    this.user.roles = [''];
     this.fb.group(this.formGroup);
   }
 
   ngOnInit(): void {
     this.setAlert();
-    let username: string;
-    this.auth.authInfo.subscribe(data => { username = data.username; });
-    this.userService.getProfileByName(username).subscribe(data => {
-      this.user = data;
+    let userName: string;
+    this.auth.authInfo.subscribe(data => { userName = data.username; });
+    this.customerService.getProfileByName(userName).subscribe(data => {
+      this.customer = data;
       this.setForm();
-      console.log('user', this.user);
+      console.log('user', this.customer);
     });
   }
 
   setForm() {
     this.formGroup.setValue({
-      fullname: this.user.fullName,
-      email: this.user.email,
-      username: this.user.userName,
+      firstName: this.customer.firstName,
+      lastName: this.customer.lastName,
+      address: this.customer.address,
+      phoneNumber: this.customer.phoneNumber,
+      email: this.customer.email,
+      birthday: this.customer.birthday,
+      expiredDate: this.customer.expiredDate,
+      userName: this.customer.userName,
       currentPassword: '',
       newPassword: '',
     });
 
-    const imagePath = this.user.avatar === '' ? 'images/default.jpg' : this.user.avatar;
+    const imagePath = this.customer.avatar === '' ? 'images/default.jpg' : this.customer.avatar;
 
     this.imgLoading = true;
 
@@ -111,8 +122,8 @@ export class CustomerProfileComponent implements OnInit {
           data => {
             this.profileUrl = data;
             console.log('Saving to database', this.profileUrl);
-            this.user.avatar = filePath;
-            this.userService.updateProfile({ user: this.user, currentPassword: '' })
+            this.customer.avatar = filePath;
+            this.customerService.updateProfile({ user: this.customer, currentPassword: '' })
               .subscribe(rs => {
                 console.log('Updated');
                 this.imgLoading = false;
@@ -128,21 +139,21 @@ export class CustomerProfileComponent implements OnInit {
       .subscribe();
   }
   submitForm() {
-    this.isSubmitting = true;
-    console.log(this.formGroup.get('fullname').value);
-    this.user.fullName = this.formGroup.get('fullname').value;
-    this.user.email = this.formGroup.get('email').value;
-    this.user.password = this.formGroup.get('newPassword').value;
-    this.userService.updateProfile({user: this.user, currentPassword: this.formGroup.get('currentPassword').value})
-    .subscribe(res => {
-      this.user = res;
-      this.success.next('Your information has been saved successfully');
-      this.isSubmitting = false;
-    }, err => {
-      console.log(err.message);
-      this.isSubmitting = true;
-      this.warning.next(err.message);
-    });
+    // this.isSubmitting = true;
+    // console.log(this.formGroup.get('fullname').value);
+    // this.user.fullName = this.formGroup.get('fullname').value;
+    // this.user.email = this.formGroup.get('email').value;
+    // this.user.password = this.formGroup.get('newPassword').value;
+    // this.userService.updateProfile({user: this.user, currentPassword: this.formGroup.get('currentPassword').value})
+    // .subscribe(res => {
+    //   this.user = res;
+    //   this.success.next('Your information has been saved successfully');
+    //   this.isSubmitting = false;
+    // }, err => {
+    //   console.log(err.message);
+    //   this.isSubmitting = true;
+    //   this.warning.next(err.message);
+    // });
   }
 
   onCancel() {

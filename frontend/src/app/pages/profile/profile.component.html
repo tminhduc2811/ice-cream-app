@@ -1,2 +1,2 @@
-<app-user-profile></app-user-profile>
-<!-- <app-customer-profile></app-customer-profile> -->
+<app-user-profile *ngIf="isUserOrAdmin"></app-user-profile>
+<app-customer-profile *ngIf="isCustomer"></app-customer-profile>

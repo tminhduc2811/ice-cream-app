@@ -35,12 +35,15 @@ public class JwtTokenProvider {
     }
 
     public String generateTokenForCustomer(CustomerDetails customerDetails) {
-
+        final String authorities = customerDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
 
         return Jwts.builder()
                 .setSubject(customerDetails.getUsername())
+                .claim("role", authorities)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)

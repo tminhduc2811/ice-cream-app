@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   login(credentials): Observable<any> {
-    return this.apiService.post('/users/login', credentials)
+    return this.apiService.post('/auth', credentials)
       .pipe(map(
         data => {
           this.finishAuthentication(data);
