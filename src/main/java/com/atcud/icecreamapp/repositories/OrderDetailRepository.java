@@ -9,7 +9,7 @@ public interface OrderDetailRepository {
 
     public List<OrderDetail> findAll();
 
-    public Optional<OrderDetail> findById(Long id);
+    Optional<OrderDetail> findById(Long id);
 
     public OrderDetail save(OrderDetail orderDetail);
 

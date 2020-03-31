@@ -1,3 +1,5 @@
+import { HttpParams } from '@angular/common/http';
+import { UserView } from './../auth/views/users.view.model';
 import { User } from './../models/user.model';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
@@ -11,7 +13,11 @@ export class UserService {
 
   constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<[User]> {
+  getAll(query): Observable<UserView> {
+    if (query) {
+      const params = new HttpParams().set('page', query.page).set('size', query.size);
+      return this.apiService.get('/users', params).pipe(map(data => data));
+    }
     return this.apiService.get('/users').pipe(map(data => data));
   }
 

@@ -1,7 +1,6 @@
 package com.atcud.icecreamapp.repositories.user;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.atcud.icecreamapp.entities.User;
 import org.springframework.data.domain.Page;

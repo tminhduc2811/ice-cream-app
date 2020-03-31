@@ -9,7 +9,7 @@ public interface FAQRepository {
 
     public List<FAQ> findAll();
 
-    public Optional<FAQ> findById(Long id);
+    Optional<FAQ> findById(Long id);
 
     public FAQ save(FAQ faq);
 

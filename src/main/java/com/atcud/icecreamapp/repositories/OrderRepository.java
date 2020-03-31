@@ -9,7 +9,7 @@ public interface OrderRepository {
 
     public List<Order> findAll();
 
-    public Optional<Order> findById(Long id);
+    Optional<Order> findById(Long id);
 
     public Order save(Order onlineOrder);
 

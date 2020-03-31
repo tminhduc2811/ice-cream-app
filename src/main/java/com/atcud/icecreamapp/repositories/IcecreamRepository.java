@@ -11,7 +11,7 @@ public interface IcecreamRepository {
 
     public Optional<Icecream> findById(Long id);
 
-    public Icecream save(Icecream icecream);
+    Icecream save(Icecream icecream);
 
     public void delete(Icecream icecream);
 

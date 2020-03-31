@@ -1,17 +1,15 @@
 package com.atcud.icecreamapp.DTO.entities;
-
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Order;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
 public class FeedbackDTO {
     private Long id;
 
-    private String customerName;
+//    private Customer customer;
 
-    private Long orderId;
+    private Order order;
 
     private String details;
 
@@ -23,22 +21,6 @@ public class FeedbackDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
     }
 
     public String getDetails() {
@@ -57,10 +39,29 @@ public class FeedbackDTO {
         this.createdDate = createdDate;
     }
 
-    public FeedbackDTO(Long id, String customerName, Long orderId, String details, Timestamp createdDate) {
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public FeedbackDTO() {
+
+    }
+
+    public FeedbackDTO(Long id, Order order, String details, Timestamp createdDate) {
         this.id = id;
-        this.customerName = customerName;
-        this.orderId = orderId;
+        this.order = order;
         this.details = details;
         this.createdDate = createdDate;
     }

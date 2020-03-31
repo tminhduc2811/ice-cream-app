@@ -19,12 +19,31 @@
       <tbody>
         <tr *ngFor="let feedback of feedbacks">
           <th scope="row">{{feedback.id}}</th>
-          <td>{{feedback.customerName}}</td>
-          <td>{{feedback.orderId}}</td>
+          <td>{{feedback.order.customer.id}}</td>
+          <td>{{feedback.order.id}}</td>
           <td>{{feedback.details}}</td>
           <td>{{feedback.createdDate | date:'EEE, d MMM,y'}} {{feedback.createdDate | date:'shortTime'}}</td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
+<div class="text-center" *ngIf="isLoaded" style="cursor: pointer;">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}" >
+      <a class="page-link" (click)="setPage(1)">&laquo;</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}">
+      <a class="page-link" (click)="setPage(page.currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item active" *ngFor="let p of page.pages" [ngClass]="{active:page.currentPage === p}">
+      <a class="page-link" (click)="setPage(p)">{{p}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === (result.totalPages)}">
+      <a class="page-link" (click)="setPage(page.currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === (result.totalPages)}">
+      <a class="page-link" (click)="setPage(result.totalPages)">&raquo;</a>
+    </li>
+  </ul>
 </div>

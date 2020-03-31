@@ -11,17 +11,17 @@ public interface CustomerRepository {
 
     Page<Customer> findPage(Pageable pageable);
 
-    public List<Customer> findAll();
+    List<Customer> findAll();
 
-    public Optional<Customer> findById(Long id);
+    Optional<Customer> findById(Long id);
 
-    public Customer findCustomerByUsername(String username);
+    Customer findCustomerByUsername(String username);
 
-    public Customer save(Customer customer);
+    Customer save(Customer customer);
 
-    public void delete(Customer customer);
+    void delete(Customer customer);
 
-    public Customer update(Customer customer);
+    Customer update(Customer customer);
 
-    public boolean isExisted(String username);
+    boolean isExisted(String username);
 }

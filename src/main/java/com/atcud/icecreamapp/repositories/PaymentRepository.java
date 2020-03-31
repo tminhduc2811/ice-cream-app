@@ -11,7 +11,7 @@ public interface PaymentRepository {
 
     public Optional<Payment> findById(Long id);
 
-    public Payment save(Payment payment);
+    Payment save(Payment payment);
 
     public void delete(Payment payment);
 

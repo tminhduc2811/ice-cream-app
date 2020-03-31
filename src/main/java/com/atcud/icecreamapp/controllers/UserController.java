@@ -1,11 +1,14 @@
 package com.atcud.icecreamapp.controllers;
 
-import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.DTO.entities.*;
 import com.atcud.icecreamapp.entities.*;
 import com.atcud.icecreamapp.services.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +21,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    UserService service;
+    UserService userService;
 
     @ApiOperation(value = "Get information of all users")
     @ApiResponses(value = {
@@ -29,13 +32,19 @@ public class UserController {
             @ApiResponse(code = 500, message = "Internal server error, there was an exception")
     })
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-
-        List<UserDTO> users = service.getAllUsers();
-        if (users.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Page<UserDTO>> getUsers(
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+        Sort sortable = null;
+        if (sort.equals("ASC")) {
+            sortable = Sort.by("id").ascending();
+        } else if (sort.equals("DESC")) {
+            sortable = Sort.by("id").descending();
         }
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        assert sortable != null;
+        Pageable pageable = PageRequest.of(page, size, sortable);
+        return new ResponseEntity<>(userService.findPage(pageable), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get user with User's Id")
@@ -48,7 +57,7 @@ public class UserController {
     })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        UserDTO userDTO = service.getUserById(id);
+        UserDTO userDTO = userService.getUserById(id);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
@@ -73,7 +82,7 @@ public class UserController {
     })
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<FAQ> deleteUser(@PathVariable Long id) {
-        service.delete(id);
+        userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -85,7 +94,7 @@ public class UserController {
     })
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
-        UserDTO result = service.register(user);
+        UserDTO result = userService.register(user);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
@@ -97,7 +106,7 @@ public class UserController {
     })
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Role>> getUserRoles(@PathVariable Long id) {
-        return new ResponseEntity<>(service.getUserRoles(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserRoles(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Modify user's roles")
@@ -108,7 +117,7 @@ public class UserController {
     })
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> modifyUserRoles(@PathVariable Long id, @RequestBody Map<String, List<Long>> roleIds) {
-        service.updateUserRoles(id, roleIds.get("roleIds"));
+        userService.updateUserRoles(id, roleIds.get("roleIds"));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

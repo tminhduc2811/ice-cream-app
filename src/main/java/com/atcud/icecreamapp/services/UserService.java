@@ -7,8 +7,12 @@ import com.atcud.icecreamapp.DTO.entities.UserDTO;
 import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
+
+    public Page<UserDTO> findPage(Pageable pageable);
 
     public List<UserDTO> getAllUsers();
 

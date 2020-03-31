@@ -1,7 +1,8 @@
+import { Payment } from './payment.model';
+import { Order } from './order.model';
 export interface Feedback {
   id: number;
-  customerName: string;
-  orderId: number;
   details: string;
   createdDate: Date;
+  order: Order;
 }

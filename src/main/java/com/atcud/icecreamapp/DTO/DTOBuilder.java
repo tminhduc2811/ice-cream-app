@@ -88,15 +88,15 @@ public class DTOBuilder {
         );
     }
 
-    public static FeedbackDTO feedbackToDTO(Feedback feedback) {
-        return new FeedbackDTO(
-                feedback.getId(),
-                feedback.getCustomer().getFullName(),
-                feedback.getOrder().getId(),
-                feedback.getDetails(),
-                feedback.getCreatedDate()
-        );
-    }
+//    public static FeedbackDTO feedbackToDTO(Feedback feedback) {
+//        return new FeedbackDTO(
+//                feedback.getId(),
+//                feedback.getCustomer().getFullName(),
+//                feedback.getOrder().getId(),
+//                feedback.getDetails(),
+//                feedback.getCreatedDate()
+//        );
+//    }
 
     public static AuthInfo authInfoToDTO(User user) {
         return new AuthInfo(

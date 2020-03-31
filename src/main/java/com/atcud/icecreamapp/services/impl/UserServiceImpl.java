@@ -13,6 +13,8 @@ import com.atcud.icecreamapp.repositories.RoleRepository;
 import com.atcud.icecreamapp.security.CustomUserDetails;
 import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,6 +46,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Override
+    public Page<UserDTO> findPage(Pageable pageable) {
+        Page<User> entityPage = userRepository.findPage(pageable);
+        return DTOBuilder.mapPage(entityPage, UserDTO.class);
+    }
 
     @Override
     public List<UserDTO> getAllUsers() {
