@@ -124,7 +124,10 @@ public class UserServiceImpl implements UserService {
                 throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }
-        List<Role> roles = user.getUser().getRoles();
+        List<Role> roles = new ArrayList<>();
+        for (Role r: user.getUser().getRoles()) {
+            roles.add(roleRepository.findById(r.getId()).get());
+        }
         // Update roles
         currentUser.setRoles(roles);
         currentUser.setFullName(user.getUser().getFullName());

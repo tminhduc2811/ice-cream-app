@@ -5,8 +5,12 @@ import java.util.Optional;
 
 import com.atcud.icecreamapp.DTO.entities.OrderDTO;
 import com.atcud.icecreamapp.entities.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
+
+    public Page<OrderDTO> findPage(Pageable pageable);
 
     public List<OrderDTO> getAllOrders();
 

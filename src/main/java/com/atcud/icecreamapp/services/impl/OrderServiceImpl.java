@@ -1,19 +1,20 @@
 package com.atcud.icecreamapp.services.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import com.atcud.icecreamapp.exceptions.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.DTO.entities.OrderDTO;
 import com.atcud.icecreamapp.entities.Order;
-import com.atcud.icecreamapp.repositories.OrderRepository;
+import com.atcud.icecreamapp.repositories.order.OrderRepository;
 import com.atcud.icecreamapp.services.OrderService;
-
 @Component
 public class OrderServiceImpl implements OrderService {
 
@@ -21,14 +22,15 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
+    public Page<OrderDTO> findPage(Pageable pageable) {
+        Page<Order> entityPage = orderRepository.findPage(pageable);
+        return DTOBuilder.mapPage(entityPage, OrderDTO.class);
+    }
+
+    @Override
     public List<OrderDTO> getAllOrders() {
         List<Order> entities = orderRepository.findAll();
-        List<OrderDTO> orders = new ArrayList<OrderDTO>();
-
-        for (Order order : entities) {
-            orders.add(DTOBuilder.orderToDTO(order));
-        }
-        return orders;
+        return DTOBuilder.mapList(entities, OrderDTO.class);
     }
 
     @Override
@@ -53,7 +55,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getOrderById(Long id) {
-        return DTOBuilder.orderToDTO(orderRepository.findById(id).get());
+        Optional<Order> entity = orderRepository.findById(id);
+        if (entity.isPresent()){
+            return DTOBuilder.mapObject(entity.get(), OrderDTO.class);
+        }
+        throw new CustomException("Order not found", HttpStatus.NOT_FOUND);
     }
 
 }

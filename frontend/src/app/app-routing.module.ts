@@ -1,6 +1,5 @@
-import { CustomerGuard } from './services/auth-customer.service';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { AdminGuard } from './services/auth-admin.service';
+import { RoleGuard } from './services/role.service';
 import { FaqComponent } from './pages/faq/faq.component';
 import { AuthComponent } from './auth/auth.component';
 import { OrdersComponent } from './pages/orders/orders.component';
@@ -23,13 +22,13 @@ const routes: Routes = [
     ]
   },
   { path: 'my-profile', component: ProfileComponent },
-  { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
   { path: 'faq', component: FaqComponent },
   { path: 'login', component: AuthComponent },
   { path: 'register', component: AuthComponent },
-  { path: 'customers', component: CustomersComponent, canActivate: [AdminGuard] },
+  { path: 'customers', component: CustomersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
   { path: 'feedback', component: FeedbackComponent },
-  { path: 'orders', component: OrdersComponent, canActivate: [AdminGuard, CustomerGuard]},
+  { path: 'orders', component: OrdersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'customer']}},
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' }
 ];

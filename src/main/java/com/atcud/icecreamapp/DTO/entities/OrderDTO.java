@@ -1,59 +1,41 @@
 package com.atcud.icecreamapp.DTO.entities;
 
-import com.atcud.icecreamapp.entities.OrderDetail;
+import com.atcud.icecreamapp.entities.Customer;
+import com.atcud.icecreamapp.entities.Payment;
 
-import java.util.List;
+import java.sql.Timestamp;
 
 public class OrderDTO {
 
     private Long id;
 
-    private Long customerId;
+    private Customer customer;
 
-    private String customerName;
-
-    private String customerPhone;
-
-    private String customerEmail;
-
-    private String paymentType;
-
-    private String cardNumber;
-
-    private Long paymentId;
+    private Payment payment;
 
     private String paymentOption;
 
-    private String createdDate;
+    private Timestamp createdDate;
 
     private String deliveryDetail;
-
-    private Float total;
 
     private String notes;
 
     private String status;
 
-    public OrderDTO(Long id, Long customerId, String customerName, String customerPhone, String customerEmail,
-                    String paymentType, String cardNumber, Long paymentId, String paymentOption, String createdDate,
-                    String deliveryDetail, String notes, String status, List<OrderDetail> orderDetails) {
+    public OrderDTO() {
+
+    }
+
+    public OrderDTO(Long id, Customer customer, Payment payment, String paymentOption, Timestamp createdDate, String deliveryDetail, String notes, String status) {
         this.id = id;
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerPhone = customerPhone;
-        this.customerEmail = customerEmail;
-        this.paymentType = paymentType;
-        this.cardNumber = cardNumber;
-        this.paymentId = paymentId;
+        this.customer = customer;
+        this.payment = payment;
         this.paymentOption = paymentOption;
         this.createdDate = createdDate;
         this.deliveryDetail = deliveryDetail;
         this.notes = notes;
         this.status = status;
-        this.total = 0f;
-        for (OrderDetail orderDetail : orderDetails) {
-            this.total += orderDetail.getPrice() * orderDetail.getQuantity();
-        }
     }
 
     public Long getId() {
@@ -64,6 +46,22 @@ public class OrderDTO {
         this.id = id;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     public String getPaymentOption() {
         return paymentOption;
     }
@@ -72,11 +70,11 @@ public class OrderDTO {
         this.paymentOption = paymentOption;
     }
 
-    public String getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -102,69 +100,5 @@ public class OrderDTO {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public Long getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public Float getTotal() {
-        return total;
-    }
-
-    public void setTotal(Float total) {
-        this.total = total;
     }
 }

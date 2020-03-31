@@ -44,25 +44,6 @@ public class DTOBuilder {
         return destination;
     }
 
-    public static OrderDTO orderToDTO(Order order) {
-        return new OrderDTO(
-                order.getId(),
-                order.getCustomer().getId(),
-                order.getCustomer().getFullName(),
-                order.getCustomer().getPhoneNumber(),
-                order.getCustomer().getEmail(),
-                order.getPayment().getCardType(),
-                order.getPayment().getCardNumber(),
-                order.getPayment().getId(),
-                order.getPaymentOption(),
-                order.getCreatedDate(),
-                order.getDeliveryDetail(),
-                order.getNotes(),
-                order.getStatus(),
-                order.getOrderDetails()
-        );
-    }
-
     public static CustomerDTO customerToDTO(Customer customer) {
         return new CustomerDTO(customer.getId(),
                 customer.getUserName(),

@@ -16,6 +16,7 @@
           <app-loading-spinner></app-loading-spinner>
         </div>
         <img [src]="profileUrl" class="img-fluid" alt="Profile avatar" *ngIf="!imgLoading">
+        <hr>
         <h4 class="card-title">{{user.fullName}}</h4>
         <p class="card-text">Email: {{user.email}}</p>
         <div class="form-group">

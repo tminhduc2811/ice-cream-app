@@ -4,7 +4,7 @@ import { CustomerGuard } from './services/auth-customer.service';
 
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading.component';
 import { JwtInterceptor } from './auth/Jwt.Interceptor';
-import { AdminGuard } from './services/auth-admin.service';
+import { RoleGuard } from './services/role.service';
 import { AuthService } from './services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { FeedbackService } from './services/feedback.service';
@@ -90,7 +90,7 @@ import { CustomerProfileComponent } from './pages/profile/customer-profile/custo
   ],
   providers: [ApiService, FaqService, UserService, IceCreamService,
     CustomerService, RecipeService, FeedbackService, PageService,
-    OrderService, AuthService, AdminGuard, CustomerGuard,
+    OrderService, AuthService, RoleGuard, CustomerGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

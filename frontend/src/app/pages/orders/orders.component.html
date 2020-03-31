@@ -12,7 +12,6 @@
           <th scope="col">ID</th>
           <th scope="col">Customer Name</th>
           <th scope="col">Customer Phone</th>
-          <th scope="col">Order Total</th>
           <th scope="col">Created Date</th>
           <th scope="col">Status</th>
         </tr>
@@ -20,13 +19,31 @@
       <tbody>
         <tr *ngFor="let order of orders">
           <th scope="row">{{order.id}}</th>
-          <td>{{order.customerName}}</td>
-          <td>{{order.customerPhone}}</td>
-          <td>{{order.total}} $</td>
+          <td>{{order.customer.firstName}} {{order.customer.lastName}}</td>
+          <td>{{order.customer.phoneNumber}}</td>
           <td>{{order.createdDate  | date:'EEE, d MMM,y'}} {{order.createdDate  | date:'shortTime'}}</td>
           <td>{{order.status}}</td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
+<div class="text-center" *ngIf="isLoaded" style="cursor: pointer;">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}" >
+      <a class="page-link" (click)="setPage(1)">&laquo;</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}">
+      <a class="page-link" (click)="setPage(page.currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item active" *ngFor="let p of page.pages" [ngClass]="{active:page.currentPage === p}">
+      <a class="page-link" (click)="setPage(p)">{{p}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === (result.totalPages)}">
+      <a class="page-link" (click)="setPage(page.currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === (result.totalPages)}">
+      <a class="page-link" (click)="setPage(result.totalPages)">&raquo;</a>
+    </li>
+  </ul>
 </div>
