@@ -1,16 +1,15 @@
 package com.atcud.icecreamapp.controllers;
 
-import java.util.List;
 import com.atcud.icecreamapp.DTO.entities.LoginResponseDTO;
 import com.atcud.icecreamapp.DTO.entities.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.entities.Customer;
@@ -21,26 +20,33 @@ import com.atcud.icecreamapp.services.CustomerService;
 public class CustomerController {
 
     @Autowired
-    private CustomerService service;
+    private CustomerService customerService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<CustomerDTO>> getCustomers() {
-        List<CustomerDTO> customers = service.getAllCustomers();
-        if (customers.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Page<CustomerDTO>> getCustomers(
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+        Sort sortable = null;
+        if (sort.equals("ASC")) {
+            sortable = Sort.by("id").ascending();
+        } else if (sort.equals("DESC")) {
+            sortable = Sort.by("id").descending();
         }
-        return new ResponseEntity<>(customers, HttpStatus.OK);
+        assert sortable != null;
+        Pageable pageable = PageRequest.of(page, size, sortable);
+        return new ResponseEntity<>(customerService.findPage(pageable), HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer) {
-        Customer result = service.register(customer);
+        Customer result = customerService.register(customer);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
-        service.delete(id);
+        customerService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -53,7 +59,7 @@ public class CustomerController {
     // TODO: Refactor later
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
-        String token = service.login(userLogin.getUsername(), userLogin.getPassword());
+        String token = customerService.login(userLogin.getUsername(), userLogin.getPassword());
         return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUsername(), token), HttpStatus.OK);
     }
 }

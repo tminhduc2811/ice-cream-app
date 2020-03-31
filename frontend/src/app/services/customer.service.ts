@@ -1,3 +1,5 @@
+import { HttpParams } from '@angular/common/http';
+import { CustomerView } from './../auth/views/customers.view.model';
 import { Customer } from './../models/customer.model';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
@@ -11,7 +13,11 @@ export class CustomerService {
 
   constructor(private apiService: ApiService) { }
 
-  getAll(): Observable<[Customer]> {
+  getAll(query): Observable<CustomerView> {
+    if (query) {
+      const params = new HttpParams().set('page', query.page).set('size', query.size);
+      return this.apiService.get('/customers', params).pipe(map(data => data));
+    }
     return this.apiService.get('/customers').pipe(map(data => data));
   }
 

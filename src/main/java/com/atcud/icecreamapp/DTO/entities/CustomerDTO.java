@@ -32,6 +32,10 @@ public class CustomerDTO {
 
     private Short numOfLoginFailed;
 
+    public CustomerDTO() {
+
+    }
+
     public CustomerDTO(Long id, String userName, String password, String firstName, String lastName, String address,
                        String phoneNumber, String email, Short gender, Date birthday, String avatar, Date expiredDate,
                        Short status, Short numOfLoginFailed) {

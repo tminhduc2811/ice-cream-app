@@ -9,6 +9,8 @@ import com.atcud.icecreamapp.exceptions.CustomException;
 import com.atcud.icecreamapp.security.CustomerDetails;
 import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Component;
 import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.repositories.CustomerRepository;
+import com.atcud.icecreamapp.repositories.customer.CustomerRepository;
 import com.atcud.icecreamapp.services.CustomerService;
 
 @Component
@@ -38,6 +40,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+
+    @Override
+    public Page<CustomerDTO> findPage(Pageable pageable) {
+        Page<Customer> entityPage = customerRepository.findPage(pageable);
+        return DTOBuilder.mapPage(entityPage, CustomerDTO.class);
+    }
 
     @Override
     public List<CustomerDTO> getAllCustomers() {

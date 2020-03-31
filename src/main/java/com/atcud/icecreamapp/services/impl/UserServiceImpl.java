@@ -116,14 +116,19 @@ public class UserServiceImpl implements UserService {
                 throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }
-        List<Role> roles = roleRepository.findRolesByNames(user.getUser().getRoles());
+        List<Role> roles = user.getUser().getRoles();
         // Update roles
         currentUser.setRoles(roles);
         currentUser.setFullName(user.getUser().getFullName());
         currentUser.setEmail(user.getUser().getEmail());
         currentUser.setStatus(user.getUser().getStatus());
         currentUser.setAvatar(user.getUser().getAvatar());
-        return DTOBuilder.mapObject(userRepository.update(currentUser), UserDTO.class);
+        try {
+            currentUser = userRepository.update(currentUser);
+        } catch (Exception ex) {
+            throw new CustomException(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return DTOBuilder.mapObject(currentUser, UserDTO.class);
     }
 
     @Override

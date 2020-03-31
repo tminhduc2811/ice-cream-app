@@ -1,5 +1,7 @@
 package com.atcud.icecreamapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,7 +28,7 @@ public class Role {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(fetch = FetchType.EAGER,
+    @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
@@ -34,6 +36,7 @@ public class Role {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @JsonIgnore
     private List<User> users;
 
     public Role() {

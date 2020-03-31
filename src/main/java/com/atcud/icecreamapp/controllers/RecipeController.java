@@ -37,6 +37,7 @@ public class RecipeController {
         } else if (sort.equals("DESC")) {
             sortable = Sort.by("id").descending();
         }
+        assert sortable != null;
         Pageable pageable = PageRequest.of(page, size, sortable);
         return new ResponseEntity<>(recipeService.findPage(pageable), HttpStatus.OK);
     }

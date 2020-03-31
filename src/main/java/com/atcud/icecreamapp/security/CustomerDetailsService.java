@@ -2,7 +2,7 @@ package com.atcud.icecreamapp.security;
 
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.exceptions.CustomException;
-import com.atcud.icecreamapp.repositories.CustomerRepository;
+import com.atcud.icecreamapp.repositories.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;

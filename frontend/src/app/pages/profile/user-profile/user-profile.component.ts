@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit {
   imageName = '';
   imgLoading = false;
   isSubmitting = false;
+  roles = [];
   // Alert messages
   successMessage = '';
   success = new Subject<string>();
@@ -42,7 +43,8 @@ export class UserProfileComponent implements OnInit {
               private fb: FormBuilder,
               private fbStorage: AngularFireStorage,
               private router: Router) {
-    this.user.roles = [''];
+    this.roles = this.auth.getRoles();
+    console.log('check role ', this.roles);
     this.fb.group(this.formGroup);
   }
 
@@ -130,15 +132,19 @@ export class UserProfileComponent implements OnInit {
   submitForm() {
     this.isSubmitting = true;
     this.getForm();
-    this.userService.updateProfile({user: this.user, currentPassword: this.formGroup.get('currentPassword').value})
-    .subscribe(res => {
-      this.user = res;
-      this.success.next('Your information has been saved successfully');
-      this.isSubmitting = false;
-    }, err => {
-      this.isSubmitting = false;
-      this.warning.next(err.message);
-    });
+    this.userService.updateProfile({
+      user: this.user,
+      currentPassword: this.formGroup.get('currentPassword').value,
+      newPassword: this.formGroup.get('newPassword').value
+    })
+      .subscribe(res => {
+        this.user = res;
+        this.success.next('Your information has been saved successfully');
+        this.isSubmitting = false;
+      }, err => {
+        this.isSubmitting = false;
+        this.warning.next(err.message);
+      });
   }
 
   onCancel() {

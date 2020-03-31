@@ -28,8 +28,8 @@ export class RecipeListComponent implements OnInit {
     this.isLoading = true;
     this.recipeService.getAll({ page: 0, size: this.size })
       .subscribe(rs => {
-        this.recipes = rs.content;
         this.result = rs;
+        this.recipes = this.result.content;
         this.setPage(1);
         this.recipesLoaded = true;
         this.isLoading = false;

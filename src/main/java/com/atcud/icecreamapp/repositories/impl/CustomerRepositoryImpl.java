@@ -7,16 +7,30 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import com.atcud.icecreamapp.repositories.customer.CustomerRepositoryJpa;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.repositories.CustomerRepository;
+import com.atcud.icecreamapp.repositories.customer.CustomerRepository;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
+    @Autowired
+    @Lazy
+    CustomerRepositoryJpa customerRepositoryJpa;
+
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public Page<Customer> findPage(Pageable pageable) {
+        return customerRepositoryJpa.findAll(pageable);
+    }
 
     @Override
     @Transactional

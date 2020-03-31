@@ -6,8 +6,12 @@ import java.util.Optional;
 import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
 import com.atcud.icecreamapp.entities.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CustomerService {
+
+    public Page<CustomerDTO> findPage(Pageable pageable);
 
     public List<CustomerDTO> getAllCustomers();
 

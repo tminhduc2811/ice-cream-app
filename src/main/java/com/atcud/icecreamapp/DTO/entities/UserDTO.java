@@ -1,5 +1,7 @@
 package com.atcud.icecreamapp.DTO.entities;
 
+import com.atcud.icecreamapp.entities.Role;
+
 import java.util.List;
 
 public class UserDTO {
@@ -16,13 +18,13 @@ public class UserDTO {
 
     private String avatar;
 
-    private List<String> roles;
+    private List<Role> roles;
 
     public UserDTO() {
 
     }
 
-    public UserDTO(Long id, String userName, String fullName, String email, Short status, String avatar, List<String> roles) {
+    public UserDTO(Long id, String userName, String fullName, String email, Short status, String avatar, List<Role> roles) {
         this.id = id;
         this.userName = userName;
         this.fullName = fullName;
@@ -32,11 +34,11 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public List<String> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

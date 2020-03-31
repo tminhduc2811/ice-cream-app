@@ -56,7 +56,7 @@
           <legend>Status</legend>
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.status" [disabled]="user.roles.includes('ADMIN')">
+              <input class="form-check-input" type="checkbox" value="" [checked]="user.status" [disabled]="roles.includes('ROLE_ADMIN')">
               Activated
             </label>
           </div>
@@ -65,19 +65,19 @@
           <legend>Roles</legend>
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('ADMIN')" disabled="true">
+              <input class="form-check-input" type="checkbox" value="" [checked]="roles.includes('ROLE_ADMIN')" disabled="true">
               Admin
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('USER')" disabled="true">
+              <input class="form-check-input" type="checkbox" value="" [checked]="roles.includes('ROLE_USER')" disabled="true">
               User
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" [checked]="user.roles.includes('CUSTOMER')" disabled="true">
+              <input class="form-check-input" type="checkbox" value="" [checked]="roles.includes('ROLE_CUSTOMER')" disabled="true">
               Customer
             </label>
           </div>
