@@ -19,7 +19,6 @@ export class UserProfileComponent implements OnInit {
   user: User = {} as User;
   uploadPercent: Observable<number>;
   profileUrl: Observable<string | null>;
-  imageName = '';
   imgLoading = false;
   isSubmitting = false;
   roles = [];

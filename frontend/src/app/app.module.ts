@@ -42,6 +42,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CustomerProfileComponent } from './pages/profile/customer-profile/customer-profile.component';
+import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CustomerProfileComponent } from './pages/profile/customer-profile/custo
     ProfileComponent,
     UserProfileComponent,
     LoadingSpinnerComponent,
-    CustomerProfileComponent
+    CustomerProfileComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,

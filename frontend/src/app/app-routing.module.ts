@@ -1,3 +1,4 @@
+import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RoleGuard } from './services/role.service';
 import { FaqComponent } from './pages/faq/faq.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   },
   { path: 'my-profile', component: ProfileComponent },
   { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
+  { path: 'user/:username', component: UserDetailComponent},
   { path: 'faq', component: FaqComponent },
   { path: 'login', component: AuthComponent },
   { path: 'register', component: AuthComponent },

@@ -5,8 +5,8 @@
   <div *ngIf="isLoading" style="text-align: center;">
     <app-loading-spinner></app-loading-spinner>
   </div>
-  <div *ngIf="!isLoading" class="row pt-xl-3">
-    <table class="table table-hover">
+  <div *ngIf="!isLoading" class="row pt-xl-3" style="overflow: auto;">
+    <table class="table table-hover" style="min-width: 700px;">
       <thead>
         <tr class="table-active">
           <th scope="col">ID</th>
@@ -19,7 +19,7 @@
       <tbody>
         <tr *ngFor="let feedback of feedbacks">
           <th scope="row">{{feedback.id}}</th>
-          <td>{{feedback.order.customer.id}}</td>
+          <td>{{feedback.order.customer.firstName}} {{feedback.order.customer.lastName}}</td>
           <td>{{feedback.order.id}}</td>
           <td>{{feedback.details}}</td>
           <td>{{feedback.createdDate | date:'EEE, d MMM,y'}} {{feedback.createdDate | date:'shortTime'}}</td>

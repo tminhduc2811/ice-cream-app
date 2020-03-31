@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { Role } from './../../models/role.model';
 import { PageService } from './../../services/page.service';
 import { UserView } from './../../auth/views/users.view.model';
 import { Page } from './../../models/page.model';
@@ -20,7 +22,7 @@ export class UsersComponent implements OnInit {
   page: Page;
   size = 5;
 
-  constructor(private userService: UserService, private pageService: PageService) { }
+  constructor(private userService: UserService, private pageService: PageService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -34,6 +36,7 @@ export class UsersComponent implements OnInit {
       }
     );
   }
+
   setPage(currentPage: number) {
     if (currentPage < 0 || currentPage >= this.result.totalPages + 1) {
       return;
@@ -49,6 +52,10 @@ export class UsersComponent implements OnInit {
       }, err => {
         this.isLoading = false;
       });
+  }
 
+  editOnClick(index) {
+    console.log(index);
+    this.router.navigate(['user/', this.users[index].userName]);
   }
 }
