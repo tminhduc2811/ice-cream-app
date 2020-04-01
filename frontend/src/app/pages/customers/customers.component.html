@@ -1,3 +1,12 @@
+<div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{successMessage}}
+</div>
+<div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{warningMessage}}
+</div>
+
 <div class="container pt-xl-5" style="padding-top: 40px;">
   <div class="row">
     <h3>Customer Table</h3>
@@ -12,10 +21,11 @@
           <th scope="col">Gender</th>
           <th scope="col">Phone Number</th>
           <th scope="col">Status</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers">
+        <tr *ngFor="let customer of customers; let i = index">
           <th scope="row">{{customer.id}}</th>
           <td>{{customer.firstName}} {{customer.lastName}}</td>
           <td>{{customer.email}}</td>
@@ -24,6 +34,10 @@
           <td>{{customer.phoneNumber}}</td>
           <td *ngIf="customer.status===1">Enable</td>
           <td *ngIf="customer.status!==1">Disabled</td>
+          <td>
+            <button class="btn btn-sm" (click)="editOnClick(i)"><span><img src="../../../assets/images/icon-edit.png" alt="Edit" style="max-width: 25px;"></span></button>
+            <button class="btn btn-sm" (click)="deleteOnClick(i)"><span><img src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
+          </td>
         </tr>
       </tbody>
     </table>

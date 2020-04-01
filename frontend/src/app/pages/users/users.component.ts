@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Role } from './../../models/role.model';
@@ -20,6 +21,7 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   isLoaded = false;
   isLoading = false;
+  isAdmin = false;
   result: UserView;
   page: Page;
   size = 5;
@@ -29,9 +31,10 @@ export class UsersComponent implements OnInit {
   warningMessage = '';
   warning = new Subject<string>();
 
-  constructor(private userService: UserService, private pageService: PageService, private router: Router) { }
+  constructor(private userService: UserService, private pageService: PageService, private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.auth.isAdmin();
     this.setAlert();
     this.isLoading = true;
     this.userService.getAll({ page: 0, size: this.size }).subscribe(

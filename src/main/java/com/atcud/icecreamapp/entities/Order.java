@@ -29,7 +29,7 @@ public class Order {
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "order",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            cascade = {CascadeType.REMOVE, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     @JsonIgnore
     private List<OrderDetail> orderDetails;

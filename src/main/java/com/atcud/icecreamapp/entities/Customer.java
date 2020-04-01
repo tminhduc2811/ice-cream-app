@@ -67,14 +67,14 @@ public class Customer {
     // Relation
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "customer",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     @JsonIgnore
     private List<Feedback> feedback;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "customer",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            cascade = {CascadeType.REMOVE, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     @JsonIgnore
     private List<Order> orders;

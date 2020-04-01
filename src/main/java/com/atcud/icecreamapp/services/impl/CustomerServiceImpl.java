@@ -130,6 +130,7 @@ public class CustomerServiceImpl implements CustomerService {
         currentCustomer.setPhoneNumber(customer.getCustomer().getPhoneNumber());
         currentCustomer.setEmail(customer.getCustomer().getEmail());
         currentCustomer.setAvatar(customer.getCustomer().getAvatar());
+        currentCustomer.setStatus(customer.getCustomer().getStatus());
         return customerRepository.update(currentCustomer);
     }
 

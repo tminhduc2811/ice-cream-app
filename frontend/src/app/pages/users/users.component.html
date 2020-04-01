@@ -24,7 +24,7 @@
             <th scope="col">Full Name</th>
             <th scope="col">Role</th>
             <th scope="col">Status</th>
-            <th scope="col">Action</th>
+            <th scope="col" *ngIf="isAdmin">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
             </td>
             <td *ngIf="user.status===1">Enable</td>
             <td *ngIf="user.status!==1">Disabled</td>
-            <td>
+            <td *ngIf="isAdmin">
               <button class="btn btn-sm" (click)="editOnClick(i)"><span><img src="../../../assets/images/icon-edit.png" alt="Edit" style="max-width: 25px;"></span></button>
               <button class="btn btn-sm" (click)="deleteOnClick(i)"><span><img src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
             </td>

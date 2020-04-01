@@ -1,3 +1,4 @@
+import { CustomerDetailComponent } from './pages/customers/customer-detail/customer-detail.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RoleGuard } from './services/role.service';
@@ -24,11 +25,12 @@ const routes: Routes = [
   },
   { path: 'my-profile', component: ProfileComponent },
   { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
-  { path: 'user/:username', component: UserDetailComponent},
+  { path: 'user/:username', component: UserDetailComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']}},
   { path: 'faq', component: FaqComponent },
   { path: 'login', component: AuthComponent },
   { path: 'register', component: AuthComponent },
   { path: 'customers', component: CustomersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
+  { path: 'customer/:username', component: CustomerDetailComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']}},
   { path: 'feedback', component: FeedbackComponent },
   { path: 'orders', component: OrdersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'customer']}},
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },

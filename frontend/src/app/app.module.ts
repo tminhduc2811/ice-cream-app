@@ -43,6 +43,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CustomerProfileComponent } from './pages/profile/customer-profile/customer-profile.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
+import { CustomerDetailComponent } from './pages/customers/customer-detail/customer-detail.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { UserDetailComponent } from './pages/users/user-detail/user-detail.compo
     LoadingSpinnerComponent,
     CustomerProfileComponent,
     UserDetailComponent,
+    CustomerDetailComponent,
   ],
   imports: [
     BrowserModule,
