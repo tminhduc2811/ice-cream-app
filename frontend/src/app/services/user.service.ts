@@ -29,4 +29,7 @@ export class UserService {
     return this.apiService.put('/profile/user/', obj).pipe(map(data => data));
   }
 
+  deleteProfile(id: number) {
+    return this.apiService.delete('/users/' + id);
+  }
 }

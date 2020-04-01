@@ -1,3 +1,12 @@
+<div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{successMessage}}
+</div>
+<div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{warningMessage}}
+</div>
+
 <div>
   <div class="container pt-xl-5" style="padding-top: 40px;">
     <div class="row">
@@ -32,7 +41,7 @@
             <td *ngIf="user.status!==1">Disabled</td>
             <td>
               <button class="btn btn-sm" (click)="editOnClick(i)"><span><img src="../../../assets/images/icon-edit.png" alt="Edit" style="max-width: 25px;"></span></button>
-              <button class="btn btn-sm"><span><img src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
+              <button class="btn btn-sm" (click)="deleteOnClick(i)"><span><img src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
             </td>
           </tr>
         </tbody>
