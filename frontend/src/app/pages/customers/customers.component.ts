@@ -1,3 +1,4 @@
+import { ConfirmModalComponent } from './../../modals/confirm-modal/confirm-modal.component';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { PageService } from './../../services/page.service';
@@ -5,8 +6,9 @@ import { Page } from './../../models/page.model';
 import { CustomerView } from './../../auth/views/customers.view.model';
 import { CustomerService } from './../../services/customer.service';
 import { Customer } from './../../models/customer.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-customers',
@@ -27,8 +29,10 @@ export class CustomersComponent implements OnInit {
   warningMessage = '';
   warning = new Subject<string>();
 
-  constructor(private customerService: CustomerService, private pageService: PageService, private router: Router) {
-
+  constructor(private customerService: CustomerService,
+              private pageService: PageService,
+              private router: Router,
+              private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -77,11 +81,21 @@ export class CustomersComponent implements OnInit {
   }
 
   deleteOnClick(index) {
-    this.customerService.deleteProfile(this.customers[index].id)
-      .subscribe(rs => {
-        this.customers.splice(index, 1);
-      }, err => {
-        this.warning.next(err.message);
-      });
+
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {header: 'Are you sure to delete customer: ' + this.customers[index].userName,
+                                      message: 'All information which is related to this customer will also be deleted',
+                                      subMessage: 'This operation will not be undoned',
+                                      danger: true};
+    modalRef.result.then((rs) => {
+      if (rs) {
+        this.customerService.deleteProfile(this.customers[index].id)
+        .subscribe(() => {
+          this.customers.splice(index, 1);
+        }, err => {
+          this.warning.next(err.message);
+        });
+      }
+    }).catch(rs => {});
   }
 }

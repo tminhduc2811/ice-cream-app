@@ -1,3 +1,5 @@
+import { ConfirmModalComponent } from './../../../modals/confirm-modal/confirm-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { AuthService } from './../../../services/auth.service';
@@ -53,7 +55,8 @@ export class CustomerDetailComponent implements OnInit {
               private customerService: CustomerService,
               private fbStorage: AngularFireStorage,
               private location: Location,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.setAlert();
@@ -114,20 +117,30 @@ export class CustomerDetailComponent implements OnInit {
     this.location.back();
   }
   submitForm() {
-    this.isSubmitting = true;
-    if (this.formAccount.controls['status'].value) {
-      this.customer.status = 1;
-    } else {
-      this.customer.status = 0;
-    }
-    this.customerService.updateProfile({ customer: this.customer, currentPassword: '', newPassword: '' })
-      .subscribe(res => {
-        this.customer = this.customer;
-        this.success.next('Customer information has been saved successfully');
-        this.isSubmitting = false;
-      }, err => {
-        this.isSubmitting = false;
-        this.warning.next(err.message);
-      });
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {
+      header: 'Update information',
+      message: 'Do you want to update this profile?',
+      subMessage: '',
+      danger: false
+    };
+    modalRef.result.then(() => {
+
+      this.isSubmitting = true;
+      if (this.formAccount.controls['status'].value) {
+        this.customer.status = 1;
+      } else {
+        this.customer.status = 0;
+      }
+      this.customerService.updateProfile({ customer: this.customer, currentPassword: '', newPassword: '' })
+        .subscribe(res => {
+          this.customer = this.customer;
+          this.success.next('Customer information has been saved successfully');
+          this.isSubmitting = false;
+        }, err => {
+          this.isSubmitting = false;
+          this.warning.next(err.message);
+        });
+    }).catch(rs => {});
   }
 }

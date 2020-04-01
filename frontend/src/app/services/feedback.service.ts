@@ -19,4 +19,8 @@ export class FeedbackService {
     }
     return this.apiService.get('/feedback').pipe(map(data => data));
   }
+
+  delete(id: number) {
+    return this.apiService.delete('/feedback/' + id).pipe(map(data => data));
+  }
 }

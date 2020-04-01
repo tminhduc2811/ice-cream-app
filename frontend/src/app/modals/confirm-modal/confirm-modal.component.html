@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{data.header}}</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p><strong>{{data.message}} <span class="text-primary">{{data.target}}</span></strong></p>
+  <p>{{data.subMessage}}
+  <span class="text-danger" *ngIf="data.danger">This operation can not be undone.</span>
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="submit" ngbAutofocus class="btn btn-danger" (click)="confirm()">Ok</button>
+  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Close click')">Cancel</button>
+</div>

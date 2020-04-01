@@ -14,15 +14,19 @@
           <th scope="col">Order Id</th>
           <th scope="col">Details</th>
           <th scope="col">Created Date</th>
+          <th *ngIf="this.isUser" scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let feedback of feedbacks">
+        <tr *ngFor="let feedback of feedbacks; let i = index">
           <th scope="row">{{feedback.id}}</th>
           <td>{{feedback.order.customer.firstName}} {{feedback.order.customer.lastName}}</td>
           <td>{{feedback.order.id}}</td>
           <td>{{feedback.details}}</td>
           <td>{{feedback.createdDate | date:'EEE, d MMM,y'}} {{feedback.createdDate | date:'shortTime'}}</td>
+          <td *ngIf="this.isUser">
+            <button class="btn btn-sm" (click)="deleteOnClick(i)"><span><img src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
+          </td>
         </tr>
       </tbody>
     </table>

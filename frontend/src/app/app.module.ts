@@ -44,6 +44,7 @@ import { NgModule } from '@angular/core';
 import { CustomerProfileComponent } from './pages/profile/customer-profile/customer-profile.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 import { CustomerDetailComponent } from './pages/customers/customer-detail/customer-detail.component';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { CustomerDetailComponent } from './pages/customers/customer-detail/custo
     CustomerProfileComponent,
     UserDetailComponent,
     CustomerDetailComponent,
+    ConfirmModalComponent,
   ],
   imports: [
     BrowserModule,

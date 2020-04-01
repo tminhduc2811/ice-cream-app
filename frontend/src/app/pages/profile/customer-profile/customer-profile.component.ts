@@ -1,3 +1,5 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from './../../../modals/confirm-modal/confirm-modal.component';
 import { CustomerService } from './../../../services/customer.service';
 import { Customer } from './../../../models/customer.model';
 import { Router } from '@angular/router';
@@ -49,7 +51,8 @@ export class CustomerProfileComponent implements OnInit {
               private auth: AuthService,
               private fb: FormBuilder,
               private fbStorage: AngularFireStorage,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal) {
     this.fb.group(this.formGroup);
   }
 
@@ -138,17 +141,27 @@ export class CustomerProfileComponent implements OnInit {
       .subscribe();
   }
   submitForm() {
-    this.isSubmitting = true;
-    this.getForm();
-    this.customerService.updateProfile({ customer: this.customer, currentPassword: this.formGroup.get('currentPassword').value })
-      .subscribe(res => {
-        this.customer = res;
-        this.success.next('Your information has been saved successfully');
-        this.isSubmitting = false;
-      }, err => {
-        this.isSubmitting = false;
-        this.warning.next(err.message);
-      });
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {
+      header: 'Update information',
+      message: 'Do you want to update your profile?',
+      subMessage: '',
+      danger: false
+    };
+    modalRef.result.then(() => {
+
+      this.isSubmitting = true;
+      this.getForm();
+      this.customerService.updateProfile({ customer: this.customer, currentPassword: this.formGroup.get('currentPassword').value })
+        .subscribe(res => {
+          this.customer = res;
+          this.success.next('Your information has been saved successfully');
+          this.isSubmitting = false;
+        }, err => {
+          this.isSubmitting = false;
+          this.warning.next(err.message);
+        });
+    }).catch(rs => {});
   }
 
   onCancel() {

@@ -1,3 +1,6 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from './../../modals/confirm-modal/confirm-modal.component';
+import { ConfirmModalModel } from './../../modals/confirm-modal/confirm-modal.model';
 import { AuthService } from './../../services/auth.service';
 import { debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -31,7 +34,11 @@ export class UsersComponent implements OnInit {
   warningMessage = '';
   warning = new Subject<string>();
 
-  constructor(private userService: UserService, private pageService: PageService, private router: Router, private auth: AuthService) { }
+  constructor(private userService: UserService,
+              private pageService: PageService,
+              private router: Router,
+              private auth: AuthService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.isAdmin = this.auth.isAdmin();
@@ -79,11 +86,19 @@ export class UsersComponent implements OnInit {
   }
 
   deleteOnClick(index) {
-    this.userService.deleteProfile(this.users[index].id)
-    .subscribe(rs => {
+
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {header: 'Are you sure to delete user: ' + this.users[index].userName,
+                                      message: 'All information which is related to this customer will also be deleted',
+                                      subMessage: 'This operation will not be undoned',
+                                      danger: true};
+    modalRef.result.then(rs => {
+      this.userService.deleteProfile(this.users[index].id)
+    .subscribe(() => {
       this.users.splice(index, 1);
     }, err => {
       this.warning.next(err.message);
     });
+    }). catch(rs => {});
   }
 }

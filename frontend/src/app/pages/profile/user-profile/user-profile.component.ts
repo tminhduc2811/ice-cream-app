@@ -1,3 +1,5 @@
+import { ConfirmModalComponent } from './../../../modals/confirm-modal/confirm-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import 'firebase/storage';
@@ -41,7 +43,8 @@ export class UserProfileComponent implements OnInit {
               private auth: AuthService,
               private fb: FormBuilder,
               private fbStorage: AngularFireStorage,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal) {
     this.roles = this.auth.getRoles();
     console.log('check role ', this.roles);
     this.fb.group(this.formGroup);
@@ -129,21 +132,30 @@ export class UserProfileComponent implements OnInit {
       .subscribe();
   }
   submitForm() {
-    this.isSubmitting = true;
-    this.getForm();
-    this.userService.updateProfile({
-      user: this.user,
-      currentPassword: this.formGroup.get('currentPassword').value,
-      newPassword: this.formGroup.get('newPassword').value
-    })
-      .subscribe(res => {
-        this.user = res;
-        this.success.next('Your information has been saved successfully');
-        this.isSubmitting = false;
-      }, err => {
-        this.isSubmitting = false;
-        this.warning.next(err.message);
-      });
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {
+      header: 'Update information',
+      message: 'Do you want to update your profile?',
+      subMessage: '',
+      danger: false
+    };
+    modalRef.result.then(() => {
+      this.isSubmitting = true;
+      this.getForm();
+      this.userService.updateProfile({
+        user: this.user,
+        currentPassword: this.formGroup.get('currentPassword').value,
+        newPassword: this.formGroup.get('newPassword').value
+      })
+        .subscribe(res => {
+          this.user = res;
+          this.success.next('Your information has been saved successfully');
+          this.isSubmitting = false;
+        }, err => {
+          this.isSubmitting = false;
+          this.warning.next(err.message);
+        });
+    }).catch(rs => {});
   }
 
   onCancel() {

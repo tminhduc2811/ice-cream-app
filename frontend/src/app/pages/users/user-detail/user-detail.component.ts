@@ -1,3 +1,5 @@
+import { ConfirmModalComponent } from './../../../modals/confirm-modal/confirm-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './../../../services/auth.service';
 import { debounceTime } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -45,7 +47,8 @@ export class UserDetailComponent implements OnInit {
               private userService: UserService,
               private fbStorage: AngularFireStorage,
               private location: Location,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.setAlert();
@@ -101,29 +104,39 @@ export class UserDetailComponent implements OnInit {
   }
 
   submitForm() {
-    this.isSubmitting = true;
-    const roles = [];
-    if (this.formGroup.controls['adminCb'].value) {
-      roles.push({id: 1, role: 'ADMIN'});
-    }
-    if (this.formGroup.controls['userCb'].value) {
-      roles.push({id: 2, role: 'USER'});
-    }
-    if (this.formGroup.controls['statusCb'].value) {
-      this.user.status = 1;
-    } else {
-      this.user.status = 0;
-    }
-    this.user.roles = roles;
-    this.userService.updateProfile({user: this.user, currentPassword: '', newPassword: ''})
-    .subscribe(res => {
-      this.user = res;
-      this.success.next('User information has been save');
-      this.isSubmitting = false;
-    }, err => {
-      this.isSubmitting = false;
-      this.warning.next(err.message);
-    });
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {
+      header: 'Update information',
+      message: 'Do you want to update this profile?',
+      subMessage: '',
+      danger: false
+    };
+    modalRef.result.then(() => {
+
+      this.isSubmitting = true;
+      const roles = [];
+      if (this.formGroup.controls['adminCb'].value) {
+        roles.push({ id: 1, role: 'ADMIN' });
+      }
+      if (this.formGroup.controls['userCb'].value) {
+        roles.push({ id: 2, role: 'USER' });
+      }
+      if (this.formGroup.controls['statusCb'].value) {
+        this.user.status = 1;
+      } else {
+        this.user.status = 0;
+      }
+      this.user.roles = roles;
+      this.userService.updateProfile({ user: this.user, currentPassword: '', newPassword: '' })
+        .subscribe(res => {
+          this.user = res;
+          this.success.next('User information has been save');
+          this.isSubmitting = false;
+        }, err => {
+          this.isSubmitting = false;
+          this.warning.next(err.message);
+        });
+    }).catch(rs => {});
   }
 
   onCancel() {
