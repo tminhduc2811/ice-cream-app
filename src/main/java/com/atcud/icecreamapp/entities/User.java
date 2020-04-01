@@ -63,8 +63,8 @@ public class User {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Recipe> recipes;
 
     public User() {

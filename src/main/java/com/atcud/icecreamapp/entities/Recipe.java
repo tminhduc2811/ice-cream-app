@@ -26,12 +26,12 @@ public class Recipe {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @ManyToOne(cascade = {CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @ManyToOne(cascade = {CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "icecream_id")
     private Icecream icecream;
@@ -39,8 +39,8 @@ public class Recipe {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "recipe",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<OrderDetail> orders;
 
     @Column(name = "title")

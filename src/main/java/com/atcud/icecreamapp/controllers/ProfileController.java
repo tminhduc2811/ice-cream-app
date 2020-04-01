@@ -6,7 +6,6 @@ import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
 import com.atcud.icecreamapp.DTO.entities.UserDTO;
 import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
 import com.atcud.icecreamapp.entities.Customer;
-import com.atcud.icecreamapp.entities.User;
 import com.atcud.icecreamapp.services.CustomerService;
 import com.atcud.icecreamapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

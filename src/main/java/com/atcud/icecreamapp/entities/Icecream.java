@@ -32,7 +32,7 @@ public class Icecream {
 
     @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "icecream",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            cascade = {CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     @JsonIgnore
     private List<Recipe> recipes;
