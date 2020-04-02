@@ -1,9 +1,4 @@
 <div class="modal-header" style="align-content: center;">
-  <!-- <blockquote class="blockquote text-center">
-    <h4 class="modal-title" id="modal-title">{{recipe.title}}</h4>
-    <p class="mb-0">{{recipe.description}}.</p>
-    <footer class="blockquote-footer">Created by <cite title="Source Title">{{recipe.user.fullName}}, {{recipe.uploadedDate | date:'EEE, d MMM,y'}}</cite></footer>
-  </blockquote> -->
   <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
     (click)="modal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
@@ -18,12 +13,12 @@
       <footer class="blockquote-footer">Created by <cite title="Source Title">{{recipe.user.fullName}}, {{recipe.uploadedDate | date:'EEE, d MMM,y'}}</cite></footer>
     </blockquote>
   </div>
-  <img class="center-block" style="width: 70%; margin: 0 auto;" [src]="temp" alt="Card image">
+  <img class="center-block" style="width: 90%; margin: 0 auto;" [src]="recipe.image" alt="Card image">
   <div class="card-body">
     <p class="card-text text-primary">{{recipe.details}}</p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item text-info lead"><strong>Views: </strong>{{recipe.viewCount}}</li>
+    <li class="list-group-item text-warning lead"><strong>Views: </strong>{{recipe.viewCount}}</li>
     <li class="list-group-item text-danger lead"><strong>Price: </strong>{{recipe.price}}$</li>
   </ul>
   <div class="card-footer text-success" [ngClass]="recipe.status === 1 ? 'text-success' : 'text-danger'">
@@ -31,10 +26,15 @@
   </div>
 </div>
 </div>
+<!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <input name="first" [ngModel]="recipe.details" required #first="ngModel">
+  <input name="last" ngModel>
+  <button>Submit</button>
+</form> -->
 <div class="modal-footer">
   <label *ngIf="isCustomer" class="col-form-label text-danger font-weight-bold" for="inputDefault">Input quantity</label>
-  <input *ngIf="isCustomer" class="text-primary font-weight-bold" style="width: 100px;" class="form-control text-center" type="number" value="0" min="0" max="1000" step="1"/>
-  <button *ngIf="isCustomer" type="button" class="btn btn-danger btn-sm">
+  <input [disabled]="recipe.status === 0" *ngIf="isCustomer" class="text-primary font-weight-bold" style="width: 100px;" class="form-control text-center" type="number" value="0" min="0" max="1000" step="1"/>
+  <button [disabled]="recipe.status === 0" *ngIf="isCustomer" type="button" class="btn btn-danger btn-sm">
     <img src="../../../../../assets/images/cart.webp" style="height: 34px; cursor: pointer;" alt="Add to cart">
   </button>
   <button type="submit" ngbAutofocus class="btn btn-danger" (click)="confirm()" *ngIf="isUser">Save</button>

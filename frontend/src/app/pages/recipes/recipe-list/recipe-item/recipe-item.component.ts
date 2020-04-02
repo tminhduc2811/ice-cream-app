@@ -27,19 +27,11 @@ export class RecipeItemComponent implements OnInit {
     this.auth.authInfo.subscribe(data => {
       this.roles = data.roles;
     });
-    this.fbService.ref(this.recipe.image).getDownloadURL()
-    .subscribe(rs => {
-      console.log(rs);
-      this.imageUrl = rs;
-      this.imgLoading = false;
-    }, () => {
-      this.imgLoading = false;
-    });
   }
 
   showDetail() {
     console.log(this.recipe);
-    const modalRef = this.modalService.open(RecipeModalComponent, {centered: true, size: 'lg'});
+    const modalRef = this.modalService.open(RecipeModalComponent, {centered: true, size: 'm'});
     modalRef.componentInstance.recipe = this.recipe;
   }
 }
