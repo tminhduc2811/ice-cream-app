@@ -82,22 +82,22 @@ export class CustomerProfileComponent implements OnInit {
       newPassword: '',
     });
 
-    const imagePath = this.customer.avatar === '' ? 'images/default.jpg' : this.customer.avatar;
+    // const imagePath = this.customer.avatar === '' ? 'images/default.jpg' : this.customer.avatar;
 
-    this.imgLoading = true;
+    // this.imgLoading = true;
 
-    this.fbStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
-      this.profileUrl = rs;
-      this.imgLoading = false;
-    }, () => {
-      // If cannot get the avatar, get default avatar
-      this.fbStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
-        this.profileUrl = temp;
-        this.imgLoading = false;
-      }, () => {
-        this.imgLoading = false;
-      });
-    });
+    // this.fbStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
+    //   this.profileUrl = rs;
+    //   this.imgLoading = false;
+    // }, () => {
+    //   // If cannot get the avatar, get default avatar
+    //   this.fbStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
+    //     this.profileUrl = temp;
+    //     this.imgLoading = false;
+    //   }, () => {
+    //     this.imgLoading = false;
+    //   });
+    // });
   }
 
   setAlert() {
@@ -125,7 +125,7 @@ export class CustomerProfileComponent implements OnInit {
         fileRef.getDownloadURL().subscribe(
           data => {
             this.profileUrl = data;
-            this.customer.avatar = filePath;
+            this.customer.avatar = data;
             this.customerService.updateProfile({ customer: this.customer, currentPassword: '' })
               .subscribe(rs => {
                 this.imgLoading = false;

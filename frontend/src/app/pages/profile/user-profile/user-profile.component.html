@@ -15,7 +15,7 @@
         <div *ngIf="imgLoading" style="text-align: center;">
           <app-loading-spinner></app-loading-spinner>
         </div>
-        <img [src]="profileUrl" class="img-fluid" alt="Profile avatar" *ngIf="!imgLoading">
+        <img [src]="user.avatar" class="img-fluid" onerror="this.src='https://firebasestorage.googleapis.com/v0/b/ice-cream-web.appspot.com/o/images%2Fdefault.jpg?alt=media&token=8460c555-9bca-49eb-afa2-b2dacdfef78e'" *ngIf="!imgLoading">
         <hr>
         <h4 class="card-title">{{user.fullName}}</h4>
         <p class="card-text">Email: {{user.email}}</p>

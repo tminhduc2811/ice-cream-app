@@ -39,13 +39,14 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UserProfileComponent } from './pages/profile/user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorage } from '@angular/fire/storage';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CustomerProfileComponent } from './pages/profile/customer-profile/customer-profile.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 import { CustomerDetailComponent } from './pages/customers/customer-detail/customer-detail.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
-
+import { RecipeModalComponent } from './modals/recipe-modal/recipe-modal.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,9 +73,11 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     UserDetailComponent,
     CustomerDetailComponent,
     ConfirmModalComponent,
+    RecipeModalComponent,
   ],
   imports: [
     BrowserModule,
+    LazyLoadImageModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

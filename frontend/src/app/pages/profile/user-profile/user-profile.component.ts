@@ -70,22 +70,22 @@ export class UserProfileComponent implements OnInit {
       newPassword: '',
     });
 
-    const imagePath = this.user.avatar === '' ? 'images/default.jpg' : this.user.avatar;
+    // const imagePath = this.user.avatar === '' ? 'images/default.jpg' : this.user.avatar;
 
-    this.imgLoading = true;
+    // this.imgLoading = true;
 
-    this.fbStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
-      this.profileUrl = rs;
-      this.imgLoading = false;
-    }, () => {
-      // If cannot get the avatar, get default avatar
-      this.fbStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
-        this.profileUrl = temp;
-        this.imgLoading = false;
-      }, () => {
-        this.imgLoading = false;
-      });
-    });
+    // this.fbStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
+    //   this.profileUrl = rs;
+    //   this.imgLoading = false;
+    // }, () => {
+    //   // If cannot get the avatar, get default avatar
+    //   this.fbStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
+    //     this.profileUrl = temp;
+    //     this.imgLoading = false;
+    //   }, () => {
+    //     this.imgLoading = false;
+    //   });
+    // });
   }
 
   setAlert() {
@@ -115,7 +115,7 @@ export class UserProfileComponent implements OnInit {
           data => {
             this.profileUrl = data;
             console.log('Saving to database', this.profileUrl);
-            this.user.avatar = filePath;
+            this.user.avatar = data;
             this.userService.updateProfile({ user: this.user, currentPassword: '' })
               .subscribe(rs => {
                 console.log('Updated');

@@ -16,3 +16,10 @@
 .custom-btn {
   width: 80px;
 }
+/* img {
+  animation: fadein .4s;
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+} */

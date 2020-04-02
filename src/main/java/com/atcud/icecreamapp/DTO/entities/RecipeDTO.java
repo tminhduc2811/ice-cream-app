@@ -1,13 +1,15 @@
 package com.atcud.icecreamapp.DTO.entities;
 
+import com.atcud.icecreamapp.entities.Icecream;
+
 import java.sql.Timestamp;
 
 public class RecipeDTO {
     private Long id;
 
-    private Long userId;
+    private Icecream icecream;
 
-    private Long icecreamId;
+    private UserDTO user;
 
     private String title;
 
@@ -29,10 +31,38 @@ public class RecipeDTO {
 
     }
 
-    public RecipeDTO(Long id, Long userId, Long icecreamId, String title, String description, Float price, Short status, int viewCount, String image, String details, Timestamp uploadedDate) {
+    public Icecream getIcecream() {
+        return icecream;
+    }
+
+    public void setIcecream(Icecream icecream) {
+        this.icecream = icecream;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public RecipeDTO(Long id, Icecream icecream, UserDTO user, String title, String description, Float price, Short status, int viewCount, String image, String details, Timestamp uploadedDate) {
         this.id = id;
-        this.userId = userId;
-        this.icecreamId = icecreamId;
+        this.icecream = icecream;
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.status = status;
+        this.viewCount = viewCount;
+        this.image = image;
+        this.details = details;
+        this.uploadedDate = uploadedDate;
+    }
+
+    public RecipeDTO(Long id, String title, String description, Float price, Short status, int viewCount, String image, String details, Timestamp uploadedDate) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -49,22 +79,6 @@ public class RecipeDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getIcecreamId() {
-        return icecreamId;
-    }
-
-    public void setIcecreamId(Long icecreamId) {
-        this.icecreamId = icecreamId;
     }
 
     public String getTitle() {

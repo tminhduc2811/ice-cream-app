@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.DTO.entities.RecipeDTO;
+import com.atcud.icecreamapp.DTO.entities.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Page<RecipeDTO> findPage(Pageable pageable) {
         Page<Recipe> entityPage = recipeRepository.findPage(pageable);
-
         return DTOBuilder.mapPage(entityPage, RecipeDTO.class);
     }
 

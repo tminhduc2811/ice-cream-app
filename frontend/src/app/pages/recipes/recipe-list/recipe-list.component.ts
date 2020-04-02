@@ -1,3 +1,6 @@
+import { RecipeModalComponent } from './../../../modals/recipe-modal/recipe-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './../../../services/auth.service';
 import { PageService } from './../../../services/page.service';
 import { RecipeView } from './../../../auth/views/recipes.view.model';
 import { Page } from './../../../models/page.model';
@@ -21,7 +24,9 @@ export class RecipeListComponent implements OnInit {
   size = 4;
   // Params
 
-  constructor(private recipeService: RecipeService, private pageService: PageService) {
+  constructor(private recipeService: RecipeService,
+              private pageService: PageService,
+              private auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -75,6 +80,6 @@ export class RecipeListComponent implements OnInit {
       }, err => {
         this.isLoading = false;
       });
-
   }
+
 }
