@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <div class="modal-title w-100 text-center">
+    <h4>Edit or Add new recipe</h4>
+  </div>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body text-center">
+<form #form="ngForm">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="form-group">
+        <fieldset>
+          <label class="control-label" for="title">Title</label>
+          <input class="form-control" id="title" name="title" type="text" placeholder="Set a title for your recipe" [(ngModel)]="recipe.title" ngModel required #title="ngModel">
+        </fieldset>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="recipe.description" ngModel required #description="ngModel" rows="4"></textarea>
+      </div>
+      <div class="form-group text-center">
+        <label for="image">Image for your recipe</label>
+        <img class="center-block" style="display: block; margin: 0 auto; width: 80%;" [src]="recipe.image" class="img-fluid" onerror="this.src='https://firebasestorage.googleapis.com/v0/b/ice-cream-web.appspot.com/o/images%2Fdefault.jpg?alt=media&token=8460c555-9bca-49eb-afa2-b2dacdfef78e'">
+      </div>
+      <div class="form-group">
+        <label for="inputImage">Choose your avatar</label>
+        <input type="file" class="form-control-file" id="inputImage" aria-describedby="fileHelp" accept=".png,.jpg,.gif"
+        (change)="uploadImage($event)">
+        <small id="fileHelp" class="form-text text-muted">Please make sure that your avatar has the right solution</small>
+      </div>
+    </div>
+    <div class="col-sm-7">
+    <div class="form-group">
+      <label for="details">Details</label>
+      <textarea class="form-control" id="details" name="details" [(ngModel)]="recipe.details" #detail="ngModel" rows="15"></textarea>
+    </div>
+    <div class="form-group">
+      <fieldset>
+        <strong>
+          <label class="control-label text-primary" for="price">Price ($)</label>
+        <input class="form-control text-center text-success" style="font-size: x-large;" id="price" name="price" type="number" min="0" max="2000" [(ngModel)]="recipe.price" ngModel required #price="ngModel">
+        </strong>
+      </fieldset>
+    </div>
+    <fieldset class="form-group">
+      <label>Status</label>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input name="status" class="form-check-input" type="checkbox" value="" [(ngModel)]="recipe.status" #status="ngModel">
+          Available
+        </label>
+      </div>
+    </fieldset>
+    </div>
+  </div>
+</form>
+</div>
+<div class="modal-footer">
+  <button type="submit" ngbAutofocus class="btn btn-danger" (click)="confirm()">Save</button>
+  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Close click')">Cancel</button>
+</div>

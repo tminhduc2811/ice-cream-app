@@ -1,4 +1,4 @@
-<div class="card mx-2 mb-3 card-custom">
+<div class="card mx-3 mb-3 card-custom">
   <h6 class="card-header custom-header" style="cursor: pointer;">{{recipe.title}}</h6>
   <img class="custom-img" src="{{recipe.image}}" alt="Recipe" style="cursor: pointer;" (click)="showDetail()">
   <div class="card-body text-center">
@@ -6,7 +6,7 @@
     <p class="text-primary">{{recipe.viewCount}} views</p>
   </div>
   <div class="card-body text-center" *ngIf="roles.includes('ROLE_USER')">
-    <button type="button" class="btn btn-warning btn-sm custom-btn" (click)="showDetail()">Edit</button>
+    <button type="button" class="btn btn-warning btn-sm custom-btn" (click)="edit()">Edit</button>
     <button type="button" class="btn btn-danger btn-sm custom-btn">Remove</button>
   </div>
   <div class="card-body text-center" *ngIf="!roles.includes('ROLE_USER') && !roles.includes('ROLE_ADMIN')">

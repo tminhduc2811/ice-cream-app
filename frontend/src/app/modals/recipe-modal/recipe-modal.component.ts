@@ -12,18 +12,14 @@ import { NgForm } from '@angular/forms';
 export class RecipeModalComponent implements OnInit {
 
   @Input() recipe: Recipe;
-  imgUrl = '';
   imgLoading = false;
-  isUser = false;
   isCustomer = false;
   f: NgForm;
-  temp = 'https://firebasestorage.googleapis.com/v0/b/ice-cream-web.appspot.com/o/images%2Fic1.jpg?alt=media&token=882db35d-43c6-4dfe-a70e-10cfae2869b3';
   constructor(public modal: NgbActiveModal, private auth: AuthService) { }
 
   ngOnInit(): void {
     console.log(this.recipe);
     this.isCustomer = this.auth.isCustomer();
-    this.isUser = this.auth.isUser();
   }
 
   confirm() {

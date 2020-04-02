@@ -1,3 +1,4 @@
+import { RecipeEditModalComponent } from './../../../../modals/recipe-edit-modal/recipe-edit-modal.component';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { RecipeModalComponent } from './../../../../modals/recipe-modal/recipe-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +32,12 @@ export class RecipeItemComponent implements OnInit {
 
   showDetail() {
     console.log(this.recipe);
-    const modalRef = this.modalService.open(RecipeModalComponent, {centered: true, size: 'm'});
+    const modalRef = this.modalService.open(RecipeModalComponent, {centered: true, size: 'lg'});
+    modalRef.componentInstance.recipe = this.recipe;
+  }
+
+  edit() {
+    const modalRef = this.modalService.open(RecipeEditModalComponent, {centered: true, size: 'lg'});
     modalRef.componentInstance.recipe = this.recipe;
   }
 }

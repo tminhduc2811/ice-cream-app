@@ -47,6 +47,7 @@ import { CustomerDetailComponent } from './pages/customers/customer-detail/custo
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { RecipeModalComponent } from './modals/recipe-modal/recipe-modal.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { RecipeEditModalComponent } from './modals/recipe-edit-modal/recipe-edit-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +75,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     CustomerDetailComponent,
     ConfirmModalComponent,
     RecipeModalComponent,
+    RecipeEditModalComponent,
   ],
   imports: [
     BrowserModule,
