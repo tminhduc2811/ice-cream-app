@@ -1,4 +1,4 @@
-<div class="card mx-3 mb-3 card-custom">
+<div class="card mx-1 mb-1 card-custom" style="width: 250px;">
   <h6 class="card-header custom-header" style="cursor: pointer;">{{recipe.title}}</h6>
   <img class="custom-img" src="{{recipe.image}}" alt="Recipe" style="cursor: pointer;" (click)="showDetail()">
   <div class="card-body text-center">
@@ -12,9 +12,9 @@
   <div class="card-body text-center" *ngIf="!roles.includes('ROLE_USER') && !roles.includes('ROLE_ADMIN')">
     <div class="form-group">
       <label class="col-form-label" for="inputDefault">Input quantity</label>
-      <input class="form-control text-center" type="number" value="0" min="0" max="1000" step="1"/>
+      <input [(ngModel)]="quantity" class="form-control text-center" type="number" value="0" min="0" max="1000" step="1"/>
     </div>
-    <button type="button" class="btn btn-danger btn-sm">
+    <button type="button" class="btn btn-danger btn-sm" [disabled]="quantity === 0" (click)="addToCart()">
       <img src="../../../../../assets/images/cart.webp" style="height: 30px; cursor: pointer;" alt="Add to cart">
     </button>
   </div>

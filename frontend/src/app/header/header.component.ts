@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   // isLoggedIn$: Observable<boolean>;
   isLoggedIn = false;
   roles: string[] = [];
+  isCustomer = false;
 
   constructor(private auth: AuthService, private router: Router) {
   }
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
     this.auth.authInfo.subscribe(val => {
       this.isLoggedIn = val.isLoggedIn;
       this.roles = val.roles;
+      this.isCustomer = this.auth.isCustomer();
     });
   }
 
@@ -28,5 +30,8 @@ export class HeaderComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/home']);
 
+  }
+  navigateToCart() {
+    this.router.navigate(['/my-cart']);
   }
 }

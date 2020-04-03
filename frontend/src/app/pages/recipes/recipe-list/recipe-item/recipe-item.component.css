@@ -11,6 +11,7 @@
 }
 .custom-img {
   height: 180px;
+  max-width: 300px;
   display: block;
 }
 .custom-btn {

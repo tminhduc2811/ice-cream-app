@@ -36,6 +36,10 @@
       <button type="button" class="btn btn-primary" routerLink="register">Register</button>
     </div>
     <!-- Show menu related to user's profile -->
+
+    <button type="button" class="btn btn-secondary btn-sm" (click)="navigateToCart()" *ngIf="isCustomer">
+      <img src="../../../../../assets/images/cart.webp" style="height: 30px; cursor: pointer;" alt="Add to cart">
+    </button>
     <ul class="nav nav-pills" *ngIf="isLoggedIn">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#" role="button"

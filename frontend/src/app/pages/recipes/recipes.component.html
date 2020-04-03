@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     {{successMessage}}
@@ -7,11 +7,10 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     {{warningMessage}}
   </div>
-
-  <form style="padding-bottom: 50px; padding-left: 25px; padding-right: 25px; padding-top: 25px;">
+  <form style="padding-bottom: 50px; padding-top: 25px; padding-left: 0px;">
     <fieldset>
       <div class="row">
-        <div class="form-group col-md-5">
+        <div class="form-group col-md-5" style="min-width: 250px;">
           <legend>Ice Cream</legend>
           <label for="iceCreamType">Select type of Ice-cream you want</label>
           <select class="form-control" id="iceCreamType" (change)="iceCreamSelected($event.target.value)">
@@ -28,11 +27,11 @@
             <option>Highest prices</option>
           </select>
         </div>
-        <div class="col-md-3 text-right" style="padding-top: 70px;">
+        <div class="col-md-3" style="padding-top: 70px;" *ngIf="isUser">
           <button class="btn btn-primary" (click)="newRecipe()">New Recipe</button>
         </div>
       </div>
     </fieldset>
   </form>
+  <app-recipe-list (statusUpdated)="statusUpdated($event)"></app-recipe-list>
 </div>
-<app-recipe-list (statusUpdated)="statusUpdated($event)"></app-recipe-list>

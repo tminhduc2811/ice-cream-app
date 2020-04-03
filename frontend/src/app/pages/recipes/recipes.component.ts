@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { debounceTime } from 'rxjs/operators';
 import { User } from './../../models/user.model';
 import { RecipeEditModalComponent } from './../../modals/recipe-edit-modal/recipe-edit-modal.component';
@@ -20,19 +21,20 @@ export class RecipesComponent implements OnInit {
   iceCreams: IceCream[] = [];
   isLoaded = false;
   selectedId: number;
+  isUser = false;
   // Alert messages
   successMessage = '';
   success = new Subject<string>();
   warningMessage = '';
   warning = new Subject<string>();
 
-  constructor(private recipeService: RecipeService, private iceCreamService: IceCreamService, private modalService: NgbModal) { }
+  constructor(private recipeService: RecipeService,
+              private iceCreamService: IceCreamService,
+              private modalService: NgbModal,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
-    // this.recipeService.recipeSelected
-    //   .subscribe((recipe: Recipe) => {
-    //     this.selectedRecipe = recipe;
-    //   });
+    this.isUser = this.auth.isUser();
     this.setAlert();
     this.iceCreamService.getAll()
       .subscribe(rs => {

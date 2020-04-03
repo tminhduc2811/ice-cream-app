@@ -10,6 +10,7 @@ import { RecipeService } from './../../../../services/recipe.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from 'src/app/models/recipe.model';
 import { Subject } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -24,11 +25,12 @@ export class RecipeItemComponent implements OnInit {
   icecreams: IceCream[] = [];
   imageUrl = '';
   imgLoading = false;
+  quantity = 0;
 
   constructor(private iceCreamService: IceCreamService,
               private auth: AuthService,
               private modalService: NgbModal,
-              private fbService: AngularFireStorage) {
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -54,5 +56,11 @@ export class RecipeItemComponent implements OnInit {
         this.statusUpdate.emit(rs.status);
       }
     }).catch(rs => {});
+  }
+
+  addToCart() {
+    this.cartService.saveItem(this.recipe, this.quantity);
+    const cart = this.cartService.getCartFromLocalStorage();
+    this.quantity = 0;
   }
 }

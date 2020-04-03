@@ -129,11 +129,13 @@ export class CustomerProfileComponent implements OnInit {
             this.customerService.updateProfile({ customer: this.customer, currentPassword: '' })
               .subscribe(rs => {
                 this.imgLoading = false;
+                window.scrollTo(0, 0);
                 this.success.next('Your avatar has been saved');
               },
                 err => {
                   this.imgLoading = false;
-                  console.log('Error: ', err);
+                  window.scrollTo(0, 0);
+                  this.warning.next(err.message);
                 });
           }
         );
@@ -152,12 +154,16 @@ export class CustomerProfileComponent implements OnInit {
 
       this.isSubmitting = true;
       this.getForm();
-      this.customerService.updateProfile({ customer: this.customer, currentPassword: this.formGroup.get('currentPassword').value })
+      this.customerService.updateProfile({ customer: this.customer,
+        currentPassword: this.formGroup.get('currentPassword').value,
+        newPassword: this.formGroup.get('newPassword').value})
         .subscribe(res => {
           this.customer = res;
+          window.scrollTo(0, 0);
           this.success.next('Your information has been saved successfully');
           this.isSubmitting = false;
         }, err => {
+          window.scrollTo(0, 0);
           this.isSubmitting = false;
           this.warning.next(err.message);
         });

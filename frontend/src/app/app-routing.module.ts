@@ -1,3 +1,4 @@
+import { MyCartComponent } from './pages/my-cart/my-cart.component';
 import { CustomerDetailComponent } from './pages/customers/customer-detail/customer-detail.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'register', component: AuthComponent },
   { path: 'customers', component: CustomersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
   { path: 'customer/:username', component: CustomerDetailComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']}},
+  { path: 'my-cart', component: MyCartComponent, canActivate: [RoleGuard], data: {roles: ['customer']}},
   { path: 'feedback', component: FeedbackComponent },
   { path: 'orders', component: OrdersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'customer']}},
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },

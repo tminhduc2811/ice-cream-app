@@ -69,23 +69,6 @@ export class UserProfileComponent implements OnInit {
       currentPassword: '',
       newPassword: '',
     });
-
-    // const imagePath = this.user.avatar === '' ? 'images/default.jpg' : this.user.avatar;
-
-    // this.imgLoading = true;
-
-    // this.fbStorage.ref(imagePath).getDownloadURL().subscribe(rs => {
-    //   this.profileUrl = rs;
-    //   this.imgLoading = false;
-    // }, () => {
-    //   // If cannot get the avatar, get default avatar
-    //   this.fbStorage.ref('/images/default.jpg').getDownloadURL().subscribe(temp => {
-    //     this.profileUrl = temp;
-    //     this.imgLoading = false;
-    //   }, () => {
-    //     this.imgLoading = false;
-    //   });
-    // });
   }
 
   setAlert() {
@@ -118,13 +101,14 @@ export class UserProfileComponent implements OnInit {
             this.user.avatar = data;
             this.userService.updateProfile({ user: this.user, currentPassword: '' })
               .subscribe(rs => {
-                console.log('Updated');
                 this.imgLoading = false;
+                window.scrollTo(0, 0);
                 this.success.next('Your avatar has been saved');
               },
                 err => {
+                  window.scrollTo(0, 0);
                   this.imgLoading = false;
-                  console.log('Error: ', err);
+                  this.warning.next(err.message);
                 });
           }
         );
@@ -149,10 +133,12 @@ export class UserProfileComponent implements OnInit {
       })
         .subscribe(res => {
           this.user = res;
+          window.scrollTo(0, 0);
           this.success.next('Your information has been saved successfully');
           this.isSubmitting = false;
         }, err => {
           this.isSubmitting = false;
+          window.scrollTo(0, 0);
           this.warning.next(err.message);
         });
     }).catch(rs => {});

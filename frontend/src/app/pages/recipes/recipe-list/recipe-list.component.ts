@@ -14,7 +14,11 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  styleUrls: ['./recipe-list.component.css'],
+  // tslint:disable-next-line: no-host-metadata-property
+  host: {
+    '(window:resize)': 'onResize($event)'
+  }
 })
 export class RecipeListComponent implements OnInit {
 
@@ -24,7 +28,7 @@ export class RecipeListComponent implements OnInit {
   result: RecipeView;
   page: Page;
   isLoading = false;
-  size = 4;
+  size = 10;
 
   constructor(private recipeService: RecipeService,
               private pageService: PageService,
@@ -84,5 +88,9 @@ export class RecipeListComponent implements OnInit {
   }
   statusUpdate(status) {
     this.statusUpdated.emit(status);
+  }
+  onResize(event) {
+    const width = event.target.innerWidth; // window width
+    // TODO: Handle page size when changes happend
   }
 }
