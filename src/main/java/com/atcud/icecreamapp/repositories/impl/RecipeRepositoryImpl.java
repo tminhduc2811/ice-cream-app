@@ -28,6 +28,7 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     EntityManager entityManager;
 
     @Override
+    @Transactional
     public Page<Recipe> findPage(Pageable pageable) {
         return recipeRepositoryJpa.findAll(pageable);
     }
@@ -58,6 +59,7 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     }
 
     @Override
+    @Transactional
     public void update(Recipe recipe) {
         entityManager.merge(recipe);
     }

@@ -15,11 +15,13 @@
         <fieldset>
           <label class="control-label" for="title">Title</label>
           <input class="form-control" id="title" name="title" type="text" placeholder="Set a title for your recipe" [(ngModel)]="recipe.title" ngModel required #title="ngModel">
+          <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Title is required</div>
         </fieldset>
       </div>
       <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" [(ngModel)]="recipe.description" ngModel required #description="ngModel" rows="4"></textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-dismissible alert-danger alert-font">Description is required</div>
       </div>
       <div class="form-group text-center">
         <label for="image">Image for your recipe</label>
@@ -35,7 +37,8 @@
     <div class="col-sm-7">
     <div class="form-group">
       <label for="details">Details</label>
-      <textarea class="form-control" id="details" name="details" [(ngModel)]="recipe.details" #detail="ngModel" rows="15"></textarea>
+      <textarea class="form-control" id="details" name="details" [(ngModel)]="recipe.details" ngModel required #details="ngModel" rows="15"></textarea>
+      <div *ngIf="details.invalid && (details.dirty || details.touched)" class="alert alert-dismissible alert-danger alert-font">Details are required</div>
     </div>
     <div class="form-group">
       <fieldset>
@@ -43,7 +46,16 @@
           <label class="control-label text-primary" for="price">Price ($)</label>
         <input class="form-control text-center text-success" style="font-size: x-large;" id="price" name="price" type="number" min="0" max="2000" [(ngModel)]="recipe.price" ngModel required #price="ngModel">
         </strong>
+        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-dismissible alert-danger alert-font">Price is required</div>
       </fieldset>
+    </div>
+    <div class="form-group">
+      <legend>Ice Cream</legend>
+      <label for="category">Select type of Ice-cream</label>
+      <select class="form-control" id="category" (change)="iceCreamSelected($event.target.value)" name="type" #type="ngModel" [(ngModel)]="recipe.icecream.name" ngModel required>
+        <option *ngFor="let iceCream of icecreams; let i = index">{{iceCream.name}}</option>
+      </select>
+      <div *ngIf="type.invalid && (type.dirty || type.touched)" class="alert alert-dismissible alert-danger alert-font">Category is required</div>
     </div>
     <fieldset class="form-group">
       <label>Status</label>
@@ -56,10 +68,13 @@
     </fieldset>
     </div>
   </div>
-  <button type="submit" ngbAutofocus class="btn btn-success mr-1">Save</button>
+  <button type="submit" ngbAutofocus class="btn btn-success mr-1" [disabled]="form.invalid">Save</button>
   <button type="button" class="btn btn-danger mr-1" (click)="modal.dismiss('Close click')">Cancel</button>
 </form>
 </div>
 <div class="modal-footer">
-
+  <div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{warningMessage}}
+  </div>
 </div>

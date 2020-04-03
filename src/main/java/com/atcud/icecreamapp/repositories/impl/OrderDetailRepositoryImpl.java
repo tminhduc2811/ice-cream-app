@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,27 +19,32 @@ public class OrderDetailRepositoryImpl implements OrderDetailRepository {
     EntityManager entityManager;
 
     @Override
+    @Transactional
     public List<OrderDetail> findAll() {
         return entityManager.createQuery("FROM OrderDetail", OrderDetail.class).getResultList();
     }
 
     @Override
+    @Transactional
     public Optional<OrderDetail> findById(Long id) {
         return Optional.of(entityManager.find(OrderDetail.class, id));
     }
 
     @Override
+    @Transactional
     public OrderDetail save(OrderDetail orderDetail) {
         entityManager.persist(orderDetail);
         return orderDetail;
     }
 
     @Override
+    @Transactional
     public void delete(OrderDetail orderDetail) {
         entityManager.remove(orderDetail);
     }
 
     @Override
+    @Transactional
     public void update(OrderDetail orderDetail) {
         entityManager.merge(orderDetail);
     }

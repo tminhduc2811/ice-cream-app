@@ -77,7 +77,19 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public void update(Recipe recipe) {
+        User user = userRepository.findUserByUsername(recipe.getUser().getUserName());
+        if (user == null) {
+            throw new CustomException("User not found", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        recipe.setUser(user);
         recipeRepository.update(recipe);
+        Icecream icecream;
+        if (recipe.getIcecream() == null || recipe.getIcecream().getId() == null) {
+            icecream = icecreamRepository.findById(4L).get();
+        } else {
+            icecream = icecreamRepository.findById(recipe.getIcecream().getId()).get();
+        }
+        recipe.setIcecream(icecream);
     }
 
 }

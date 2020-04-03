@@ -40,13 +40,13 @@ export class FeedbackComponent implements OnInit {
     this.isLoading = true;
     this.isUser = this.auth.isUser();
     this.feedbackService.getAll({ page: 0, size: this.size })
-    .subscribe(rs => {
-      this.result = rs;
-      this.feedbacks = this.result.content;
-      this.setPage(1);
-      this.isLoaded = true;
-      this.isLoading = false;
-    });
+      .subscribe(rs => {
+        this.result = rs;
+        this.feedbacks = this.result.content;
+        this.setPage(1);
+        this.isLoaded = true;
+        this.isLoading = false;
+      });
   }
 
   setAlert() {
@@ -77,17 +77,19 @@ export class FeedbackComponent implements OnInit {
 
   deleteOnClick(index) {
     const modalRef = this.modalService.open(ConfirmModalComponent);
-    modalRef.componentInstance.data = {header: 'Are you sure to delete this feedback',
-                                      message: '',
-                                      subMessage: 'This operation will not be undoned',
-                                      danger: true};
+    modalRef.componentInstance.data = {
+      header: 'Are you sure to delete this feedback',
+      message: '',
+      subMessage: 'This operation will not be undoned',
+      danger: true
+    };
     modalRef.result.then(() => {
       this.feedbackService.delete(this.feedbacks[index].id)
-      .subscribe(() => {
-        this.feedbacks.splice(index, 1);
-      }, err => {
-        this.warning.next(err.message);
-      });
-    }).catch(rs => {});
+        .subscribe(() => {
+          this.feedbacks.splice(index, 1);
+        }, err => {
+          this.warning.next(err.message);
+        });
+    }).catch(rs => { });
   }
 }

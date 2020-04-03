@@ -28,6 +28,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Page<Customer> findPage(Pageable pageable) {
         return customerRepositoryJpa.findAll(pageable);
     }
@@ -75,6 +76,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    @Transactional
     public boolean isExisted(String username) {
         try {
             return entityManager.createQuery("SELECT c FROM Customer c WHERE c.userName = '" + username + "'", Customer.class).getSingleResult() != null;

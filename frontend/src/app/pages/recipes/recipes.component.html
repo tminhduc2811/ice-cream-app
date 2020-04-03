@@ -1,5 +1,14 @@
 <div class="container">
-  <form style="padding-bottom: 50px; padding-left: 25px; padding-right: 25px;">
+  <div class="alert alert-dismissible alert-success" *ngIf="successMessage" (close)="successMessage = ''">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{successMessage}}
+  </div>
+  <div class="alert alert-dismissible alert-warning" *ngIf="warningMessage" (close)="warningMessage = ''">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{warningMessage}}
+  </div>
+
+  <form style="padding-bottom: 50px; padding-left: 25px; padding-right: 25px; padding-top: 25px;">
     <fieldset>
       <div class="row">
         <div class="form-group col-md-5">
@@ -26,4 +35,4 @@
     </fieldset>
   </form>
 </div>
-<app-recipe-list></app-recipe-list>
+<app-recipe-list (statusUpdated)="statusUpdated($event)"></app-recipe-list>

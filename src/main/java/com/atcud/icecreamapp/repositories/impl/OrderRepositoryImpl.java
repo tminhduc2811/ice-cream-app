@@ -29,6 +29,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     EntityManager entityManager;
 
     @Override
+    @Transactional
     public Page<Order> findPage(Pageable pageable) {
         return orderRepositoryJpa.findAll(pageable);
     }

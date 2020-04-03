@@ -31,6 +31,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
+    @Transactional
     public List<Role> findRolesByNames(List<String> roleNames) {
         StringBuilder query = new StringBuilder("SELECT c FROM Role c WHERE ");
         boolean firstElement = true;

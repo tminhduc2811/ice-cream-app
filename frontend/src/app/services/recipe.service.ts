@@ -30,4 +30,8 @@ export class RecipeService {
   newRecipe(recipe: Recipe): Observable<Recipe> {
     return this.apiService.post('/recipes', recipe).pipe(map(data => data));
   }
+
+  updateRecipe(id:number, recipe: Recipe): Observable<Recipe>{
+    return this.apiService.put('/recipes/' + id, recipe).pipe(map(data => data));
+  }
 }

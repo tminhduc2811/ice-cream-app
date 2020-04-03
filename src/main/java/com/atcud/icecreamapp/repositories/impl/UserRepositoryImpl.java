@@ -29,6 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     EntityManager entityManager;
 
     @Override
+    @Transactional
     public Page<User> findPage(Pageable pageable) {
         return userRepositoryJpa.findAll(pageable);
     }
@@ -46,6 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public boolean isExist(String username) {
         try {
             return entityManager.createQuery("SELECT c FROM User c WHERE c.userName = '" + username + "'", User.class).getSingleResult() != null;

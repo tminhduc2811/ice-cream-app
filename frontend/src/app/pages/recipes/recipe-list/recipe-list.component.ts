@@ -1,3 +1,4 @@
+import { debounceTime } from 'rxjs/operators';
 import { RecipeModalComponent } from './../../../modals/recipe-modal/recipe-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './../../../services/auth.service';
@@ -7,7 +8,8 @@ import { Page } from './../../../models/page.model';
 import { Pageable } from './../../../models/view.model';
 import { Recipe } from './../../../models/recipe.model';
 import { RecipeService } from './../../../services/recipe.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
@@ -16,19 +18,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RecipeListComponent implements OnInit {
 
+  @Output() statusUpdated = new EventEmitter<any>();
   recipes: Recipe[] = [];
   recipesLoaded = false;
   result: RecipeView;
   page: Page;
   isLoading = false;
   size = 4;
-  // Params
 
   constructor(private recipeService: RecipeService,
               private pageService: PageService,
               private auth: AuthService) {
   }
-
   ngOnInit(): void {
     this.isLoading = true;
     this.recipeService.getAll({ page: 0, size: this.size })
@@ -81,5 +82,7 @@ export class RecipeListComponent implements OnInit {
         this.isLoading = false;
       });
   }
-
+  statusUpdate(status) {
+    this.statusUpdated.emit(status);
+  }
 }

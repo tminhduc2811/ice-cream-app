@@ -3,7 +3,7 @@
     <app-loading-spinner></app-loading-spinner>
   </div>
   <div class="row mt5 justify-content-center" *ngIf="!isLoading">
-    <app-recipe-item *ngFor="let recipeEl of recipes" [recipe]="recipeEl">
+    <app-recipe-item *ngFor="let recipeEl of recipes" [recipe]="recipeEl" (statusUpdate)="statusUpdate($event)">
     </app-recipe-item>
   </div>
 </div>
