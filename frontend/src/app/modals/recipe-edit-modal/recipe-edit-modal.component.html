@@ -8,7 +8,7 @@
   </button>
 </div>
 <div class="modal-body text-center">
-<form #form="ngForm">
+<form #form="ngForm" *ngIf="isLoaded" (ngSubmit)="confirm(form)">
   <div class="row">
     <div class="col-sm-5">
       <div class="form-group">
@@ -23,13 +23,13 @@
       </div>
       <div class="form-group text-center">
         <label for="image">Image for your recipe</label>
-        <img class="center-block" style="display: block; margin: 0 auto; width: 80%;" [src]="recipe.image" class="img-fluid" onerror="this.src='https://firebasestorage.googleapis.com/v0/b/ice-cream-web.appspot.com/o/images%2Fdefault.jpg?alt=media&token=8460c555-9bca-49eb-afa2-b2dacdfef78e'">
+        <img class="center-block" style="display: block; margin: 0 auto; width: 80%;" [src]="url" class="img-fluid">
       </div>
       <div class="form-group">
-        <label for="inputImage">Choose your avatar</label>
+        <label for="inputImage">Choose image for your recipe</label>
         <input type="file" class="form-control-file" id="inputImage" aria-describedby="fileHelp" accept=".png,.jpg,.gif"
         (change)="uploadImage($event)">
-        <small id="fileHelp" class="form-text text-muted">Please make sure that your avatar has the right solution</small>
+        <small id="fileHelp" class="form-text text-muted">Please make sure your image has the right solution</small>
       </div>
     </div>
     <div class="col-sm-7">
@@ -56,9 +56,10 @@
     </fieldset>
     </div>
   </div>
+  <button type="submit" ngbAutofocus class="btn btn-success mr-1">Save</button>
+  <button type="button" class="btn btn-danger mr-1" (click)="modal.dismiss('Close click')">Cancel</button>
 </form>
 </div>
 <div class="modal-footer">
-  <button type="submit" ngbAutofocus class="btn btn-danger" (click)="confirm()">Save</button>
-  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Close click')">Cancel</button>
+
 </div>

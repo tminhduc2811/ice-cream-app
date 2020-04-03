@@ -27,4 +27,7 @@ export class RecipeService {
     return this.apiService.get('/recipes/type/' + id).pipe(map(data => data));
   }
 
+  newRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.apiService.post('/recipes', recipe).pipe(map(data => data));
+  }
 }

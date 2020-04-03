@@ -1,37 +1,29 @@
-<form>
-  <fieldset>
-
-    <div class="form-group col-md-5">
-      <legend>Ice Cream</legend>
-      <label for="exampleSelect1">Selec type of Ice-cream you want</label>
-      <select class="form-control" id="exampleSelect1" (change)="iceCreamSelected($event.target.value)">
-        <option *ngFor="let iceCream of iceCreams; let i = index" [value]="i">{{iceCream.name}}</option>
-        <option [value]="iceCreams.length">All</option>
-      </select>
-    </div>
-    <div class="form-group col-md-5">
-      <fieldset class="form-group">
-        <legend>Options</legend>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" checked="">
-            Most views
-          </label>
+<div class="container">
+  <form style="padding-bottom: 50px; padding-left: 25px; padding-right: 25px;">
+    <fieldset>
+      <div class="row">
+        <div class="form-group col-md-5">
+          <legend>Ice Cream</legend>
+          <label for="iceCreamType">Select type of Ice-cream you want</label>
+          <select class="form-control" id="iceCreamType" (change)="iceCreamSelected($event.target.value)">
+            <option *ngFor="let iceCream of iceCreams; let i = index" [value]="i">{{iceCream.name}}</option>
+            <option [value]="iceCreams.length">All</option>
+          </select>
         </div>
-        <div class="form-check disabled">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" disabled="">
-            Highest prices
-          </label>
+        <div class="form-group col-md-4">
+          <legend>Options</legend>
+          <label for="option">Select options</label>
+          <select class="form-control" id="option">
+            <option>Newest</option>
+            <option>Highest views</option>
+            <option>Highest prices</option>
+          </select>
         </div>
-        <div class="form-check disabled">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" disabled="">
-            My recipes
-          </label>
+        <div class="col-md-3 text-right" style="padding-top: 70px;">
+          <button class="btn btn-primary" (click)="newRecipe()">New Recipe</button>
         </div>
-      </fieldset>
-    </div>
-  </fieldset>
-</form>
+      </div>
+    </fieldset>
+  </form>
+</div>
 <app-recipe-list></app-recipe-list>

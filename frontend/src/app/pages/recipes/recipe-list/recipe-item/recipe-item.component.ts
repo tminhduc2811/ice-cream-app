@@ -32,7 +32,7 @@ export class RecipeItemComponent implements OnInit {
 
   showDetail() {
     console.log(this.recipe);
-    const modalRef = this.modalService.open(RecipeModalComponent, {centered: true, size: 'lg'});
+    const modalRef = this.modalService.open(RecipeModalComponent, {centered: true, size: 'm'});
     modalRef.componentInstance.recipe = this.recipe;
   }
 

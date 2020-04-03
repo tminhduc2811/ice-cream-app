@@ -108,7 +108,7 @@ export class UserProfileComponent implements OnInit {
     // Save generated file name to store in backend
     // this.imageName = filePath;
     this.uploadPercent = task.percentageChanges();
-    console.log('type ', file.name.substr(file.name.length - 4, file.name.length - 1));
+
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(
