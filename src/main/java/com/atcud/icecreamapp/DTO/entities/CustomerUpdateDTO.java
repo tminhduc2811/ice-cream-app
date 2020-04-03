@@ -6,6 +6,8 @@ public class CustomerUpdateDTO {
 
     private String currentPassword;
 
+    private String newPassword;
+
     public CustomerDTO getCustomer() {
         return customer;
     }
@@ -22,8 +24,17 @@ public class CustomerUpdateDTO {
         this.currentPassword = currentPassword;
     }
 
-    public CustomerUpdateDTO(CustomerDTO customerDTO, String currentPassword) {
-        this.customer = customerDTO;
+    public CustomerUpdateDTO(CustomerDTO customer, String currentPassword, String newPassword) {
+        this.customer = customer;
         this.currentPassword = currentPassword;
+        this.newPassword = newPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

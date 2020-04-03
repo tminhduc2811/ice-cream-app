@@ -5,7 +5,6 @@ import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
 import com.atcud.icecreamapp.DTO.entities.UserDTO;
 import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
-import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.services.CustomerService;
 import com.atcud.icecreamapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +41,12 @@ public class ProfileController {
 
     @RequestMapping(value = "/customer/{username}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<CustomerDTO> getCustomerByName(@PathVariable String username) {
-        Customer customer = customerService.findUserByName(username);
-        return new ResponseEntity<>(DTOBuilder.customerToDTO(customer), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.findUserByName(username), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerUpdateDTO customerUpdateDTO) {
-        Customer updatedCustomer = customerService.update(customerUpdateDTO);
         System.out.println("Update customer successfully");
-        return new ResponseEntity<>(DTOBuilder.customerToDTO(updatedCustomer), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.update(customerUpdateDTO), HttpStatus.OK);
     }
 }

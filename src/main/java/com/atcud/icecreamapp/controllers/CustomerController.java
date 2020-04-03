@@ -39,9 +39,8 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer) {
-        Customer result = customerService.register(customer);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody Customer customer) {
+        return new ResponseEntity<>(customerService.register(customer), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")

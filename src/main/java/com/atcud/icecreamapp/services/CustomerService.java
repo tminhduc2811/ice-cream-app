@@ -17,14 +17,14 @@ public interface CustomerService {
 
     public Optional<Customer> getCustomerById(Long id);
 
-    public Customer findUserByName(String username);
+    public CustomerDTO findUserByName(String username);
 
     public String login(String username, String password);
 
-    public Customer register(Customer customer);
+    public CustomerDTO register(Customer customer);
 
     public void delete(Long id);
 
-    public Customer update(CustomerUpdateDTO customer);
+    public CustomerDTO update(CustomerUpdateDTO customer);
 
 }

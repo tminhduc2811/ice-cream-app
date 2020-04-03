@@ -44,22 +44,22 @@ public class DTOBuilder {
         return destination;
     }
 
-    public static CustomerDTO customerToDTO(Customer customer) {
-        return new CustomerDTO(customer.getId(),
-                customer.getUserName(),
-                "",
-                customer.getFirstName(),
-                customer.getLastName(),
-                customer.getAddress(),
-                customer.getPhoneNumber(),
-                customer.getEmail(),
-                customer.getGender(),
-                customer.getBirthday(),
-                customer.getAvatar(),
-                customer.getExpiredDate(),
-                customer.getStatus(),
-                customer.getNumOfLoginFailed());
-    }
+//    public static CustomerDTO customerToDTO(Customer customer) {
+//        return new CustomerDTO(customer.getId(),
+//                customer.getUserName(),
+//                "",
+//                customer.getFirstName(),
+//                customer.getLastName(),
+//                customer.getAddress(),
+//                customer.getPhoneNumber(),
+//                customer.getEmail(),
+//                customer.getGender(),
+//                customer.getBirthday(),
+//                customer.getAvatar(),
+//                customer.getExpiredDate(),
+//                customer.getStatus(),
+//                customer.getNumOfLoginFailed());
+//    }
 
     // TODO: something wrong here, modify later
     public static LoginResponseDTO loginResponseDTO(LoginResponseDTO loginResponseDTO) {

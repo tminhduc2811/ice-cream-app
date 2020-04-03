@@ -50,11 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> entities = customerRepository.findAll();
-        List<CustomerDTO> customers = new ArrayList<>();
-        for (Customer customer : entities) {
-            customers.add(DTOBuilder.customerToDTO(customer));
-        }
-        return customers;
+        return DTOBuilder.mapList(entities, CustomerDTO.class);
     }
 
     @Override
@@ -63,12 +59,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findUserByName(String username) {
+    public CustomerDTO findUserByName(String username) {
         Customer customer = customerRepository.findCustomerByUsername(username);
-        if (username == null) {
+        if (customer == null) {
             throw new CustomException("Customer not found", HttpStatus.NOT_FOUND);
         }
-        return customer;
+        return DTOBuilder.mapObject(customer, CustomerDTO.class);
     }
 
     @Override
@@ -89,14 +85,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer register(Customer customer) {
+    public CustomerDTO register(Customer customer) {
 
         if (customerRepository.isExisted(customer.getUserName())) {
             throw new CustomException("Customer already existed", HttpStatus.CONFLICT);
         }
 
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return customerRepository.save(customer);
+        return DTOBuilder.mapObject(customerRepository.save(customer), CustomerDTO.class);
     }
 
     @Override
@@ -109,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer update(CustomerUpdateDTO customer) {
+    public CustomerDTO update(CustomerUpdateDTO customer) {
         Customer currentCustomer = customerRepository.findCustomerByUsername(customer.getCustomer().getUserName());
         if (currentCustomer == null) {
             throw new CustomException("Customer " + customer.getCustomer().getUserName() + " not found", HttpStatus.NOT_FOUND);
@@ -117,7 +113,7 @@ public class CustomerServiceImpl implements CustomerService {
         String currentPass = customer.getCurrentPassword();
         if (!currentPass.equals("")) {
             if(passwordEncoder.matches(currentPass, currentCustomer.getPassword())) {
-                currentCustomer.setPassword(passwordEncoder.encode(customer.getCustomer().getPassword()));
+                currentCustomer.setPassword(passwordEncoder.encode(customer.getNewPassword()));
             } else {
                 throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);
             }
@@ -131,7 +127,7 @@ public class CustomerServiceImpl implements CustomerService {
         currentCustomer.setEmail(customer.getCustomer().getEmail());
         currentCustomer.setAvatar(customer.getCustomer().getAvatar());
         currentCustomer.setStatus(customer.getCustomer().getStatus());
-        return customerRepository.update(currentCustomer);
+        return DTOBuilder.mapObject(customerRepository.update(currentCustomer), CustomerDTO.class);
     }
 
 }
