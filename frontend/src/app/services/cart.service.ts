@@ -1,14 +1,19 @@
-import { map } from 'rxjs/operators';
+import { map, distinctUntilChanged } from 'rxjs/operators';
 import { Recipe } from 'src/app/models/recipe.model';
 import { Injectable } from '@angular/core';
 import { CartModel, CartItem } from '../models/cart.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  cart: CartModel;
+  private total = new BehaviorSubject<number>(0);
+  public totalBill = this.total.asObservable().pipe(distinctUntilChanged());
+
+  private cartChange = new BehaviorSubject<CartModel>(this.getCartFromLocalStorage());
+  public cartChanged = this.cartChange.asObservable().pipe(distinctUntilChanged());
   cartItem: CartItem;
 
   constructor() { }
@@ -27,16 +32,54 @@ export class CartService {
         cart.items[index].quantity += q;
         console.log(cart.items[index].quantity);
         localStorage.setItem('cart', JSON.stringify(cart));
+        this.cartChange.next(cart);
       } else {
-        cart.items.push({recipe: item, quantity: q});
+        cart.items.push({ recipe: item, quantity: q });
         localStorage.setItem('cart', JSON.stringify(cart));
+        this.cartChange.next(cart);
       }
     } else {
-      cart = {items: [{recipe: item, quantity: q}]};
+      cart = { items: [{ recipe: item, quantity: q }] };
       localStorage.setItem('cart', JSON.stringify(cart));
+      this.cartChange.next(cart);
+    }
+    this.setTotal();
+  }
+  modifyCart(item: CartItem) {
+    const cart = this.getCartFromLocalStorage();
+    if (cart) {
+      const index = cart.items.map(e => e.recipe.id).indexOf(item.recipe.id);
+      if (index !== - 1) {
+        cart.items[index].quantity = item.quantity;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        this.setTotal();
+        this.cartChange.next(cart);
+      }
     }
   }
   clearCart() {
     localStorage.removeItem('cart');
+  }
+
+  removeItemCart(item: CartItem) {
+    const cart: CartModel = this.getCartFromLocalStorage();
+    if (cart) {
+      const index = cart.items.map(e => e.recipe.id).indexOf(item.recipe.id);
+      if (index !== -1) {
+        cart.items.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        this.setTotal();
+        this.cartChange.next(cart);
+      }
+    }
+  }
+
+  setTotal() {
+    let total = 0;
+    const cart = this.getCartFromLocalStorage();
+    for (const item of cart.items) {
+      total += item.quantity * item.recipe.price;
+    }
+    this.total.next(total);
   }
 }

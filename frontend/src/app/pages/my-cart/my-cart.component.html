@@ -1,13 +1,72 @@
-<div class="container" style="padding-top: 50px;">
+<div class="container" style="padding-top: 50px; padding-bottom: 100px;">
   <div class="row">
-    <div class="col-md-8 text-center">
-        <h3>Items in your cart</h3>
-      <app-my-cart-item></app-my-cart-item>
-      <app-my-cart-item></app-my-cart-item>
-      <app-my-cart-item></app-my-cart-item>
+    <div class="col-md-8 text-left">
+      <h3>Items in your cart</h3>
+      <hr>
+      <app-my-cart-item *ngFor="let item of cart.items" [cartItem]="item"></app-my-cart-item>
     </div>
-    <div class="col-md-4 text-center">
-      <h3>Summary</h3>
+    <div class="col-md-4">
+      <h3 class="text-center">Summary</h3>
+      <form #form="ngForm">
+        <div class="form-group">
+          <fieldset disabled="">
+            <label class="control-label" for="customerName">Customer name:</label>
+            <input class="form-control" id="customerName" type="text" placeholder="Customer name" disabled=""
+              name="customerName">
+          </fieldset>
+        </div>
+        <div class="form-group">
+          <fieldset>
+            <label class="control-label" for="deliveryDetail">Delivery detail:</label>
+            <input class="form-control" id="deliveryDetail" type="text" placeholder="Your address...">
+          </fieldset>
+        </div>
+        <div class="form-group">
+          <label for="notes">Note:</label>
+          <textarea class="form-control" id="notes" rows="3"></textarea>
+        </div>
+        <h5>Total: <span class="text-danger" style="font-size: large;">${{totalBill}}</span></h5>
+        <div class="form-group">
+          <label for="paymentOption">Payment option:</label>
+          <select class="form-control" id="paymentOption" name="paymentType" [(ngModel)]="paymentType">
+            <option>COD</option>
+            <option>Card</option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="paymentType === 'Card'">
+          <label for="cardType">Card Type:</label>
+          <select class="form-control" id="cardType">
+            <option>Credit card</option>
+            <option>Visa</option>
+            <option>Master Card</option>
+            <option>Paypal</option>
+          </select>
+          <fieldset>
+            <label class="control-label" for="cardNumber">Card type:</label>
+            <input class="form-control" id="cardNumber" type="number" placeholder="Your card number">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="name">Full name:</label>
+            <input class="form-control" id="name" type="text" placeholder="Your name on card">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="expiredDate">Expired date:</label>
+            <input class="form-control" id="expiredDate" type="text" placeholder="(MM:YY) Eg: 08/25">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="birthday">Date of birth:</label>
+            <input class="form-control" id="birthday" type="text" placeholder="(DD:MM:YYY) Eg: 28/11/1997">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="cvv">cvv:</label>
+            <input class="form-control" id="cvv" type="password">
+          </fieldset>
+        </div>
+        <div class="text-center">
+          <button type="submit" ngbAutofocus class="btn btn-success mr-1" [disabled]="form.invalid">Save</button>
+          <button type="button" class="btn btn-danger mr-1">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

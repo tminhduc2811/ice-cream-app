@@ -1,26 +1,45 @@
-<div class="card">
-  <div class="card-header">
-    <h5>ice cream title</h5>
-  </div>
-  <div class="card-body">
-    <div class="row">
+<!-- <div class="card"> -->
+<!-- <div class="card-header"> -->
+
+<!-- </div> -->
+<!-- <div class="card-body"> -->
+<!-- <div class="row">
       <div class="col-xs-4">
-        <img src="../../../../assets/images/ic2.jpg" alt="" style="max-width: 120px;">
+
       </div>
       <div class="col-sm-4">
+        <h5>ice cream title</h5>
         <p>Description</p>
         <p>Price $12</p>
         <p>Detail information, bla bla bla</p>
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label for="quantity">Quantity</label>
-          <input type="number" min="0" class="form-control" style="max-width: 120px;">
-        </div>
-        <div>
-          <button type="button" class="btn btn-danger">Remove</button>
-        </div>
+          <div style="width: 200px;">
+            <label for="quantity">Quantity</label>
+            <input type="number" min="0" class="form-control" style="width: 100%;">
+            <button type="button" class="btn btn-danger">Remove</button>
+          </div>
+
+          </div>
       </div>
-    </div>
+    </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- <img src="../../../../assets/images/ic2.jpg" alt="" style="max-width: 120px;"> -->
+<div class="row">
+  <div class="col-sm-6 text-left" style="max-width: 220px;">
+    <img [src]="cartItem.recipe.image" alt="" style="max-width: 200px;">
+  </div>
+  <div class="col-sm-3">
+    <h5>{{cartItem.recipe.title}}</h5>
+    <p>{{cartItem.recipe.description}}</p>
+    <label for="quantity">Quantity</label>
+    <input type="number" min="0" class="form-control" style="max-width: 200px;" [(ngModel)]="cartItem.quantity" (change)="setQuantity()">
+    <button type="button" class="btn btn-danger mt-2" (click)="removeItem()">Remove</button>
+  </div>
+  <div class="col-sm-3 text-right">
+    <h3>Total: <p class="text-danger" style="font-size: large;">${{cartItem.quantity * cartItem.recipe.price}}</p></h3>
   </div>
 </div>
+<hr>
