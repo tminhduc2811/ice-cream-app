@@ -1,5 +1,5 @@
 export interface Payment {
-  id; number;
+  id: number;
   cardType: string;
   cardNumber: string;
   cvv: string;

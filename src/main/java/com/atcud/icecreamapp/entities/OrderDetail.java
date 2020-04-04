@@ -20,8 +20,7 @@ public class OrderDetail {
     private Long id;
 
     // An order has only one detail table, so the relation is one to one
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "order_id")
     private Order order;
 
@@ -33,25 +32,20 @@ public class OrderDetail {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "price")
-    private Float price;
-
-    @Column(name = "notes")
-    private String notes;
+    @Column(name = "total")
+    private Float total;
 
     public OrderDetail() {
 
     }
 
-
-    public OrderDetail(Long id, int quantity, Float price, String notes) {
-        super();
+    public OrderDetail(Long id, Order order, Recipe recipe, int quantity, Float total) {
         this.id = id;
+        this.order = order;
+        this.recipe = recipe;
         this.quantity = quantity;
-        this.price = price;
-        this.notes = notes;
+        this.total = total;
     }
-
 
     public Order getOrder() {
         return order;
@@ -77,27 +71,13 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
-        return price;
+    public Float getTotal() {
+        return total;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setTotal(Float total) {
+        this.total = total;
     }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderDetail [quantity=" + quantity + ", price=" + price + ", notes=" + notes + "]";
-    }
-
 
     public Long getId() {
         return id;

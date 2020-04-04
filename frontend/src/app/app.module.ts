@@ -50,6 +50,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { RecipeEditModalComponent } from './modals/recipe-edit-modal/recipe-edit-modal.component';
 import { MyCartComponent } from './pages/my-cart/my-cart.component';
 import { MyCartItemComponent } from './pages/my-cart/my-cart-item/my-cart-item.component';
+import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-success.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,6 +81,7 @@ import { MyCartItemComponent } from './pages/my-cart/my-cart-item/my-cart-item.c
     RecipeEditModalComponent,
     MyCartComponent,
     MyCartItemComponent,
+    CheckoutSuccessComponent,
   ],
   imports: [
     BrowserModule,

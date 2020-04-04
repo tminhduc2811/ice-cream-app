@@ -1,3 +1,5 @@
+import { CheckoutModel } from './../models/checkout.model';
+
 import { HttpParams } from '@angular/common/http';
 import { OrderView } from './../auth/views/orders.view.model';
 import { Order } from './../models/order.model';
@@ -19,5 +21,9 @@ export class OrderService {
       return this.apiService.get('/orders', params).pipe(map(data => data));
     }
     return this.apiService.get('/orders').pipe(map(data => data));
+  }
+
+  createOrder(checkoutModel: CheckoutModel): Observable<string> {
+    return this.apiService.post('/checkout', checkoutModel).pipe(map(data => data));
   }
 }

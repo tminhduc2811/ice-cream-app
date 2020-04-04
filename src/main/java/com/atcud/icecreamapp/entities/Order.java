@@ -1,5 +1,6 @@
 package com.atcud.icecreamapp.entities;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.*;
@@ -29,8 +30,7 @@ public class Order {
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "order",
-            cascade = {CascadeType.REMOVE, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.ALL})
     @JsonIgnore
     private List<OrderDetail> orderDetails;
 
@@ -38,7 +38,7 @@ public class Order {
     private String paymentOption;
 
     @Column(name = "created_date")
-    private String createdDate;
+    private Timestamp createdDate;
 
     @Column(name = "notes")
     private String notes;
@@ -53,7 +53,7 @@ public class Order {
 
     }
 
-    public Order(Long id, String paymentOption, String createdDate, String notes, String status, String deliveryDetail) {
+    public Order(Long id, String paymentOption, Timestamp createdDate, String notes, String status, String deliveryDetail) {
         super();
         this.id = id;
         this.paymentOption = paymentOption;
@@ -103,11 +103,11 @@ public class Order {
         this.paymentOption = paymentOption;
     }
 
-    public String getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
