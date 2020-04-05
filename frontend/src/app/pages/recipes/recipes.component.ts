@@ -17,6 +17,7 @@ import { Subject } from 'rxjs';
 })
 export class RecipesComponent implements OnInit {
 
+  eventsSubject: Subject<void> = new Subject<void>();
   selectedRecipe: Recipe;
   iceCreams: IceCream[] = [];
   isLoaded = false;
@@ -74,6 +75,7 @@ export class RecipesComponent implements OnInit {
     modalRef.componentInstance.icecreams = this.iceCreams;
     modalRef.result.then(rs => {
       if (rs.status) {
+        this.eventsSubject.next();
         this.success.next('Recipe created successfully!');
       }
     }).catch(rs => { });

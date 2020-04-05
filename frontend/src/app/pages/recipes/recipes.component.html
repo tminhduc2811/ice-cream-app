@@ -33,5 +33,5 @@
       </div>
     </fieldset>
   </form>
-  <app-recipe-list [icecreamList]="iceCreams" (statusUpdated)="statusUpdated($event)"></app-recipe-list>
+  <app-recipe-list [events]="eventsSubject.asObservable()" [icecreamList]="iceCreams" (statusUpdated)="statusUpdated($event)"></app-recipe-list>
 </div>

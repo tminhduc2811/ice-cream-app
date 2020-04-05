@@ -10,7 +10,7 @@ import { Pageable } from './../../../models/view.model';
 import { Recipe } from './../../../models/recipe.model';
 import { RecipeService } from './../../../services/recipe.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
@@ -25,6 +25,8 @@ export class RecipeListComponent implements OnInit {
 
   @Input() icecreamList: IceCream[];
   @Output() statusUpdated = new EventEmitter<any>();
+  @Input() events: Observable<void>;
+  private eventsSubscription: Subscription;
   recipes: Recipe[] = [];
   recipesLoaded = false;
   result: RecipeView;
@@ -70,6 +72,9 @@ export class RecipeListComponent implements OnInit {
     //         });
     //     }
     //   });
+    this.eventsSubscription = this.events.subscribe(() => {
+      this.setPage(this.page.currentPage);
+    });
   }
 
   setPage(currentPage: number) {
@@ -103,4 +108,5 @@ export class RecipeListComponent implements OnInit {
     const width = event.target.innerWidth; // window width
     // TODO: Handle page size when changes happend
   }
+
 }
