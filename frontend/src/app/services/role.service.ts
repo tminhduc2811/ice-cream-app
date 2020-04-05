@@ -19,6 +19,11 @@ export class RoleGuard implements CanActivate {
     if (roles.includes('customer') && this.auth.isCustomer() && this.auth.isAuthenticated()) {
       return true;
     }
+    if (roles.includes('anonymous')) {
+      this.auth.logout();
+      return true;
+    }
+    this.auth.logout();
     return this.router.navigate(['login']);
 
   }

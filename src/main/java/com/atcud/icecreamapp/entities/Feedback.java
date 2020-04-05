@@ -20,7 +20,7 @@ public class Feedback {
     private Customer customer;
 
     // A feedback belongs only to one order, so the relation is one to one
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "order_id")
     private Order order;

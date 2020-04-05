@@ -1,3 +1,5 @@
+import { ConfirmModalComponent } from './../../../../modals/confirm-modal/confirm-modal.component';
+import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { IceCreamService } from './../../../../services/ice-cream.service';
 import { IceCream } from './../../../../models/ice-cream.model';
@@ -26,16 +28,20 @@ export class RecipeItemComponent implements OnInit {
   imageUrl = '';
   imgLoading = false;
   quantity = 0;
+  isCustomer = false;
 
   constructor(private iceCreamService: IceCreamService,
               private auth: AuthService,
               private modalService: NgbModal,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private router: Router,
+              private recipeService: RecipeService) {
   }
 
   ngOnInit(): void {
     this.auth.authInfo.subscribe(data => {
       this.roles = data.roles;
+      this.isCustomer = this.auth.isCustomer();
     });
     this.iceCreamService.getAll().subscribe(rs => this.icecreams = rs);
   }
@@ -59,8 +65,27 @@ export class RecipeItemComponent implements OnInit {
   }
 
   addToCart() {
+    if (!this.isCustomer) {
+      this.router.navigate(['/login']);
+    }
     this.cartService.saveItem(this.recipe, this.quantity);
     const cart = this.cartService.getCartFromLocalStorage();
     this.quantity = 0;
+  }
+
+  remove() {
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.data = {
+      header: 'Delete recipe',
+      message: 'Do you want to delete this recipe?',
+      subMessage: 'All orders of this recipe will also be removed',
+      danger: true
+    };
+    modalRef.result.then(() => {
+      this.recipeService.deleteRecipe(this.recipe.id)
+      .subscribe(rs => {
+        this.statusUpdate.emit(true);
+      });
+    }).catch(rs => {});
   }
 }

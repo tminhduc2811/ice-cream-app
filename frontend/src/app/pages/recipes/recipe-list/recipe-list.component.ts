@@ -87,6 +87,14 @@ export class RecipeListComponent implements OnInit {
       });
   }
   statusUpdate(status) {
+    this.recipeService.getAll({ page: this.page.currentPage - 1, size: this.size})
+    .subscribe(rs => {
+      this.result = rs;
+      this.recipes = rs. content;
+      this.isLoading = false;
+    }, err => {
+      this.isLoading = false;
+    });
     this.statusUpdated.emit(status);
   }
   onResize(event) {

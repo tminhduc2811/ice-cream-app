@@ -49,6 +49,11 @@ public class Order {
     @Column(name = "delivery_detail")
     private String deliveryDetail;
 
+    @JsonIgnore
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    private Feedback feedback;
+
     public Order() {
 
     }

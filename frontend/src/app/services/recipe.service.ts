@@ -31,7 +31,11 @@ export class RecipeService {
     return this.apiService.post('/recipes', recipe).pipe(map(data => data));
   }
 
-  updateRecipe(id:number, recipe: Recipe): Observable<Recipe>{
+  updateRecipe(id: number, recipe: Recipe): Observable<Recipe> {
     return this.apiService.put('/recipes/' + id, recipe).pipe(map(data => data));
+  }
+
+  deleteRecipe(id: number) {
+    return this.apiService.delete('/recipes/' + id).pipe(map(data => data));
   }
 }
