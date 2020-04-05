@@ -10,7 +10,6 @@ import com.atcud.icecreamapp.DTO.entities.UserUpdateDTO;
 import com.atcud.icecreamapp.entities.Role;
 import com.atcud.icecreamapp.exceptions.CustomException;
 import com.atcud.icecreamapp.repositories.RoleRepository;
-import com.atcud.icecreamapp.security.CustomUserDetails;
 import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -83,9 +81,7 @@ public class UserServiceImpl implements UserService {
                                             username,
                                             password));
 
-            // Inject current user into security context
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return jwtTokenProvider.generateTokenForUser((CustomUserDetails) authentication.getPrincipal());
+            return jwtTokenProvider.generateToken(authentication);
         } catch (AuthenticationException ex) {
             throw new CustomException("Invalid username or password", HttpStatus.UNPROCESSABLE_ENTITY);
         }

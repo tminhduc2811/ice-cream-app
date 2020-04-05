@@ -32,9 +32,9 @@
 <div class="modal-footer">
   <label *ngIf="isCustomer" class="col-form-label text-danger font-weight-bold" for="inputDefault">Input
     quantity</label>
-  <input [disabled]="recipe.status === 0" *ngIf="isCustomer" class="text-primary font-weight-bold" style="width: 100px;"
-    class="form-control text-center" type="number" value="0" min="0" max="1000" step="1" />
-  <button [disabled]="recipe.status === 0" *ngIf="isCustomer" type="button" class="btn btn-danger btn-sm">
+  <input [(ngModel)]="quantity" [disabled]="recipe.status === 0" *ngIf="isCustomer" class="text-primary font-weight-bold" style="width: 100px;"
+    class="form-control text-center" type="number" min="0" max="1000" step="1" />
+  <button (click)="addToCart()" [disabled]="recipe.status === 0 || quantity === 0 || quantity === null" *ngIf="isCustomer" type="button" class="btn btn-danger btn-sm">
     <img src="../../../../../assets/images/cart.webp" style="height: 34px; cursor: pointer;" alt="Add to cart">
   </button>
   <!-- <button type="submit" ngbAutofocus class="btn btn-danger" (click)="confirm()" *ngIf="isUser">Save</button> -->

@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Recipe } from 'src/app/models/recipe.model';
 import { NgForm } from '@angular/forms';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-recipe-modal',
@@ -14,8 +16,9 @@ export class RecipeModalComponent implements OnInit {
   @Input() recipe: Recipe;
   imgLoading = false;
   isCustomer = false;
+  quantity = 0;
   f: NgForm;
-  constructor(public modal: NgbActiveModal, private auth: AuthService) { }
+  constructor(public modal: NgbActiveModal, private auth: AuthService, private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.recipe);
@@ -29,4 +32,12 @@ export class RecipeModalComponent implements OnInit {
     // console.log(this.f.value);
     console.log(f.value);
   }
+  addToCart() {
+    if (!this.isCustomer) {
+      this.router.navigate(['/login']);
+    }
+    this.cartService.saveItem(this.recipe, this.quantity);
+    this.quantity = 0;
+  }
+
 }

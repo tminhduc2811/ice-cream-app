@@ -15,7 +15,7 @@
       <label class="col-form-label" for="inputDefault">Input quantity</label>
       <input [(ngModel)]="quantity" class="form-control text-center" type="number" value="0" min="0" max="1000" step="1"/>
     </div>
-    <button type="button" class="btn btn-danger btn-sm" [disabled]="quantity === 0" (click)="addToCart()">
+    <button type="button" class="btn btn-danger btn-sm" [disabled]="quantity === 0 || quantity === null" (click)="addToCart()">
       <img src="../../../../../assets/images/cart.webp" style="height: 30px; cursor: pointer;" alt="Add to cart">
     </button>
   </div>

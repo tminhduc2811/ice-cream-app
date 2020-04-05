@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,9 @@ public class CustomerAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     CustomerDetailsService customerDetailsService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try {
@@ -22,8 +26,8 @@ public class CustomerAuthenticationProvider implements AuthenticationProvider {
 
             // Check customer
             UsernamePasswordAuthenticationToken result = null;
-            if (user.getUsername().equals(authentication.getName()) && user.getPassword().equals(authentication.getCredentials())) {
-                result = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+            if (user.getUsername().equals(authentication.getName()) && passwordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())) {
+                result = new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities());
             }
             return result;
         } catch (Exception ex) {
@@ -33,6 +37,6 @@ public class CustomerAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

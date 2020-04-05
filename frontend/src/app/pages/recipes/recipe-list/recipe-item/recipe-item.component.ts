@@ -68,7 +68,6 @@ export class RecipeItemComponent implements OnInit {
       this.router.navigate(['/login']);
     }
     this.cartService.saveItem(this.recipe, this.quantity);
-    const cart = this.cartService.getCartFromLocalStorage();
     this.quantity = 0;
   }
 

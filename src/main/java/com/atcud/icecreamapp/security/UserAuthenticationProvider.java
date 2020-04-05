@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     CustomUserService customUserService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try {
@@ -23,7 +26,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
             UsernamePasswordAuthenticationToken result = null;
             // Check user
             if(user != null) {
-                if(user.getUsername().equals(authentication.getName()) && user.getPassword().equals(authentication.getCredentials().toString())) {
+                if(user.getUsername().equals(authentication.getName()) && passwordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())) {
                     result = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
 
                 }
