@@ -21,9 +21,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   {
-    path: 'recipes', component: RecipesComponent, children: [
-      { path: ':id/:name', component: RecipesComponent }
-    ]
+    path: 'recipes', component: RecipesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'anonymous', 'customer']}
   },
   { path: 'my-profile', component: ProfileComponent },
   { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },

@@ -49,6 +49,9 @@ public class Order {
     @Column(name = "delivery_detail")
     private String deliveryDetail;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Feedback feedback;
+
     public Order() {
 
     }

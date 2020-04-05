@@ -1,6 +1,5 @@
 import { PageService } from './services/page.service';
 import { IceCreamService } from './services/ice-cream.service';
-import { CustomerGuard } from './services/auth-customer.service';
 
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading.component';
 import { JwtInterceptor } from './auth/Jwt.Interceptor';
@@ -107,7 +106,7 @@ import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-succ
   ],
   providers: [ApiService, FaqService, UserService, IceCreamService,
     CustomerService, RecipeService, FeedbackService, PageService,
-    OrderService, AuthService, RoleGuard, CustomerGuard,
+    OrderService, AuthService, RoleGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

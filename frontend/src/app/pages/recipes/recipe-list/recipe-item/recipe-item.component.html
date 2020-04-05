@@ -4,10 +4,11 @@
   <div class="card-body text-center">
     <p style="font-size: 16px;">Price: <strong style="color: red;">{{recipe.price}}$</strong></p>
     <p class="text-primary">{{recipe.viewCount}} views</p>
+    <p [ngClass]="recipe.status === 1 ? 'text-success' : 'text-danger'">Status: {{recipe.status === 1 ? 'Available' : 'Out of stock'}}</p>
   </div>
   <div class="card-body text-center" *ngIf="roles.includes('ROLE_USER')">
     <button type="button" class="btn btn-warning btn-sm custom-btn" (click)="edit()">Edit</button>
-    <button type="button" class="btn btn-danger btn-sm custom-btn">Remove</button>
+    <button type="button" class="btn btn-danger btn-sm custom-btn" (click)='remove()'>Remove</button>
   </div>
   <div class="card-body text-center" *ngIf="!roles.includes('ROLE_USER') && !roles.includes('ROLE_ADMIN')">
     <div class="form-group">
