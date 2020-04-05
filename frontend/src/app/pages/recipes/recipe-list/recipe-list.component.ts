@@ -1,3 +1,4 @@
+import { IceCream } from './../../../models/ice-cream.model';
 import { debounceTime } from 'rxjs/operators';
 import { RecipeModalComponent } from './../../../modals/recipe-modal/recipe-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +23,7 @@ import { Subject } from 'rxjs';
 })
 export class RecipeListComponent implements OnInit {
 
+  @Input() icecreamList: IceCream[];
   @Output() statusUpdated = new EventEmitter<any>();
   recipes: Recipe[] = [];
   recipesLoaded = false;

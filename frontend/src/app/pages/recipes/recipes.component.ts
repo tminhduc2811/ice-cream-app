@@ -31,16 +31,18 @@ export class RecipesComponent implements OnInit {
   constructor(private recipeService: RecipeService,
               private iceCreamService: IceCreamService,
               private modalService: NgbModal,
-              private auth: AuthService) { }
+              private auth: AuthService) {
 
-  ngOnInit(): void {
-    this.isUser = this.auth.isUser();
-    this.setAlert();
     this.iceCreamService.getAll()
       .subscribe(rs => {
         this.iceCreams = rs;
         this.isLoaded = true;
       });
+  }
+
+  ngOnInit(): void {
+    this.isUser = this.auth.isUser();
+    this.setAlert();
   }
   iceCreamSelected(index) {
     console.log(index);
@@ -66,7 +68,7 @@ export class RecipesComponent implements OnInit {
     recipe.user = user;
     recipe.icecream = icecream;
 
-    const modalRef = this.modalService.open(RecipeEditModalComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(RecipeEditModalComponent, { size: 'lg' });
     modalRef.componentInstance.type = 1;
     modalRef.componentInstance.recipe = recipe;
     modalRef.componentInstance.icecreams = this.iceCreams;
@@ -74,7 +76,7 @@ export class RecipesComponent implements OnInit {
       if (rs.status) {
         this.success.next('Recipe created successfully!');
       }
-    }).catch(rs => {});
+    }).catch(rs => { });
   }
   statusUpdated(rs) {
     this.success.next('Recipe updated successfully!');

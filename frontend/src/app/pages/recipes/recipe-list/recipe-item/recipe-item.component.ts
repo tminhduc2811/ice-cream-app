@@ -23,14 +23,14 @@ export class RecipeItemComponent implements OnInit {
 
   @Output() statusUpdate = new EventEmitter<any>();
   @Input() recipe: Recipe;
+  @Input() icecreams: IceCream[];
   roles: string[] = [];
-  icecreams: IceCream[] = [];
   imageUrl = '';
   imgLoading = false;
   quantity = 0;
   isCustomer = false;
 
-  constructor(private iceCreamService: IceCreamService,
+  constructor(
               private auth: AuthService,
               private modalService: NgbModal,
               private cartService: CartService,
@@ -43,7 +43,6 @@ export class RecipeItemComponent implements OnInit {
       this.roles = data.roles;
       this.isCustomer = this.auth.isCustomer();
     });
-    this.iceCreamService.getAll().subscribe(rs => this.icecreams = rs);
   }
 
   showDetail() {

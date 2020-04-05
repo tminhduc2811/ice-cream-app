@@ -4,7 +4,7 @@
       <app-loading-spinner></app-loading-spinner>
     </div>
     <div class="row" *ngIf="!isLoading">
-      <app-recipe-item *ngFor="let recipeEl of recipes" [recipe]="recipeEl" (statusUpdate)="statusUpdate($event)">
+      <app-recipe-item [icecreams]="icecreamList" *ngFor="let recipeEl of recipes" [recipe]="recipeEl" (statusUpdate)="statusUpdate($event)">
       </app-recipe-item>
     </div>
   </div>
