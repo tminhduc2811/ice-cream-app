@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Injectable } from '@angular/core';
 import { distinctUntilChanged, map, catchError } from 'rxjs/operators';
-import { error } from 'protractor';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +24,7 @@ export class AuthService {
   }
 
   login(credentials): Observable<any> {
-    return this.apiService.post('/auth', credentials)
+    return this.apiService.post('/auth/login', credentials)
       .pipe(map(
         data => {
           this.finishAuthentication(data);
@@ -52,6 +51,10 @@ export class AuthService {
     });
 
     this.router.navigate(['home']);
+  }
+
+  register(credentials): Observable<any> {
+    return this.apiService.post('/auth/register', credentials).pipe(map(data => data));
   }
 
   logout(): Observable<any> {

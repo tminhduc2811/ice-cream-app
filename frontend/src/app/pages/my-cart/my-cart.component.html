@@ -11,15 +11,17 @@
         <div class="form-group">
           <fieldset disabled="">
             <label class="control-label" for="customerName">Customer name:</label>
-            <input class="form-control" id="customerName" type="text" placeholder="{{customer.firstName}} {{customer.lastName}}" disabled=""
-              name="customerName">
+            <input class="form-control" id="customerName" type="text"
+              placeholder="{{customer.firstName}} {{customer.lastName}}" disabled="" name="customerName">
           </fieldset>
         </div>
         <div class="form-group">
           <fieldset>
             <label class="control-label" for="deliveryDetail">Delivery detail:</label>
-            <input class="form-control" id="deliveryDetail" type="text" placeholder="Your address..." name="deliveryDetail" ngModel required #deliveryDetail="ngModel">
-            <div *ngIf="deliveryDetail.invalid && (deliveryDetail.dirty || deliveryDetail.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Delivery info is required</div>
+            <input class="form-control" id="deliveryDetail" type="text" placeholder="Your address..."
+              name="deliveryDetail" ngModel required #deliveryDetail="ngModel">
+            <div *ngIf="deliveryDetail.invalid && (deliveryDetail.dirty || deliveryDetail.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">Delivery info is required</div>
           </fieldset>
         </div>
         <div class="form-group">
@@ -29,8 +31,10 @@
         <h5>Total: <span class="text-danger" style="font-size: large;">${{totalBill}}</span></h5>
         <div class="form-group">
           <label for="paymentOption">Payment option:</label>
-          <select class="form-control" id="paymentOption" name="paymentType" [(ngModel)]="paymentType" ngModel required #paymentOption="ngModel">
-            <div *ngIf="paymentOption.invalid && (paymentOption.dirty || paymentOption.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Payment is required</div>
+          <select class="form-control" id="paymentOption" name="paymentType" [(ngModel)]="paymentType" ngModel required
+            #paymentOption="ngModel">
+            <div *ngIf="paymentOption.invalid && (paymentOption.dirty || paymentOption.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">Payment is required</div>
             <option>COD</option>
             <option>Card</option>
           </select>
@@ -45,28 +49,47 @@
           </select>
           <fieldset>
             <label class="control-label" for="cardNumber">Card number:</label>
-            <input class="form-control" id="cardNumber" type="number" placeholder="Your card number" name="cardNumber" ngModel required #cardNumber="ngModel">
-            <div *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Card type is required</div>
+            <input class="form-control" id="cardNumber" type="number" placeholder="Your card number" name="cardNumber"
+              ngModel required #cardNumber="ngModel">
+            <div *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">Card type is required</div>
           </fieldset>
           <fieldset>
             <label class="control-label" for="name">Full name:</label>
-            <input class="form-control" id="name" type="text" placeholder="Your name on card" name="fullNameCard" ngModel required #fullNameCard="ngModel">
-            <div *ngIf="fullNameCard.invalid && (fullNameCard.dirty || fullNameCard.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Payment is required</div>
+            <input class="form-control" id="name" type="text" placeholder="Your name on card" name="fullNameCard"
+              ngModel required #fullNameCard="ngModel">
+            <div *ngIf="fullNameCard.invalid && (fullNameCard.dirty || fullNameCard.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">Payment is required</div>
           </fieldset>
           <fieldset>
             <label class="control-label" for="expiredDate">Expired date:</label>
-            <input class="form-control" id="expiredDate" type="text" placeholder="(MM:YY) Eg: 08/25" name="expiredDate" ngModel required #expiredDate="ngModel">
-            <div *ngIf="expiredDate.invalid && (expiredDate.dirty || expiredDate.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Expired date is required</div>
+            <input class="form-control" id="expiredDate" type="text" placeholder="(YY:MM) Eg: 25/08" name="expiredDate"
+              ngModel required #expiredDate="ngModel">
+            <div *ngIf="expiredDate.invalid && (expiredDate.dirty || expiredDate.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">Expired date is required</div>
           </fieldset>
           <fieldset>
             <label class="control-label" for="birthday">Date of birth:</label>
-            <input class="form-control" id="birthday" type="text" placeholder="(DD:MM:YYY) Eg: 28/11/1997" name="dateOfBirth" ngModel required #dateOfBirth="ngModel">
-            <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert alert-dismissible alert-danger text-center alert-font">Date of Birth is required</div>
+            <!-- <input class="form-control" id="birthday" type="text" placeholder="(DD:MM:YYY) Eg: 28/11/1997"
+              name="dateOfBirth" ngModel required #dateOfBirth="ngModel"> -->
+              <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" ngbDatepicker #dob="ngbDatepicker" ngModel required #dateOfBirth="ngModel"[minDate]="{year: 1970, month: 1, day: 1}"
+              [maxDate]="{year: 2020, month: 12, day: 31}"
+              [markDisabled]="false">
+              <div class="input-group-append">
+                <img type="button" class="btn-outline-secondary" (click)="dob.toggle()"
+                  src="../../../assets/images/date-picker.png" alt=""
+                  style="height: 43px; vertical-align: middle; cursor: pointer;">
+              </div>
+            </div>
+            <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">Date of Birth is required</div>
           </fieldset>
           <fieldset>
             <label class="control-label" for="cvv">cvv:</label>
             <input class="form-control" id="cvv" type="password" name="cvv" ngModel required #cvv="ngModel">
-            <div *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)" class="alert alert-dismissible alert-danger text-center alert-font">cvv is required</div>
+            <div *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)"
+              class="alert alert-dismissible alert-danger text-center alert-font">cvv is required</div>
           </fieldset>
         </div>
         <div class="text-center">
@@ -76,19 +99,19 @@
       </form>
     </div>
   </div>
-<div *ngIf="!cart || noItem">
-  <div class="row text-center">
-    <hr>
-    <h3>You haven't selected any recipes in your cart yet</h3>
-    <hr>
-  </div>
-  <div class="row" style="padding-top: 50px;">
-    <div class="col text-center">
-      <button class="btn btn-warning" (click)="goBack()">Go back to shopping</button>
+  <div *ngIf="!cart || noItem">
+    <div class="row text-center">
+      <hr>
+      <h3>You haven't selected any recipes in your cart yet</h3>
+      <hr>
+    </div>
+    <div class="row" style="padding-top: 50px;">
+      <div class="col text-center">
+        <button class="btn btn-warning" (click)="goBack()">Go back to shopping</button>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 50px;">
+      <img class="img-fluid" src="../../../assets/images/bg-cart.jpg" alt="">
     </div>
   </div>
-  <div class="row" style="padding-top: 50px;">
-    <img class="img-fluid" src="../../../assets/images/bg-cart.jpg" alt="">
-  </div>
-</div>
 </div>

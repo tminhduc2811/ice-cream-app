@@ -1,8 +1,9 @@
 package com.atcud.icecreamapp.controllers;
 
 import com.atcud.icecreamapp.DTO.DTOBuilder;
+import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.entities.LoginResponseDTO;
-import com.atcud.icecreamapp.DTO.entities.UserLogin;
+import com.atcud.icecreamapp.DTO.entities.UserCredentials;
 import com.atcud.icecreamapp.services.CustomerService;
 import com.atcud.icecreamapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class AuthController {
     private CustomerService customerService;
 
     // TODO: Refactor later
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserCredentials userLogin) {
         // Check user/admin
         String token = "";
         try {
@@ -37,5 +38,10 @@ public class AuthController {
         return new ResponseEntity<>(DTOBuilder.loginResponseDTO(
                 new LoginResponseDTO(
                         userLogin.getUsername(), token)), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<CustomerDTO> register(@RequestBody UserCredentials userCredentials) {
+        return new ResponseEntity<>(customerService.register(userCredentials), HttpStatus.CREATED);
     }
 }

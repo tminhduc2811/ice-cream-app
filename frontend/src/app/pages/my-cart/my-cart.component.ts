@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ConfirmModalComponent } from './../../modals/confirm-modal/confirm-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { CheckoutModel, OrderDetail } from './../../models/checkout.model';
 import { OrderService } from 'src/app/services/order.service';
 import { Payment } from './../../models/payment.model';
@@ -11,6 +11,7 @@ import { CustomerService } from './../../services/customer.service';
 import { CartModel } from './../../models/cart.model';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-my-cart',
@@ -24,16 +25,17 @@ export class MyCartComponent implements OnInit {
   totalBill: number;
   isLoaded = false;
   customer: Customer;
-  noItem = false;
-
+  noItem: boolean;
   constructor(private cartService: CartService,
               private customerService: CustomerService,
               private auth: AuthService,
               private orderService: OrderService,
               private modalService: NgbModal,
-              private router: Router) { }
+              private router: Router,
+              public dateFormatter: NgbDateParserFormatter) { }
 
   ngOnInit(): void {
+    console.log(this.noItem);
     this.cart = this.cartService.getCartFromLocalStorage();
     if (this.cart) {
       this.cartService.setTotal();
@@ -41,7 +43,7 @@ export class MyCartComponent implements OnInit {
     this.cartService.totalBill.subscribe(rs => this.totalBill = rs);
     this.cartService.cartChanged.subscribe(rs => {
       this.cart = rs;
-      if (this.cart.items.length === 0) {
+      if (this.cart === null || this.cart.items.length === 0) {
         this.noItem = true;
       }
     });
@@ -53,6 +55,7 @@ export class MyCartComponent implements OnInit {
   }
 
   confirm(form) {
+    console.log(this.dateFormatter.format(form.value.dateOfBirth));
     const modalRef = this.modalService.open(ConfirmModalComponent, {centered: true});
     modalRef.componentInstance.data = {
       header: 'Check out',
@@ -71,8 +74,8 @@ export class MyCartComponent implements OnInit {
           cardNumber: form.value.cardNumber,
           cvv: form.value.cvv,
           name: form.value.fullNameCard,
-          expiredDate: form.value.expiredDate,
-          dateOfBirth: form.value.dateOfBirth
+          expiredDate: this.reformatDate(form.value.expiredDate.split('/')),
+          dateOfBirth: this.dateFormatter.format(form.value.dateOfBirth),
         };
       }
       if (this.cart) {
@@ -101,11 +104,16 @@ export class MyCartComponent implements OnInit {
         .subscribe(rs => {
           console.log('Order created. ', rs);
           this.cartService.clearCart();
+          this.noItem = true;
+          this.cart = null;
           this.router.navigate(['my-cart/checkout-success']);
         });
     }).catch(err => {});
   }
   goBack() {
     this.router.navigate(['/recipes']);
+  }
+  reformatDate(arr) {
+    return '20' + arr[0] + '-' + arr[1] + '-00';
   }
 }

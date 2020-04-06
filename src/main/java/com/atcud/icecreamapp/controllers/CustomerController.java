@@ -1,7 +1,7 @@
 package com.atcud.icecreamapp.controllers;
 
 import com.atcud.icecreamapp.DTO.entities.LoginResponseDTO;
-import com.atcud.icecreamapp.DTO.entities.UserLogin;
+import com.atcud.icecreamapp.DTO.entities.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,11 +37,11 @@ public class CustomerController {
         Pageable pageable = PageRequest.of(page, size, sortable);
         return new ResponseEntity<>(customerService.findPage(pageable), HttpStatus.OK);
     }
-
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.register(customer), HttpStatus.CREATED);
-    }
+//
+//    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+//    public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody Customer customer) {
+//        return new ResponseEntity<>(customerService.register(customer), HttpStatus.CREATED);
+//    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id) {
@@ -57,7 +57,7 @@ public class CustomerController {
 
     // TODO: Refactor later
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLogin userLogin) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserCredentials userLogin) {
         String token = customerService.login(userLogin.getUsername(), userLogin.getPassword());
         return new ResponseEntity<>(new LoginResponseDTO(userLogin.getUsername(), token), HttpStatus.OK);
     }

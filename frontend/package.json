@@ -35,6 +35,7 @@
     "httpclient": "^0.1.0",
     "jquery": "^3.4.1",
     "ng-lazyload-image": "^7.1.0",
+    "ng2-date-picker": "^9.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",

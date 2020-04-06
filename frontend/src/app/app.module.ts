@@ -38,7 +38,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UserProfileComponent } from './pages/profile/user-profile/user-profile.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CustomerProfileComponent } from './pages/profile/customer-profile/customer-profile.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
@@ -50,6 +50,7 @@ import { RecipeEditModalComponent } from './modals/recipe-edit-modal/recipe-edit
 import { MyCartComponent } from './pages/my-cart/my-cart.component';
 import { MyCartItemComponent } from './pages/my-cart/my-cart-item/my-cart-item.component';
 import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-success.component';
+import { OrderDetailComponent } from './pages/orders/order-detail/order-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,7 @@ import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-succ
     MyCartComponent,
     MyCartItemComponent,
     CheckoutSuccessComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,

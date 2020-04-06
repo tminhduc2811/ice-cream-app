@@ -1,9 +1,13 @@
 package com.atcud.icecreamapp.services.impl;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
+import com.atcud.icecreamapp.DTO.entities.UserCredentials;
 import com.atcud.icecreamapp.exceptions.CustomException;
 import com.atcud.icecreamapp.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,13 +84,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO register(Customer customer) {
+    public CustomerDTO register(UserCredentials credentials) {
 
-        if (customerRepository.isExisted(customer.getUserName())) {
+        if (customerRepository.isExisted(credentials.getUsername())) {
             throw new CustomException("Customer already existed", HttpStatus.CONFLICT);
         }
-
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        Customer customer = new Customer();
+        customer.setUserName(credentials.getUsername());
+        customer.setEmail(credentials.getEmail());
+        customer.setPassword(passwordEncoder.encode(credentials.getPassword()));
+        LocalDate ld = LocalDate.now();
+        ld = ld.plusYears(2);
+        Date expiredDate = Date.valueOf(ld);
+        customer.setExpiredDate(expiredDate);
+        customer.setStatus((short) 1);
+        customer.setNumOfLoginFailed((short) 0);
         return DTOBuilder.mapObject(customerRepository.save(customer), CustomerDTO.class);
     }
 
@@ -107,7 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         String currentPass = customer.getCurrentPassword();
         if (!currentPass.equals("")) {
-            if(passwordEncoder.matches(currentPass, currentCustomer.getPassword())) {
+            if (passwordEncoder.matches(currentPass, currentCustomer.getPassword())) {
                 currentCustomer.setPassword(passwordEncoder.encode(customer.getNewPassword()));
             } else {
                 throw new CustomException("Invalid password", HttpStatus.UNPROCESSABLE_ENTITY);

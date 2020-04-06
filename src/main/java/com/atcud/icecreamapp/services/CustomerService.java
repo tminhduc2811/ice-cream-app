@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.entities.CustomerUpdateDTO;
+import com.atcud.icecreamapp.DTO.entities.UserCredentials;
 import com.atcud.icecreamapp.entities.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ public interface CustomerService {
 
     public String login(String username, String password);
 
-    public CustomerDTO register(Customer customer);
+    public CustomerDTO register(UserCredentials credentials);
 
     public void delete(Long id);
 

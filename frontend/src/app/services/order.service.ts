@@ -26,4 +26,8 @@ export class OrderService {
   createOrder(checkoutModel: CheckoutModel): Observable<string> {
     return this.apiService.post('/checkout', checkoutModel).pipe(map(data => data));
   }
+
+  deleteOrder(id: number): Observable<any> {
+    return this.apiService.delete('/orders/' + id).pipe(map(data => data));
+  }
 }

@@ -41,19 +41,38 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm() {
-    console.log('Starting to authenticate');
-    this.isSubmitting = true;
-    this.error = '';
-    const credentials = this.authForm.value;
-    this.auth.login(credentials)
-      .subscribe(
-        response => {
-          this.isSubmitting = false;
-        },
-        err => {
-          this.isSubmitting = false;
+    if (this.authType === 'login') {
+      console.log('Starting to authenticate');
+      this.isSubmitting = true;
+      this.error = '';
+      const credentials = this.authForm.value;
+      this.auth.login(credentials)
+        .subscribe(
+          response => {
+            this.isSubmitting = false;
+          },
+          err => {
+            this.isSubmitting = false;
+            this.error = err.message;
+          }
+        );
+    } else {
+      this.isSubmitting = true;
+      this.error = '';
+      const credentials = this.authForm.value;
+      this.auth.register(credentials)
+        .subscribe(rs => {
+          this.auth.login(credentials)
+            .subscribe(res => {
+              this.isSubmitting = false;
+            }, err => {
+              this.error = err.message;
+              this.isSubmitting = false;
+            });
+        }, err => {
           this.error = err.message;
-        }
-      );
+          this.isSubmitting = false;
+        });
+    }
   }
 }

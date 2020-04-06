@@ -1,9 +1,19 @@
 package com.atcud.icecreamapp.DTO.entities;
 
-public class UserLogin {
+public class UserCredentials {
     private String username;
 
     private String password;
+
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getUsername() {
         return username;
@@ -21,7 +31,7 @@ public class UserLogin {
         this.password = password;
     }
 
-    public UserLogin(String username, String password) {
+    public UserCredentials(String username, String password) {
         this.username = username;
         this.password = password;
     }

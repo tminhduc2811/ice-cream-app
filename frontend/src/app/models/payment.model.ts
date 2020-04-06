@@ -4,6 +4,6 @@ export interface Payment {
   cardNumber: string;
   cvv: string;
   name: string;
-  expiredDate: Date;
-  dateOfBirth: Date;
+  expiredDate: string;
+  dateOfBirth: string;
 }

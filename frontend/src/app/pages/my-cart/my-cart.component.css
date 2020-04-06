@@ -3,3 +3,17 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.inbtn{
+  height: 30px;
+ /* width: 30px; */
+ display: inline-block;
+ /* border-radius: 50%; */
+ font-size: large;
+ font-weight: 500;
+ margin-left: 25%;
+ margin-right:25%;
+ vertical-align: middle;
+ background-color:  #d8d8d8 !important;
+ text-align: center;
+-webkit-appearance: none;
+ }
