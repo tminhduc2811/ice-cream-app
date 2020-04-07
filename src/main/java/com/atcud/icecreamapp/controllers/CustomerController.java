@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.services.CustomerService;
 
@@ -23,7 +22,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Page<CustomerDTO>> getCustomers(
+    public ResponseEntity<Page<com.atcud.icecreamapp.DTO.entities.CustomerDTO>> getCustomers(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {

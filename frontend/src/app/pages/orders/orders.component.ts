@@ -1,3 +1,5 @@
+import { OrderModalComponent } from './../../modals/order-modal/order-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime } from 'rxjs/operators';
 import { PageService } from './../../services/page.service';
 import { Page } from './../../models/page.model';
@@ -26,7 +28,9 @@ export class OrdersComponent implements OnInit {
   warningMessage = '';
   warning = new Subject<string>();
 
-  constructor(private orderService: OrderService, private pageService: PageService) { }
+  constructor(private orderService: OrderService,
+              private pageService: PageService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.setAlert();
@@ -69,7 +73,18 @@ export class OrdersComponent implements OnInit {
   }
 
   editOnClick(index) {
-
+    const modalRef = this.modalService.open(OrderModalComponent, {size: 'xl'});
+    modalRef.componentInstance.order = this.orders[index];
+    modalRef.result.then(rs => {
+      const order = rs;
+      this.orderService.updateOrder(order)
+      .subscribe(() => {
+        this.success.next('Order has been updated successfully');
+        this.setPage(this.page.currentPage);
+      }, err => {
+        this.warning.next(err);
+      });
+    }).catch(err => {});
   }
 
   deleteOnClick(index) {

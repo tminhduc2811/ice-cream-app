@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "recipe_order")
 public class Order {
@@ -17,21 +15,21 @@ public class Order {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            cascade = {CascadeType.PERSIST,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            cascade = {CascadeType.REMOVE,
                     CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "order",
-            cascade = {CascadeType.ALL})
-    @JsonIgnore
+            cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
+
     private List<OrderDetail> orderDetails;
 
     @Column(name = "payment_option")

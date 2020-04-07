@@ -1,5 +1,4 @@
 package com.atcud.icecreamapp.DTO.entities;
-import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Order;
 
 import java.sql.Timestamp;

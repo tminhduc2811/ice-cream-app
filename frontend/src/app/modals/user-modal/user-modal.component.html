@@ -1,0 +1,41 @@
+<div class="modal-header" style="align-content: center;">
+  <h4>New User</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-username"
+    (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body text-center">
+  <form #form="ngForm" (ngSubmit)="confirm(form)">
+    <div class="form-group">
+      <fieldset>
+        <label class="control-label" for="username">Username</label>
+        <input class="form-control" id="username" name="username" type="text" placeholder="Username" ngModel required
+          #username="ngModel">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)"
+          class="alert alert-dismissible alert-danger text-center alert-font">Username is required</div>
+      </fieldset>
+    </div>
+    <div class="form-group">
+      <fieldset>
+        <label class="control-label" for="password">Password</label>
+        <input class="form-control" id="password" name="password" type="password" ngModel required #password="ngModel">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-dismissible alert-danger text-center alert-font">Password is required</div>
+      </fieldset>
+    </div>
+    <div class="form-group">
+      <fieldset>
+        <label class="control-label" for="email">Email</label>
+        <input class="form-control" id="email" name="email" type="text" ngModel required #email="ngModel">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="alert alert-dismissible alert-danger text-center alert-font">Email is required</div>
+      </fieldset>
+    </div>
+    <button type="submit" ngbAutofocus class="btn btn-success mr-1" [disabled]="form.invalid">Save</button>
+    <button type="button" class="btn btn-danger mr-1" (click)="modal.dismiss('Close click')">Cancel</button>
+  </form>
+</div>
+<div class="modal-footer">
+
+</div>

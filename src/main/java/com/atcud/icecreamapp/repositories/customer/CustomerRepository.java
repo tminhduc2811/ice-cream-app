@@ -23,5 +23,4 @@ public interface CustomerRepository {
 
     Customer update(Customer customer);
 
-    boolean isExisted(String username);
 }

@@ -53,12 +53,8 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Order> update(@RequestBody Order newOrder, @PathVariable Long id) {
-        Optional<Order> order = orderService.getOptionalOrderById(id);
-        if (!order.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<Order> update(@RequestBody Order newOrder) {
         orderService.update(newOrder);
         return new ResponseEntity<>(newOrder, HttpStatus.OK);
     }

@@ -13,6 +13,7 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from './../../models/user.model';
 import { Subject } from 'rxjs';
+import { UserModalComponent } from 'src/app/modals/user-modal/user-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -100,5 +101,18 @@ export class UsersComponent implements OnInit {
       this.warning.next(err.message);
     });
     }). catch(rs => {});
+  }
+
+  newUser() {
+    const modalRef = this.modalService.open(UserModalComponent, {size: 'm'});
+    modalRef.result.then(rs => {
+      this.userService.createUser(rs)
+      .subscribe(res => {
+        this.success.next('Created user successfully');
+        this.setPage(this.page.currentPage);
+      }, err => {
+        this.warning.next(err.message);
+      });
+    }).catch(rs => {});
   }
 }

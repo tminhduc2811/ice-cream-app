@@ -4,6 +4,7 @@ import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Payment;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class OrderDTO {
 
@@ -12,6 +13,8 @@ public class OrderDTO {
     private Customer customer;
 
     private Payment payment;
+
+    private List<OrderDetailDTO> orderDetails;
 
     private String paymentOption;
 
@@ -27,15 +30,12 @@ public class OrderDTO {
 
     }
 
-    public OrderDTO(Long id, Customer customer, Payment payment, String paymentOption, Timestamp createdDate, String deliveryDetail, String notes, String status) {
-        this.id = id;
-        this.customer = customer;
-        this.payment = payment;
-        this.paymentOption = paymentOption;
-        this.createdDate = createdDate;
-        this.deliveryDetail = deliveryDetail;
-        this.notes = notes;
-        this.status = status;
+    public List<OrderDetailDTO> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetailDTO> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public Long getId() {

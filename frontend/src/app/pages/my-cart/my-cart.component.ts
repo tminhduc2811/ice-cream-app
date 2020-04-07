@@ -96,7 +96,8 @@ export class MyCartComponent implements OnInit {
           createdDate: null,
           deliveryDetail: form.value.deliveryDetail,
           notes: form.value.notes,
-          status: 'New'
+          status: 'New',
+          orderDetails: null
         },
         orderDetails
       };

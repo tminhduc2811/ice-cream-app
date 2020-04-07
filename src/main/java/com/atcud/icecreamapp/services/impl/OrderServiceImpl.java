@@ -15,6 +15,7 @@ import com.atcud.icecreamapp.DTO.entities.OrderDTO;
 import com.atcud.icecreamapp.entities.Order;
 import com.atcud.icecreamapp.repositories.order.OrderRepository;
 import com.atcud.icecreamapp.services.OrderService;
+
 @Component
 public class OrderServiceImpl implements OrderService {
 
@@ -50,13 +51,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void update(Order order) {
+        Optional<Order> currentOrder = orderRepository.findById(order.getId());
+        if (!currentOrder.isPresent()) {
+            throw new CustomException("Order not found", HttpStatus.NOT_FOUND);
+        }
+        currentOrder.get().setStatus(order.getStatus());
         orderRepository.update(order);
     }
 
     @Override
     public OrderDTO getOrderById(Long id) {
         Optional<Order> entity = orderRepository.findById(id);
-        if (entity.isPresent()){
+        if (entity.isPresent()) {
             return DTOBuilder.mapObject(entity.get(), OrderDTO.class);
         }
         throw new CustomException("Order not found", HttpStatus.NOT_FOUND);

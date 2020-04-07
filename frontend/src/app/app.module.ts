@@ -51,6 +51,9 @@ import { MyCartComponent } from './pages/my-cart/my-cart.component';
 import { MyCartItemComponent } from './pages/my-cart/my-cart-item/my-cart-item.component';
 import { CheckoutSuccessComponent } from './pages/checkout-success/checkout-success.component';
 import { OrderDetailComponent } from './pages/orders/order-detail/order-detail.component';
+import { UserModalComponent } from './modals/user-modal/user-modal.component';
+import { OrderModalComponent } from './modals/order-modal/order-modal.component';
+import { OderModalItemComponent } from './modals/order-modal/oder-modal-item/oder-modal-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +86,9 @@ import { OrderDetailComponent } from './pages/orders/order-detail/order-detail.c
     MyCartItemComponent,
     CheckoutSuccessComponent,
     OrderDetailComponent,
+    UserModalComponent,
+    OrderModalComponent,
+    OderModalItemComponent,
   ],
   imports: [
     BrowserModule,

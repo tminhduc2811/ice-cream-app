@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-sm-6 text-left" style="max-width: 200px;">
+    <img [src]="orderDetail.recipe.image" alt="" style="max-width: 180px;">
+  </div>
+  <div class="col-sm-3">
+    <p>{{orderDetail.recipe.title}}</p>
+    <p class="text-warning">{{orderDetail.quantity}} x ${{orderDetail.recipe.price}}</p>
+  </div>
+  <div class="col-sm-3 text-right">
+    <h4>Toal: <p class="text-danger" style="font-size: large;">${{orderDetail.total}}</p></h4>
+  </div>
+</div>

@@ -2,7 +2,6 @@ package com.atcud.icecreamapp.services.impl;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +20,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.atcud.icecreamapp.DTO.entities.CustomerDTO;
 import com.atcud.icecreamapp.DTO.DTOBuilder;
 import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.repositories.customer.CustomerRepository;
@@ -43,15 +41,15 @@ public class CustomerServiceImpl implements CustomerService {
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public Page<CustomerDTO> findPage(Pageable pageable) {
+    public Page<com.atcud.icecreamapp.DTO.entities.CustomerDTO> findPage(Pageable pageable) {
         Page<Customer> entityPage = customerRepository.findPage(pageable);
-        return DTOBuilder.mapPage(entityPage, CustomerDTO.class);
+        return DTOBuilder.mapPage(entityPage, com.atcud.icecreamapp.DTO.entities.CustomerDTO.class);
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
+    public List<com.atcud.icecreamapp.DTO.entities.CustomerDTO> getAllCustomers() {
         List<Customer> entities = customerRepository.findAll();
-        return DTOBuilder.mapList(entities, CustomerDTO.class);
+        return DTOBuilder.mapList(entities, com.atcud.icecreamapp.DTO.entities.CustomerDTO.class);
     }
 
     @Override
@@ -60,12 +58,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO findUserByName(String username) {
+    public com.atcud.icecreamapp.DTO.entities.CustomerDTO findUserByName(String username) {
         Customer customer = customerRepository.findCustomerByUsername(username);
         if (customer == null) {
             throw new CustomException("Customer not found", HttpStatus.NOT_FOUND);
         }
-        return DTOBuilder.mapObject(customer, CustomerDTO.class);
+        return DTOBuilder.mapObject(customer, com.atcud.icecreamapp.DTO.entities.CustomerDTO.class);
     }
 
     @Override
@@ -84,10 +82,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO register(UserCredentials credentials) {
+    public com.atcud.icecreamapp.DTO.entities.CustomerDTO register(UserCredentials credentials) {
 
-        if (customerRepository.isExisted(credentials.getUsername())) {
-            throw new CustomException("Customer already existed", HttpStatus.CONFLICT);
+        Customer tempCustomer = customerRepository.findCustomerByUsername(credentials.getUsername());
+        if (tempCustomer != null) {
+            if (tempCustomer.getEmail().equals(credentials.getEmail())) {
+                throw new CustomException("Username & Email already existed", HttpStatus.CONFLICT);
+            }
+            throw new CustomException("Username already existed", HttpStatus.CONFLICT);
         }
         Customer customer = new Customer();
         customer.setUserName(credentials.getUsername());
@@ -99,7 +101,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setExpiredDate(expiredDate);
         customer.setStatus((short) 1);
         customer.setNumOfLoginFailed((short) 0);
-        return DTOBuilder.mapObject(customerRepository.save(customer), CustomerDTO.class);
+        return DTOBuilder.mapObject(customerRepository.save(customer), com.atcud.icecreamapp.DTO.entities.CustomerDTO.class);
     }
 
     @Override
@@ -112,7 +114,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO update(CustomerUpdateDTO customer) {
+    public com.atcud.icecreamapp.DTO.entities.CustomerDTO update(CustomerUpdateDTO customer) {
         Customer currentCustomer = customerRepository.findCustomerByUsername(customer.getCustomer().getUserName());
         if (currentCustomer == null) {
             throw new CustomException("Customer " + customer.getCustomer().getUserName() + " not found", HttpStatus.NOT_FOUND);
@@ -134,7 +136,7 @@ public class CustomerServiceImpl implements CustomerService {
         currentCustomer.setEmail(customer.getCustomer().getEmail());
         currentCustomer.setAvatar(customer.getCustomer().getAvatar());
         currentCustomer.setStatus(customer.getCustomer().getStatus());
-        return DTOBuilder.mapObject(customerRepository.update(currentCustomer), CustomerDTO.class);
+        return DTOBuilder.mapObject(customerRepository.update(currentCustomer), com.atcud.icecreamapp.DTO.entities.CustomerDTO.class);
     }
 
 }

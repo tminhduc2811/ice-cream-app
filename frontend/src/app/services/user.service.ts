@@ -13,6 +13,10 @@ export class UserService {
 
   constructor(private apiService: ApiService) { }
 
+  createUser(req): Observable<any> {
+    return this.apiService.post('/users/create', req).pipe(map(data => data));
+  }
+
   getAll(query): Observable<UserView> {
     if (query) {
       const params = new HttpParams().set('page', query.page).set('size', query.size);

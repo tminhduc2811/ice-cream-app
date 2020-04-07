@@ -92,7 +92,7 @@ public class UserController {
             @ApiResponse(code = 409, message = "User already existed"),
             @ApiResponse(code = 500, message = "Internal server error, there was an exception")
     })
-    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
         UserDTO result = userService.register(user);
         return new ResponseEntity<>(result, HttpStatus.CREATED);

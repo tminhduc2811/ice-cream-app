@@ -10,8 +10,14 @@
 <div>
   <div class="container pt-xl-5" style="padding-top: 40px;">
     <div class="row">
-      <h3>User Table</h3>
+      <div class="col-md-6">
+        <h3>User Table</h3>
+      </div>
+      <div class="col-md-6 text-right" *ngIf="isAdmin">
+        <button class="btn btn-primary" (click)="newUser()">New User</button>
+      </div>
     </div>
+
     <div *ngIf="isLoading" style="text-align: center;">
       <app-loading-spinner></app-loading-spinner>
     </div>

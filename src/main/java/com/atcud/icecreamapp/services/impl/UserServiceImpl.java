@@ -93,6 +93,9 @@ public class UserServiceImpl implements UserService {
             throw new CustomException("User already existed", HttpStatus.CONFLICT);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.findById(2L).get());
+        user.setRoles(roles);
         return DTOBuilder.mapObject(userRepository.save(user), UserDTO.class);
     }
 

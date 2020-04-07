@@ -30,4 +30,9 @@ export class OrderService {
   deleteOrder(id: number): Observable<any> {
     return this.apiService.delete('/orders/' + id).pipe(map(data => data));
   }
+
+  updateOrder(order: Order): Observable<any> {
+    return this.apiService.put('/orders', order).pipe(map(data => data));
+  }
+
 }

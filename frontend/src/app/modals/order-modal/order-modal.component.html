@@ -1,0 +1,85 @@
+<div class="modal-header">
+  <div class="modal-title w-100 text-center">
+    <h4>Order details</h4>
+  </div>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body text-center">
+  <div class="row">
+    <div class="col-md-6 text-left">
+      <h4>Items</h4>
+      <hr>
+      <app-oder-modal-item *ngFor="let detail of order.orderDetails" [orderDetail]="detail"></app-oder-modal-item>
+    </div>
+    <div class="col-md-6">
+      <form #form="ngForm" (ngSubmit)="confirm(form)">
+        <div class="form-group">
+          <fieldset readonly="">
+            <label class="control-label" for="customerName">Customer name:</label>
+            <input class="form-control" id="customerName" type="text"
+              placeholder="{{order.customer.firstName}} {{order.customer.lastName}}" readonly="true" name="customerName">
+          </fieldset>
+        </div>
+        <div class="form-group">
+          <fieldset>
+            <label class="control-label" for="deliveryDetail">Delivery detail:</label>
+            <input class="form-control" id="deliveryDetail" type="text" [(ngModel)]="order.deliveryDetail"
+              name="deliveryDetail" #deliveryDetail="ngModel" readonly="true">
+          </fieldset>
+        </div>
+        <div class="form-group">
+          <label for="notes">Note:</label>
+          <textarea class="form-control" id="notes" rows="3" readonly="true" [(ngModel)]="order.notes" name="notes" ngModel #notes="ngModel"></textarea>
+        </div>
+        <h5>Total: <span class="text-danger" style="font-size: large;">${{total}}</span></h5>
+        <div class="form-group">
+          <fieldset>
+            <label class="control-label" for="paymentOption">Payment option:</label>
+            <input class="form-control" id="paymentOption" type="text" [(ngModel)]="order.paymentOption"
+              name="paymentOption" #paymentOption="ngModel" readonly="true">
+          </fieldset>
+        </div>
+        <div class="form-group" *ngIf="order.paymentOption === 'Card'">
+            <fieldset>
+              <label class="control-label" for="cardType">Card type:</label>
+              <input class="form-control" id="cardType" type="text" [(ngModel)]="order.payment.cardType"
+                name="cardType" #cardType="ngModel" readonly="true">
+            </fieldset>
+          <fieldset>
+            <label class="control-label" for="cardNumber">Card number:</label>
+            <input class="form-control" id="cardNumber" type="number" name="cardNumber" [(ngModel)]="order.payment.cardNumber" ngModel #cardNumber="ngModel" readonly="true">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="name">Full name:</label>
+            <input class="form-control" id="name" type="text" name="fullNameCard" ngModel [(ngModel)]="order.payment.name" #fullNameCard="ngModel">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="expiredDate">Expired date:</label>
+            <input class="form-control" id="expiredDate" type="text" name="expiredDate" [(ngModel)]="order.payment.expiredDate" ngModel #expiredDate="ngModel">
+          </fieldset>
+          <fieldset>
+            <label class="control-label" for="dateOfBirth">Date of birth:</label>
+            <input class="form-control" id="dateOfBirth" type="text" name="dateOfBirth" [(ngModel)]="order.payment.dateOfBirth" ngModel #dateOfBirth="ngModel">
+          </fieldset>
+        </div>
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status" ngModel #status="ngModel" [(ngModel)]="order.status">
+          <option>New</option>
+          <option>In Progress</option>
+          <option>Delivered</option>
+          <option>Done</option>
+        </select>
+        <button type="submit" ngbAutofocus class="btn btn-success mr-1" [disabled]="form.invalid">Save</button>
+        <button type="button" class="btn btn-danger mr-1" (click)="modal.dismiss('Close click')">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+</div>
+
+
+
