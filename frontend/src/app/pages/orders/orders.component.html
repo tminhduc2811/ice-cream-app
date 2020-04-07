@@ -23,7 +23,7 @@
           <th scope="col">Customer Phone</th>
           <th scope="col">Created Date</th>
           <th scope="col">Status</th>
-          <th scope="col">Action</th>
+          <th scope="col" *ngIf="isUser">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -33,9 +33,11 @@
           <td>{{order.customer.phoneNumber}}</td>
           <td>{{order.createdDate  | date:'EEE, d MMM,y'}} {{order.createdDate  | date:'shortTime'}}</td>
           <td>{{order.status}}</td>
-          <td>
-            <button class="btn btn-sm" (click)="editOnClick(i)"><span><img src="../../../assets/images/icon-edit.png" alt="Edit" style="max-width: 25px;"></span></button>
-            <button class="btn btn-sm" (click)="deleteOnClick(i)"><span><img src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
+          <td *ngIf="isUser">
+            <button class="btn btn-sm" (click)="editOnClick(i)"><span><img
+                  src="../../../assets/images/icon-edit.png" alt="Edit" style="max-width: 25px;"></span></button>
+            <button class="btn btn-sm" (click)="deleteOnClick(i)"><span><img
+                  src="../../../assets/images/icon-delete.png" alt="Delete" style="max-width: 25px;"></span></button>
           </td>
         </tr>
       </tbody>
@@ -44,7 +46,7 @@
 </div>
 <div class="text-center" *ngIf="isLoaded" style="cursor: pointer;">
   <ul class="pagination justify-content-center">
-    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}" >
+    <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}">
       <a class="page-link" (click)="setPage(1)">&laquo;</a>
     </li>
     <li class="page-item" [ngClass]="{disabled:page.currentPage === 1}">

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { OrderModalComponent } from './../../modals/order-modal/order-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime } from 'rxjs/operators';
@@ -22,6 +23,7 @@ export class OrdersComponent implements OnInit {
   result: OrderView;
   page: Page;
   size = 5;
+  isUser = false;
   // Alert messages
   successMessage = '';
   success = new Subject<string>();
@@ -30,11 +32,13 @@ export class OrdersComponent implements OnInit {
 
   constructor(private orderService: OrderService,
               private pageService: PageService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.setAlert();
     this.isLoading = true;
+    this.isUser = this.authService.isUser();
     this.orderService.getAll({ page: 0, size: this.size }).subscribe(
       rs => {
         this.result = rs;
