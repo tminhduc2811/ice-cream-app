@@ -48,30 +48,30 @@ export class RecipeListComponent implements OnInit {
         this.recipesLoaded = true;
         this.isLoading = false;
       });
-    // this.isLoading = true;
-    // this.recipeService.typeSelected
-    //   .subscribe(idType => {
-    //     console.log('Type id:', idType);
-    //     if (idType === 0) {
-    //       this.recipeService.getAll()
-    //         .subscribe(rs => {
-    //           this.recipes = rs.content;
-    //           this.isLoading = false;
-    //         }, err => {
-    //           // TODO: Handle error later
-    //           this.isLoading = false;
-    //         });
-    //     } else {
-    //       this.recipeService.getAllByType(idType)
-    //         .subscribe(recipes => {
-    //           this.recipes = recipes;
-    //           this.isLoading = false;
-    //         }, err => {
-    //           // TODO: Handle error later
-    //           this.isLoading = false;
-    //         });
-    //     }
-    //   });
+    this.recipeService.typeSelected
+      .subscribe(idType => {
+        this.isLoading = true;
+        console.log('Type id:', idType);
+        if (idType === 0) {
+          this.recipeService.getAll({ page: 0, size: this.size })
+            .subscribe(rs => {
+              this.recipes = rs.content;
+              this.isLoading = false;
+            }, err => {
+              // TODO: Handle error later
+              this.isLoading = false;
+            });
+        } else {
+          this.recipeService.getAllByType(idType)
+            .subscribe(recipes => {
+              this.recipes = recipes;
+              this.isLoading = false;
+            }, err => {
+              // TODO: Handle error later
+              this.isLoading = false;
+            });
+        }
+      });
     this.eventsSubscription = this.events.subscribe(() => {
       this.setPage(this.page.currentPage);
     });

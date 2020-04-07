@@ -38,4 +38,8 @@ export class RecipeService {
   deleteRecipe(id: number) {
     return this.apiService.delete('/recipes/' + id).pipe(map(data => data));
   }
+
+  updateViews(id: number) {
+    return this.apiService.put('/recipes/increaseViews/' + id, null).pipe(map(data => data))
+  }
 }

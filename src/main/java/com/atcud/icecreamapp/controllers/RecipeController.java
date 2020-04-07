@@ -67,6 +67,12 @@ public class RecipeController {
         return new ResponseEntity<>(newRecipe, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "increaseViews/{id}", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<String> increaseViews(@PathVariable Long id) {
+        recipeService.increaseView(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/type/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<RecipeDTO>> getAllRecipesByType(@PathVariable Long id) {
         return new ResponseEntity<>(icecreamService.getAllRecipeByIcecreamId(id), HttpStatus.OK);

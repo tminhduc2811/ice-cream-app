@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'recipes', component: RecipesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'anonymous', 'customer']}
   },
-  { path: 'my-profile', component: ProfileComponent },
+  { path: 'my-profile', component: ProfileComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'customer']}  },
   { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']} },
   { path: 'user/:username', component: UserDetailComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']}},
   { path: 'faq', component: FaqComponent },
@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'customer/:username', component: CustomerDetailComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user']}},
   { path: 'my-cart', component: MyCartComponent, canActivate: [RoleGuard], data: {roles: ['customer']}},
   { path: 'my-cart/checkout-success', component: CheckoutSuccessComponent, canActivate: [RoleGuard], data: {roles: ['customer']}},
-  { path: 'feedback', component: FeedbackComponent },
+  { path: 'feedback', component: FeedbackComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'customer']}  },
   { path: 'orders', component: OrdersComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'user', 'customer']}},
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' }

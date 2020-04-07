@@ -1,4 +1,5 @@
 package com.atcud.icecreamapp.DTO.entities;
+import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Order;
 
 import java.sql.Timestamp;
@@ -6,9 +7,9 @@ import java.sql.Timestamp;
 public class FeedbackDTO {
     private Long id;
 
-//    private Customer customer;
+//    private CustomerDTO customer;
 
-    private Order order;
+    private OrderDTO order;
 
     private String details;
 
@@ -37,20 +38,20 @@ public class FeedbackDTO {
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
-
-//    public Customer getCustomer() {
+//
+//    public CustomerDTO getCustomer() {
 //        return customer;
 //    }
 //
-//    public void setCustomer(Customer customer) {
+//    public void setCustomer(CustomerDTO customer) {
 //        this.customer = customer;
 //    }
 
-    public Order getOrder() {
+    public OrderDTO getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderDTO order) {
         this.order = order;
     }
 
@@ -58,10 +59,4 @@ public class FeedbackDTO {
 
     }
 
-    public FeedbackDTO(Long id, Order order, String details, Timestamp createdDate) {
-        this.id = id;
-        this.order = order;
-        this.details = details;
-        this.createdDate = createdDate;
-    }
 }

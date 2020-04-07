@@ -92,4 +92,14 @@ public class RecipeServiceImpl implements RecipeService {
         recipe.setIcecream(icecream);
     }
 
+    @Override
+    public void increaseView(Long id) {
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        if(!recipe.isPresent()) {
+            throw new CustomException("Recipe not found", HttpStatus.NOT_FOUND);
+        }
+        recipe.get().setViewCount(recipe.get().getViewCount() + 1);
+        recipeRepository.update(recipe.get());
+    }
+
 }

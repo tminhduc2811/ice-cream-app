@@ -49,6 +49,9 @@ export class RecipeItemComponent implements OnInit {
     console.log(this.recipe);
     const modalRef = this.modalService.open(RecipeModalComponent, { centered: true, size: 'm' });
     modalRef.componentInstance.recipe = this.recipe;
+    this.recipeService.updateViews(this.recipe.id).subscribe(() => {
+      this.recipe.viewCount += 1;
+    });
   }
 
   edit() {

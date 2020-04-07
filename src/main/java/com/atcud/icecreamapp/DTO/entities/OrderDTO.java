@@ -10,7 +10,7 @@ public class OrderDTO {
 
     private Long id;
 
-    private Customer customer;
+    private CustomerDTO customer;
 
     private Payment payment;
 
@@ -46,11 +46,11 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public Customer getCustomer() {
+    public CustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 

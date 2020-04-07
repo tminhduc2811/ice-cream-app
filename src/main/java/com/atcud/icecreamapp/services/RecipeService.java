@@ -22,4 +22,6 @@ public interface RecipeService {
 
     public void update(Recipe recipe);
 
+    public void increaseView(Long id);
+
 }
