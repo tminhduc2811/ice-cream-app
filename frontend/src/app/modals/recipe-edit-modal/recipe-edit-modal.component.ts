@@ -47,7 +47,6 @@ export class RecipeEditModalComponent implements OnInit {
     this.warning.pipe(debounceTime(4000)).subscribe(() => this.warningMessage = '');
   }
   confirm(f: NgForm) {
-    console.log(f.value.type);
     const confirmRef = this.modalService.open(ConfirmModalComponent);
     confirmRef.componentInstance.data = {
       header: 'Update this recipe?',

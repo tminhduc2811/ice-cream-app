@@ -13,7 +13,6 @@ export class OderModalItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.orderDetail);
   }
 
 }

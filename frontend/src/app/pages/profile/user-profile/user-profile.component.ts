@@ -46,7 +46,6 @@ export class UserProfileComponent implements OnInit {
               private router: Router,
               private modalService: NgbModal) {
     this.roles = this.auth.getRoles();
-    console.log('check role ', this.roles);
     this.fb.group(this.formGroup);
   }
 
@@ -57,7 +56,6 @@ export class UserProfileComponent implements OnInit {
     this.userService.getProfileByName(username).subscribe(data => {
       this.user = data;
       this.setForm();
-      console.log('user', this.user);
     });
   }
 
@@ -97,7 +95,6 @@ export class UserProfileComponent implements OnInit {
         fileRef.getDownloadURL().subscribe(
           data => {
             this.profileUrl = data;
-            console.log('Saving to database', this.profileUrl);
             this.user.avatar = data;
             this.userService.updateProfile({ user: this.user, currentPassword: '' })
               .subscribe(rs => {

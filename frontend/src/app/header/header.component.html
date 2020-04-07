@@ -28,7 +28,7 @@
         <a class="nav-link" routerLink="feedback">Feedback</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="orders">Orders</a>
+        <a class="nav-link" routerLink="orders" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">Orders</a>
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0 larger-text" *ngIf="!isLoggedIn">

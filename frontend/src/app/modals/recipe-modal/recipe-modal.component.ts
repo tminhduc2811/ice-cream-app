@@ -21,7 +21,6 @@ export class RecipeModalComponent implements OnInit {
   constructor(public modal: NgbActiveModal, private auth: AuthService, private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.recipe);
     this.isCustomer = this.auth.isCustomer();
   }
 
@@ -29,8 +28,6 @@ export class RecipeModalComponent implements OnInit {
 
   }
   onSubmit(f) {
-    // console.log(this.f.value);
-    console.log(f.value);
   }
   addToCart() {
     if (!this.isCustomer) {

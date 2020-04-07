@@ -15,7 +15,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCustomer = this.authService.isCustomer();
-    console.log(this.isUserOrAdmin);
     this.isUserOrAdmin = this.authService.isUser() || this.authService.isAdmin();
   }
 

@@ -63,7 +63,6 @@ export class CustomerProfileComponent implements OnInit {
     this.customerService.getProfileByName(userName).subscribe(data => {
       this.customer = data;
       this.setForm();
-      console.log('user', this.customer);
     });
   }
 

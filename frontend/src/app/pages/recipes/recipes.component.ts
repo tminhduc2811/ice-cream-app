@@ -46,7 +46,6 @@ export class RecipesComponent implements OnInit {
     this.setAlert();
   }
   iceCreamSelected(index) {
-    console.log(index);
     if (index < this.iceCreams.length) {
       this.recipeService.typeSelected.emit(this.iceCreams[index].id);
     } else {

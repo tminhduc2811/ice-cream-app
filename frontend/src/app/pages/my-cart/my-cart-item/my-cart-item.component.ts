@@ -21,7 +21,6 @@ export class MyCartItemComponent implements OnInit {
     this.cartService.modifyCart(this.cartItem);
   }
   removeItem() {
-    console.log('check');
     this.cartService.removeItemCart(this.cartItem);
   }
 }

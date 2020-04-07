@@ -55,7 +55,6 @@ export class UserDetailComponent implements OnInit {
     this.isAdmin = this.auth.isAdmin();
     this.isLoading = true;
     this.username = this.route.snapshot.paramMap.get('username');
-    console.log(this.username);
     this.userService.getProfileByName(this.username)
       .subscribe(rs => {
         this.user = rs;

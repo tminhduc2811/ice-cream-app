@@ -51,7 +51,6 @@ export class RecipeListComponent implements OnInit {
     this.recipeService.typeSelected
       .subscribe(idType => {
         this.isLoading = true;
-        console.log('Type id:', idType);
         if (idType === 0) {
           this.recipeService.getAll({ page: 0, size: this.size })
             .subscribe(rs => {

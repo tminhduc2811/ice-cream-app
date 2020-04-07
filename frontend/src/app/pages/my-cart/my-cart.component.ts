@@ -35,7 +35,6 @@ export class MyCartComponent implements OnInit {
               public dateFormatter: NgbDateParserFormatter) { }
 
   ngOnInit(): void {
-    console.log(this.noItem);
     this.cart = this.cartService.getCartFromLocalStorage();
     if (this.cart) {
       this.cartService.setTotal();
@@ -55,7 +54,6 @@ export class MyCartComponent implements OnInit {
   }
 
   confirm(form) {
-    console.log(this.dateFormatter.format(form.value.dateOfBirth));
     const modalRef = this.modalService.open(ConfirmModalComponent, {centered: true});
     modalRef.componentInstance.data = {
       header: 'Check out',
@@ -103,7 +101,6 @@ export class MyCartComponent implements OnInit {
       };
       this.orderService.createOrder(checkout)
         .subscribe(rs => {
-          console.log('Order created. ', rs);
           this.cartService.clearCart();
           this.noItem = true;
           this.cart = null;

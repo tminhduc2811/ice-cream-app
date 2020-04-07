@@ -15,7 +15,6 @@ export class OrderModalComponent implements OnInit {
   constructor(public modal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    console.log(this.order);
     for (const od of this.order.orderDetails) {
       this.total += od.total;
     }

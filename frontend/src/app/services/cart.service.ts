@@ -27,10 +27,8 @@ export class CartService {
     cart = this.getCartFromLocalStorage();
     if (cart) {
       const index = cart.items.map(e => e.recipe.id).indexOf(item.id);
-      console.log(index);
       if (index !== -1) {
         cart.items[index].quantity += q;
-        console.log(cart.items[index].quantity);
         localStorage.setItem('cart', JSON.stringify(cart));
         this.cartChange.next(cart);
       } else {
