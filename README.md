@@ -114,4 +114,4 @@ java -jar ./target/app-1.0.0.jar
 <img src="resources/images/home.JPG">
 
 ##### 1.2. Login/Register page
-<img src="resources/images/register.JPG" height="425"/> <img src="resources/images/login.JPG" height="425"/> 
+<img src="resources/images/login-page.JPG" width="425"/> <img src="resources/images/register-page.JPG" width="425"/> 
