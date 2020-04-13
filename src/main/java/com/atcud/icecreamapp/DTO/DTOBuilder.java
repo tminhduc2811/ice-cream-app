@@ -44,23 +44,6 @@ public class DTOBuilder {
         return destination;
     }
 
-//    public static CustomerDTO customerToDTO(Customer customer) {
-//        return new CustomerDTO(customer.getId(),
-//                customer.getUserName(),
-//                "",
-//                customer.getFirstName(),
-//                customer.getLastName(),
-//                customer.getAddress(),
-//                customer.getPhoneNumber(),
-//                customer.getEmail(),
-//                customer.getGender(),
-//                customer.getBirthday(),
-//                customer.getAvatar(),
-//                customer.getExpiredDate(),
-//                customer.getStatus(),
-//                customer.getNumOfLoginFailed());
-//    }
-
     // TODO: something wrong here, modify later
     public static LoginResponseDTO loginResponseDTO(LoginResponseDTO loginResponseDTO) {
         return new LoginResponseDTO(
@@ -68,16 +51,6 @@ public class DTOBuilder {
                 loginResponseDTO.getToken()
         );
     }
-
-//    public static FeedbackDTO feedbackToDTO(Feedback feedback) {
-//        return new FeedbackDTO(
-//                feedback.getId(),
-//                feedback.getCustomer().getFullName(),
-//                feedback.getOrder().getId(),
-//                feedback.getDetails(),
-//                feedback.getCreatedDate()
-//        );
-//    }
 
     public static AuthInfo authInfoToDTO(User user) {
         return new AuthInfo(
