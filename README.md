@@ -18,6 +18,7 @@ An application to depict how to make a RESTful web services with clientside usin
 - [2. Customer pages](#customerpage)
 - [3. User and Admin pages](#userandadmin)
 - [4. Profile page](#profile)
+- [5. Mobile](#mobile)
 <a name="techstack"></a>
 ### Technology Stack
 Component         | Technology
@@ -169,4 +170,8 @@ java -jar ./target/app-1.0.0.jar
 #### 4. Profile Page
 <img src="resources/images/user-info-page.JPG">
 
+<a name="mobile"></a>
+#### 5. Mobile
+<img src="resources/images/mobile-mode.JPG">
+<img src="resources/images/mobile2.JPG">
 ## [Back to top](#top)
