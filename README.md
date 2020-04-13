@@ -3,10 +3,15 @@ An application to depict how to make a RESTful web services with clientside usin
 
 ### Table of content
 [I. Technology stack](#techstack)
+
 [II. Folder Structure](#folderstructure)
+
 [III. Database](#db)
+
 [IV. Features](#features)
+
 [V. How to use this project](#htu)
+
 [VI. Demo](#demo)
 
 <a name="techstack"></a>
