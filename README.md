@@ -13,7 +13,9 @@ An application to depict how to make a RESTful web services with clientside usin
 [V. How to use this project](#htu)
 
 [VI. Demo](#demo)
-- [1. Home page](#homepage)
+- [1. Anonymous pages](#anonymouspage)
+- [2. Customer pages](#customerpage)
+- [3. User and Admin pages](#anonymouspage)
 <a name="techstack"></a>
 ### Technology Stack
 Component         | Technology
@@ -104,6 +106,8 @@ java -jar ./target/app-1.0.0.jar
 ```
 
 <a name="demo"></a>
-
+### Demo
+#### 1. Anonymous pages
+<img src="./resources/images/home.jpg">
 
 
