@@ -1,7 +1,15 @@
 ## SpringBoot (Java) Backend + Angular 
 An application to depict how to make a RESTful web services with clientside using Angular
 
+### Table of content
+[I. Technology stack](#techstack)
+[II. Folder Structure](#folderstructure)
+[III. Database](#db)
+[IV. Features](#features)
+[V. How to use this project](#htu)
+[VI. Demo](#demo)
 
+<a name="techstack"></a>
 ### Technology Stack
 Component         | Technology
 ---               | ---
@@ -16,6 +24,7 @@ JUnit, Mockito    | Unit-testing with [JUnit](https://github.com/junit-team/juni
 Client Build Tools| [angular-cli](https://github.com/angular/angular-cli), Webpack, npm
 Server Build Tools| Maven(Java)
 
+<a name="folderstructure"></a>
 ## Folder Structure
 ```bash
 |-- PROJECT FOLDER
@@ -53,12 +62,15 @@ Server Build Tools| Maven(Java)
     |-- frontend                                # Frontend
 
 ```
+
+<a name="db"></a>
 ### Database
 
 <p align="center">
   <img src="resources/images/db_diagram.png" width="800">
 </p>
 
+<a name="features"></a>
 ### Features
 * Backend
   * RESTful APIs
@@ -71,7 +83,8 @@ Server Build Tools| Maven(Java)
 * Frontend
   * Upload images using Angular Firebase
   * Responsive Website
-  
+
+<a name="htu"></a>
 ### Build & start Backend
 ```bash
 # Maven Build : Navigate to the root folder where pom.xml is present 
@@ -85,6 +98,7 @@ java -jar ./target/app-1.0.0.jar
 
 ```
 
+<a name="demo"></a>
 
 
 
