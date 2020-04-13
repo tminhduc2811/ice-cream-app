@@ -65,10 +65,12 @@ Server Build Tools| Maven(Java)
   * Token Based Security with multiple authentication providers
   * API documentationwith Swagger 
   * Persisting relational database with Spring JPA, JDBC
+  * Pagination using JPA Repository
   * Unit-testing with JUnit and Mockito
  
 * Frontend
-  * Updating...
+  * Upload images using Angular Firebase
+  * Responsive Website
   
 ### Build & start Backend
 ```bash
