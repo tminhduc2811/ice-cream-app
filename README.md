@@ -13,7 +13,7 @@ An application to depict how to make a RESTful web services with clientside usin
 [V. How to use this project](#htu)
 
 [VI. Demo](#demo)
-
+- [1. Home page](#homepage)
 <a name="techstack"></a>
 ### Technology Stack
 Component         | Technology
