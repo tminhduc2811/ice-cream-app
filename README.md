@@ -108,6 +108,6 @@ java -jar ./target/app-1.0.0.jar
 <a name="demo"></a>
 ### Demo
 #### 1. Anonymous pages
-<img src="./resources/images/home.jpg">
+<img src="resources/images/home.jpg">
 
 
