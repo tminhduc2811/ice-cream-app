@@ -107,7 +107,11 @@ java -jar ./target/app-1.0.0.jar
 
 <a name="demo"></a>
 ### Demo
+<a name="anonymouspage"></a>
 #### 1. Anonymous pages
+
+##### 1.1. Home page
 <img src="resources/images/home.JPG">
 
-
+##### 1.2. Login/Register page
+<img src="resources/images/register.JPG" width="425"/> <img src="resources/images/login.JPG" width="425"/> 
