@@ -1,6 +1,5 @@
 package com.atcud.icecreamapp.DTO.entities;
 
-import com.atcud.icecreamapp.entities.Customer;
 import com.atcud.icecreamapp.entities.Payment;
 
 import java.sql.Timestamp;
