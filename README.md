@@ -15,7 +15,8 @@ An application to depict how to make a RESTful web services with clientside usin
 [VI. Demo](#demo)
 - [1. Anonymous pages](#anonymouspage)
 - [2. Customer pages](#customerpage)
-- [3. User and Admin pages](#anonymouspage)
+- [3. User and Admin pages](#userandadmin)
+- [4. Profile page](#profile)
 <a name="techstack"></a>
 ### Technology Stack
 Component         | Technology
@@ -110,8 +111,59 @@ java -jar ./target/app-1.0.0.jar
 <a name="anonymouspage"></a>
 #### 1. Anonymous pages
 
-##### 1.1. Home page
+##### 1.1. Home Page
 <img src="resources/images/home.JPG">
 
-##### 1.2. Login/Register page
-<img src="resources/images/register.JPG" height="425"/> <img src="resources/images/login.JPG" height="425"/> 
+##### 1.2. Login/Register Page
+<img src="resources/images/register-login-page.JPG">
+
+##### 1.3. FAQ Page
+<img src="resources/images/faq.JPG">
+
+<a name="customerpage"></a>
+#### 2. Customer pages
+##### 2.1. Home Page
+<img src="resources/images/home-customer.JPG">
+
+##### 2.2. Recipe Page
+<img src="resources/images/recipe-page.JPG">
+
+##### 2.3. Recipe Detail
+<img src="resources/images/recipe-detail.JPG">
+
+##### 2.4. Feedback Page
+<img src="resources/images/feedback-page.JPG">
+
+##### 2.5. Cart
+<img src="resources/images/empty-cart.JPG">
+
+<img src="resources/images/cart.JPG">
+
+<a name="userandadmin"></a>
+#### 3. User & Admin Pages
+##### 3.1. Home Page
+<img src="resources/images/home-user.JPG">
+
+##### 3.2. Recipe Page
+<img src="resources/images/recipe-user.JPG">
+
+##### 3.3. Edit or New Recipe
+<img src="resources/images/recipe-edit-page.JPG">
+
+##### 3.4. Users, Customers, and Orders Management Page
+###### For user
+<img src="resources/images/user-page-user.JPG">
+
+###### For admin
+<img src="resources/images/user-page-admin.JPG">
+
+###### For both
+<img src="resources/images/customer-page-user.JPG">
+<img src="resources/images/order-page.JPG">
+
+###### Order detail
+<img src="resources/images/order-edit.JPG">
+
+<a name="profile"></a>
+#### 4. Profile Page
+<img src="resources/images/user-info-page.JPG">
