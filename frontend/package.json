@@ -33,7 +33,7 @@
     "bootswatch": "^4.4.1",
     "firebase": "^7.8.0",
     "httpclient": "^0.1.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng-lazyload-image": "^7.1.0",
     "ng2-date-picker": "^9.0.0",
     "rxjs": "~6.5.4",
